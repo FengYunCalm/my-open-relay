@@ -1,5 +1,7 @@
 # OpenCode A2A Plugin Relay
 
+English | [简体中文](README.zh-CN.md)
+
 A plugin-first A2A relay for OpenCode. This repository exposes an A2A-facing HTTP/JSON-RPC/SSE surface, bridges requests into OpenCode sessions, and keeps MCP as an internal operations capability rather than the public protocol.
 
 Repository: https://github.com/FengYunCalm/opencode-peer-session-relay
