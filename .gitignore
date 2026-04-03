@@ -1,0 +1,15 @@
+node_modules/
+dist/
+coverage/
+.vscode/
+*.tsbuildinfo
+*.sqlite
+*.sqlite-journal
+*.sqlite-shm
+*.sqlite-wal
+packages/*/src/*.js
+packages/*/src/*.js.map
+packages/*/src/*.d.ts
+packages/*/src/*.d.ts.map
+.DS_Store
+Thumbs.db
