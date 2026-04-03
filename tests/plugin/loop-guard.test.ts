@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { LoopGuard } from "@opencode-peer-session-relay/relay-plugin";
+import { LoopGuard } from "../support/relay-plugin-testkit.js";
 
 describe("loop guard", () => {
   it("suppresses duplicates inside the configured window", () => {

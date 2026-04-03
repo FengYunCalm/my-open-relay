@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { buildRelayAgentCard, resolveRelayPluginConfig, validateLocalAuth } from "@opencode-peer-session-relay/relay-plugin";
+import { buildRelayAgentCard, resolveRelayPluginConfig, validateLocalAuth } from "../support/relay-plugin-testkit.js";
 
 describe("relay agent card", () => {
   it("builds an A2A agent card from plugin config", () => {

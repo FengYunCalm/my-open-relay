@@ -7,7 +7,7 @@ import {
   TaskEventHub,
   TaskStore,
   createSendMessageStreamHandler
-} from "@opencode-peer-session-relay/relay-plugin";
+} from "../support/relay-plugin-testkit.js";
 
 import { cleanupDatabaseLocation, createTestDatabaseLocation } from "./test-db.js";
 

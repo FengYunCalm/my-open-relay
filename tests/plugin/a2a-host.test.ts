@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 
-import { A2ARelayHost, resolveRelayPluginConfig } from "@opencode-peer-session-relay/relay-plugin";
+import { A2ARelayHost, resolveRelayPluginConfig } from "../support/relay-plugin-testkit.js";
 
 const activeHosts: A2ARelayHost[] = [];
 

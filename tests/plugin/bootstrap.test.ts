@@ -4,9 +4,9 @@ import type { PluginInput } from "@opencode-ai/plugin";
 import {
   RelayPlugin,
   SessionInjector,
+  getRelayPluginStateForTest,
   stopRelayPlugin
-} from "@opencode-peer-session-relay/relay-plugin";
-import { getRelayPluginStateForTest } from "../../packages/relay-plugin/src/internal/testing/state-access.ts";
+} from "../support/relay-plugin-testkit.js";
 
 function createPluginInput(projectID = "project-test"): PluginInput {
   return {

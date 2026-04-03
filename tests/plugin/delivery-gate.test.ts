@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { evaluateDelivery } from "@opencode-peer-session-relay/relay-plugin";
+import { evaluateDelivery } from "../support/relay-plugin-testkit.js";
 
 describe("delivery gate", () => {
   it("allows delivery only when session.status is idle", () => {

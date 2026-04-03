@@ -2,10 +2,10 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import {
   AuditStore,
-  TaskStore
-} from "@opencode-peer-session-relay/relay-plugin";
+  TaskStore,
+  createRelayOpsMcpServer
+} from "../support/relay-plugin-testkit.js";
 import { createOpaqueId } from "@opencode-peer-session-relay/a2a-protocol";
-import { createRelayOpsMcpServer } from "../../packages/relay-plugin/src/internal/mcp/server.ts";
 
 import { cleanupDatabaseLocation, createTestDatabaseLocation } from "../plugin/test-db.js";
 

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { HumanGuard } from "@opencode-peer-session-relay/relay-plugin";
+import { HumanGuard } from "../support/relay-plugin-testkit.js";
 
 describe("human guard", () => {
   it("pauses and resumes a session", () => {

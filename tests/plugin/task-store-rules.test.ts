@@ -1,6 +1,6 @@
 import { afterEach, describe, expect, it } from "vitest";
 
-import { TaskStore } from "@opencode-peer-session-relay/relay-plugin";
+import { TaskStore } from "../support/relay-plugin-testkit.js";
 import { createOpaqueId } from "@opencode-peer-session-relay/a2a-protocol";
 
 import { cleanupDatabaseLocation, createTestDatabaseLocation } from "./test-db.js";
