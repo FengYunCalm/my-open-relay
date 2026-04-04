@@ -1,6 +1,6 @@
-import type { DatabaseSync } from "node:sqlite";
+import type { SqliteDatabase } from "./sqlite.js";
 
-export function initializeRelaySchema(database: DatabaseSync): void {
+export function initializeRelaySchema(database: SqliteDatabase): void {
   database.exec(`
     CREATE TABLE IF NOT EXISTS relay_tasks (
       task_id TEXT PRIMARY KEY,
@@ -27,6 +27,16 @@ export function initializeRelaySchema(database: DatabaseSync): void {
       task_id TEXT PRIMARY KEY,
       session_id TEXT NOT NULL,
       created_at INTEGER NOT NULL
+    );
+
+    CREATE TABLE IF NOT EXISTS relay_rooms (
+      room_code TEXT PRIMARY KEY,
+      created_by_session_id TEXT NOT NULL,
+      joined_session_id TEXT,
+      status TEXT NOT NULL,
+      created_at INTEGER NOT NULL,
+      joined_at INTEGER,
+      updated_at INTEGER NOT NULL
     );
   `);
 }
