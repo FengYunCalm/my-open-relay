@@ -2,7 +2,10 @@ import { afterEach, describe, expect, it } from "vitest";
 
 import {
   AuditStore,
+  MessageStore,
+  RoomStore,
   TaskStore,
+  ThreadStore,
   createRelayOpsMcpServer
 } from "../support/relay-plugin-testkit.js";
 import { createOpaqueId } from "@opencode-peer-session-relay/a2a-protocol";
@@ -21,6 +24,9 @@ describe("replay flow", () => {
     dbLocations.push(location);
     const taskStore = new TaskStore(location);
     const auditStore = new AuditStore(location);
+    const roomStore = new RoomStore(location);
+    const threadStore = new ThreadStore(location);
+    const messageStore = new MessageStore(location);
     const taskId = createOpaqueId("task");
 
     taskStore.createTask({
@@ -35,12 +41,19 @@ describe("replay flow", () => {
     });
     auditStore.append(taskId, "task.failed", { reason: "boom" });
 
-    const mcp = createRelayOpsMcpServer(taskStore, auditStore, {
+    const mcp = createRelayOpsMcpServer(taskStore, auditStore, roomStore, threadStore, messageStore, {
       replayTask: async (requestedTaskId) => {
         const replayed = taskStore.updateStatus(requestedTaskId, "submitted");
         auditStore.append(requestedTaskId, "task.replayed", {});
         return replayed;
-      }
+      },
+      listRoomMembers: () => [],
+      createThread: () => ({ ok: true }),
+      listThreads: () => [],
+      listMessages: () => [],
+      sendThreadMessage: async () => ({ ok: true }),
+      markThreadRead: () => ({ ok: true }),
+      exportTranscript: () => ({ ok: true })
     });
     const replayed = await mcp.replayTask(taskId) as { status: string };
 
