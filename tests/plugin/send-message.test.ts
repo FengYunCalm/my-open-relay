@@ -23,6 +23,7 @@ function createRequest(messageId = "msg-1") {
     id: "req-1",
     method: "sendMessage",
     params: {
+      sourceSessionID: "session-source",
       sessionID: "session-1",
       contextId: "context-1",
       message: {
@@ -59,6 +60,7 @@ describe("send message handler", () => {
 
     expect(task.status).toBe("submitted");
     expect(task.metadata.sessionID).toBe("session-1");
+    expect(task.metadata.sourceSessionID).toBe("session-source");
     expect(sessionLinkStore.getSessionID(task.taskId)).toBe("session-1");
     expect(auditStore.list(task.taskId)).toHaveLength(1);
   });
@@ -114,5 +116,35 @@ describe("send message handler", () => {
 
     expect(task.status).toBe("input-required");
     expect(dispatchCalled).toBe(false);
+  });
+
+  it("rejects routes that fail the configured pair guard", async () => {
+    const location = createTestDatabaseLocation("send-message-pair-guard");
+    dbLocations.push(location);
+    const taskStore = new TaskStore(location);
+    const auditStore = new AuditStore(location);
+    const sessionLinkStore = new SessionLinkStore(location);
+
+    const handler = createSendMessageHandler({
+      taskStore,
+      auditStore,
+      sessionLinkStore,
+      routeGuard: (request) => {
+        if (request.sourceSessionID !== "session-source" || request.sessionID !== "session-1") {
+          throw new Error("pair denied");
+        }
+      },
+      executor: {
+        dispatch: async () => ({ sessionID: "session-1" })
+      }
+    });
+
+    await expect(handler({
+      ...createRequest("msg-denied"),
+      params: {
+        ...createRequest("msg-denied").params,
+        sourceSessionID: "session-other"
+      }
+    })).rejects.toThrow(/pair denied/);
   });
 });

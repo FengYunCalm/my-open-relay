@@ -24,10 +24,11 @@ export type SendMessageDependencies = {
   humanGuard?: HumanGuard;
   loopGuard?: LoopGuard;
   eventHub?: TaskEventHub;
+  routeGuard?: (request: InboundRelayRequest) => void | Promise<void>;
 };
 
 function buildDedupeKey(request: InboundRelayRequest): string {
-  return `${request.sessionID ?? "global"}:${request.message.messageId}`;
+  return `${request.sourceSessionID ?? "unknown-source"}->${request.sessionID ?? "global"}:${request.message.messageId}`;
 }
 
 async function createAndDispatchTask(
@@ -35,6 +36,8 @@ async function createAndDispatchTask(
   request: InboundRelayRequest,
   taskId: string
 ): Promise<StoredRelayTask> {
+  await dependencies.routeGuard?.(request);
+
   const dedupeKey = buildDedupeKey(request);
   const existing = dependencies.taskStore.getTaskByDedupeKey(dedupeKey);
 
@@ -58,6 +61,7 @@ async function createAndDispatchTask(
     metadata: {
       ...request.metadata,
       requestId: request.requestId,
+      sourceSessionID: request.sourceSessionID,
       pauseReason: paused ? dependencies.humanGuard?.reason(request.sessionID) : undefined,
       sessionID: request.sessionID
     },
@@ -66,6 +70,7 @@ async function createAndDispatchTask(
 
   dependencies.auditStore.append(taskId, "task.created", {
     requestId: request.requestId,
+    sourceSessionID: request.sourceSessionID,
     paused,
     sessionID: request.sessionID
   });

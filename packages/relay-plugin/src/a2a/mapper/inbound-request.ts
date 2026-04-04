@@ -3,6 +3,7 @@ import { z } from "zod";
 import { jsonRpcRequestSchema, messageSchema, type JsonRpcRequest, type Message } from "@opencode-peer-session-relay/a2a-protocol";
 
 export const sendMessageParamsSchema = z.object({
+  sourceSessionID: z.string().min(1).optional(),
   sessionID: z.string().min(1).optional(),
   contextId: z.string().min(1).optional(),
   message: messageSchema,
@@ -19,6 +20,7 @@ export const cancelTaskParamsSchema = z.object({
 
 export type InboundRelayRequest = {
   requestId: string | number;
+  sourceSessionID?: string;
   sessionID?: string;
   contextId?: string;
   message: Message;
@@ -36,6 +38,7 @@ export function mapSendMessageRequest(request: JsonRpcRequest): InboundRelayRequ
 
   return {
     requestId: parsedRequest.id,
+    sourceSessionID: params.sourceSessionID,
     sessionID: params.sessionID,
     contextId: params.contextId,
     message: params.message,
