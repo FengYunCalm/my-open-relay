@@ -1,6 +1,6 @@
 ---
 name: relay-room
-description: Immediately execute two-session relay room operations by directly calling relay_room_create, relay_room_join, relay_room_status, or relay_room_send with no exploratory preamble.
+description: Immediately execute private or group relay room operations by directly calling relay room, thread, message, and transcript tools with no exploratory preamble.
 license: MIT
 compatibility: opencode
 metadata:
@@ -10,145 +10,177 @@ metadata:
 
 # Relay Room Skill
 
-Use this skill when the user wants two OpenCode conversations to communicate through the local relay plugin with a room code.
+Use this skill when the user wants OpenCode conversations to coordinate through the local relay plugin.
 
 ## Core rule
 
-Do not ask the user to manually edit session IDs or configuration files for routine pairing.
+Do not ask the user to manually edit session IDs or configuration files for routine room usage.
 The current conversation session is identified automatically by the plugin tools.
 
 ## Execution contract
 
-When the user's intent clearly matches one of the room operations below, your **first action must be the matching tool call**.
+When the user's intent clearly matches one of the operations below, your **first action must be the matching tool call**.
 
 Do **not** before the first tool call:
 - search for tools
 - explain the workflow
 - restate the request
 - ask for confirmation
-- check room status unless the user explicitly asked for status
-- ask broad follow-up questions
+- switch into analysis mode
 
 Only stop immediate execution if:
 - a required argument is missing
-- the current session truly does not expose the relay room tools
+- the current session does not expose the needed relay tools
 - the tool call itself fails
 
 ## Reply contract
 
-When a relay room tool exists for the requested action, do not answer from assumption.
 Your user-facing reply must come **after** the real tool call and must reflect the actual tool output.
+Do not fabricate room codes, aliases, thread IDs, peer sessions, or delivery results.
 
-Do **not**:
-- say that a room was created before `relay_room_create` returns
-- say that a room was joined before `relay_room_join` returns
-- say that a message was sent before `relay_room_send` returns
-- fabricate room codes, peer session IDs, or delivery results
+## Private room flow (old flow unchanged)
 
-If the tool is unavailable in the current session, say that plainly and stop.
-
-## Required tool mapping
-
-### 1. Create room
+### Create a private room
 If the user says things like:
-- 创建房间
+- 创建一个房间
+- 创建私聊房间
 - 开个房间
-- 建房
 - create room
-- start room
 
-Your **first action** must be:
+Your first action must be:
 - call `relay_room_create`
+- omit `kind` or use `kind="private"`
+
+### Join a private room
+If the user wants to join a private room:
+- call `relay_room_join`
+- pass `roomCode`
+- do not require alias
+
+### Send inside a private room
+If the user wants to send to the other side in a private room:
+- call `relay_room_send`
+- pass only `message`
+
+## Group room flow
+
+### Create a group room
+If the user says things like:
+- 创建一个群聊房间
+- 创建群房间
+- create group room
+
+Your first action must be:
+- call `relay_room_create` with `kind="group"`
 
 After the tool call:
 1. return the room code
-2. tell the user to give the room code to the second conversation
+2. make clear that the creator is the room owner
+3. tell the user other conversations must join with an alias
 
-### 2. Join room
-If the user gives a room code and wants to connect this conversation:
-- 加入房间 821053
-- 连接房间 821053
-- join room 821053
+### Join a group room with alias
+If the user says things like:
+- 加入 123456 房间，扮演 alpha
+- 加入房间 123456，代号 beta
 
-Your **first action** must be:
+Your first action must be:
 - call `relay_room_join`
+- pass `roomCode`
+- pass `alias`
 
-Required input:
-- `roomCode`
+If alias is missing for a group room, ask only for the alias.
 
-If the room code is missing, ask **only** for the room code.
+### View room members
+If the user asks who is in the room:
+- call `relay_room_members`
 
-After the tool call:
-1. confirm whether pairing is active
-2. if not active yet, explain exactly what is missing
+### Change a member role
+If the user wants to make someone observer/member:
+- call `relay_room_set_role`
+- only the room owner can do this
 
-### 3. Check current room status
-If the user asks whether this conversation is connected, paired, or bound to a room:
-- 看看连上没有
-- 查看房间状态
-- 当前配对状态
-- room status
+## Group messaging behavior
 
-Your **first action** must be:
-- call `relay_room_status`
-
-After the tool call:
-1. summarize room code, current session, peer session, and room status
-
-### 4. Send message to paired peer
-If the user wants to send content to the paired conversation:
-- 把这句话发给对端：你好
-- 发给对方：xxx
-- send this to the peer: hello
-
-Your **first action** must be:
+### Broadcast to the whole group
+If the user wants everyone in the group to see the message:
 - call `relay_room_send`
+- pass `message`
+- do not pass `targetAlias`
 
-Required input:
-- `message`
+### Direct message a specific group member
+If the user wants to privately message one member inside a group room:
+- call `relay_room_send`
+- pass `message`
+- pass `targetAlias`
 
-If message content is missing, ask **only** for the message text.
+## Thread/message warehouse tools
 
-After the tool call:
-1. report the peer session
-2. report whether delivery was accepted
-3. if not accepted, report the reason directly
+Use these when the user explicitly wants durable message/thread operations rather than simple room send:
+
+- `relay_thread_create`
+- `relay_thread_list`
+- `relay_message_list`
+- `relay_message_send`
+- `relay_message_mark_read`
+- `relay_transcript_export`
+
+### Create a durable thread
+- direct/private thread: `relay_thread_create`
+- group thread: `relay_thread_create`
+
+### Inspect threads
+- call `relay_thread_list`
+
+### Read thread messages
+- call `relay_message_list`
+
+### Send into a thread directly
+- call `relay_message_send`
+
+### Mark thread read cursor
+- call `relay_message_mark_read`
+
+### Export full transcript
+- call `relay_transcript_export`
 
 ## Fast-path examples
 
-### Example: create room
-User: 创建房间
+### Example: private room creation
+User: 创建一个房间
 Your first action: call `relay_room_create`
 
-### Example: join room
-User: 加入房间 821053
-Your first action: call `relay_room_join` with `roomCode="821053"`
+### Example: group room creation
+User: 创建一个群聊房间
+Your first action: call `relay_room_create` with `kind="group"`
 
-### Example: send message
-User: 把这句话发给对端：你好
-Your first action: call `relay_room_send` with `message="你好"`
+### Example: join group with alias
+User: 加入 821053 房间，扮演 alpha
+Your first action: call `relay_room_join` with `roomCode="821053"`, `alias="alpha"`
 
-### Example: check status
-User: 看看现在连上没有
-Your first action: call `relay_room_status`
+### Example: group broadcast
+User: 给房间所有人发：今天先做 API
+Your first action: call `relay_room_send` with `message="今天先做 API"`
+
+### Example: direct message in group
+User: 私聊 alpha：你负责接口联调
+Your first action: call `relay_room_send` with `message="你负责接口联调"`, `targetAlias="alpha"`
+
+### Example: export transcript
+User: 导出 thread_xxx 的完整 transcript
+Your first action: call `relay_transcript_export` with `threadId="thread_xxx"`
 
 ## Failure fallback
 
-If this session does not expose the relay room tools, say that plainly.
-Do not pretend the room was created or joined.
-Do not invent a room code.
-Do not switch to a search workflow.
-
-Use a direct fallback like:
-- 当前会话没有暴露 `relay_room_create/relay_room_join/relay_room_status/relay_room_send` 工具，无法在这里直接执行。
+If this session does not expose the required relay tools, say that plainly and stop.
+Do not pretend the room or thread operation succeeded.
 
 ## Guardrails
 
-- never invent room codes; always use tool output
-- never assume pairing exists; check status when unclear
-- if no peer is connected yet, say so directly
-- treat this as two-session communication only
-- do not widen communication beyond the paired room
+- private room flow must remain unchanged
+- group room join must require alias
+- creator of a group room is the room owner
+- room send in group mode may broadcast or direct-message a specific alias
+- use durable thread/message tools when the user is explicitly operating on warehouse history
 - if a required argument is missing, ask only for that missing argument
 - if a tool call fails, report the failure plainly and stop guessing
-- treat this skill as an execution skill, not an analysis skill
+- treat this as an execution skill, not an analysis skill
