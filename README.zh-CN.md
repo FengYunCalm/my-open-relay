@@ -1,37 +1,37 @@
 # OpenCode A2A Plugin Relay
 
-[English README](./README.md)
+[English](README.md) | 简体中文
 
-这是一个面向 OpenCode 的 plugin-first A2A relay 仓库。它对外暴露 A2A HTTP/JSON-RPC/SSE 接口，把请求桥接到 OpenCode 会话内部，并把 MCP 保持为内部运维能力，而不是公共协议面。
+这是一个面向 OpenCode 的插件优先 A2A relay。仓库对外暴露 A2A 风格的 HTTP / JSON-RPC / SSE 接口，把请求桥接到 OpenCode session，并将 MCP 保持为内部运维能力，而不是公开协议。
 
-仓库地址：<PRIVATE_URL>
+仓库地址：https://github.com/FengYunCalm/opencode-peer-session-relay
 
 ## 仓库内容
 
-- `packages/a2a-protocol` —— A2A 协议、JSON-RPC、任务/消息/事件契约
-- `packages/relay-plugin` —— 插件运行时、A2A host、请求路由、持久化、重放与防护逻辑
-- `packages/relay-shared` —— 小型共享工具与常量
-- `tests/` —— protocol、plugin、端到端验证
-- `docs/plans/2026-04-03-opencode-a2a-plugin-relay-implementation-plan.md` —— 当前实现所依据的实施方案
-- `.opencode/skills/relay-room/SKILL.md` —— 仓库内置的 relay-room 执行型 skill
+- `packages/a2a-protocol` — 共享的 A2A schema，以及 JSON-RPC / task / message / event 合约
+- `packages/relay-plugin` — 插件运行时、A2A host、请求路由、持久化、重放与保护逻辑
+- `packages/relay-shared` — 小型共享工具与常量
+- `tests/` — 协议、插件与端到端验证
+- `docs/plans/2026-04-03-opencode-a2a-plugin-relay-implementation-plan.md` — 当前设计所依据的实现计划
+- `.opencode/skills/relay-room/SKILL.md` — 项目内置的 relay-room 执行型 skill
 
 ## 当前架构
 
-- **公共协议面：** A2A over HTTP JSON-RPC 和 SSE
-- **运行时形态：** plugin-first，由插件自己负责 host 启动和会话桥接
-- **调度门控：** 以 `session.status` 作为主调度信号
-- **状态存储：** 本地 SQLite 保存 task、audit、session-link 和房间状态
-- **运维能力面：** MCP 仅作为内部能力，不对外承担 agent-to-agent 协议职责
+- **公开协议：** A2A over HTTP JSON-RPC and SSE
+- **运行形态：** plugin-first；由插件负责 host 启动与 session bridge
+- **投递门控：** `session.status` 是主要调度信号
+- **持久化：** 基于本地 SQLite 的 task、audit、session-link 与房间状态
+- **运维接口：** 仅保留内部 MCP，不作为公开的 agent-to-agent 接口
 
 ## 已实现能力
 
 - Agent Card 暴露
 - `sendMessage`、`getTask`、`cancelTask`、`sendMessageStream`
 - 房间码配对流程：`relay_room_create`、`relay_room_join`、`relay_room_status`、`relay_room_send`
-- SSE 任务事件流
-- 基于 idle 的 OpenCode 会话调度
-- 去重、防循环、人工接管、重放、审计链路
-- 对公共返回与事件里的 task metadata 做脱敏
+- SSE task event streaming
+- 基于空闲状态的 OpenCode session 投递
+- 去重、人类接管保护、重放路径与审计轨迹
+- 面向公开响应 / 事件的任务元数据脱敏
 
 ## OpenCode skill 与本地插件工作流
 
@@ -43,6 +43,13 @@
 1. 会话 A 创建房间
 2. 会话 B 用房间码加入
 3. 任一侧把消息转发给配对会话
+
+## 获取源码
+
+```bash
+git clone https://github.com/FengYunCalm/opencode-peer-session-relay.git
+cd opencode-peer-session-relay
+```
 
 ## 验证
 
@@ -77,7 +84,7 @@ corepack pnpm exec tsc -b --pretty false
 
 ## 我们从 OMO 插件机制里学到了什么
 
-这个仓库的设计明显受到了 OhMyOpenCode / OMO 插件生态的启发，尤其是在插件能力暴露、skill 行为收敛、以及“房间式双会话工作流”这些方面。
+这个仓库的设计明显受到了 OhMyOpenCode / OMO 插件生态的启发，尤其是在插件能力暴露、skill 行为收敛，以及“房间式双会话工作流”这些方面。
 
 最终落到代码里的几个关键认识是：
 - plugin tools 和 MCP tools 是两条不同的运行时暴露链，不能混为一谈
@@ -90,8 +97,8 @@ corepack pnpm exec tsc -b --pretty false
 
 ## 仓库状态
 
-这个目录已经从更大的父级工作区中拆分成了独立仓库，可以单独开源发布与维护。
+这个仓库以源码为中心，不声明 npm 包、托管部署或其他公开发布渠道。
 
-## License
+## 许可证
 
 MIT

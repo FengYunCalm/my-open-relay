@@ -1,6 +1,6 @@
 # OpenCode A2A Plugin Relay
 
-[中文说明](./README.zh-CN.md)
+English | [简体中文](README.zh-CN.md)
 
 A plugin-first A2A relay for OpenCode. This repository exposes an A2A-facing HTTP/JSON-RPC/SSE surface, bridges requests into OpenCode sessions, and keeps MCP as an internal operations capability rather than the public protocol.
 
@@ -43,6 +43,13 @@ Typical room-code flow:
 1. Conversation A creates a room
 2. Conversation B joins with the room code
 3. Either side sends a relayed message to the paired peer
+
+## Get the code
+
+```bash
+git clone https://github.com/FengYunCalm/opencode-peer-session-relay.git
+cd opencode-peer-session-relay
+```
 
 ## Verification
 
@@ -90,7 +97,7 @@ Special thanks to the OMO / OhMyOpenCode ecosystem for the plugin patterns, oper
 
 ## Repository status
 
-This repository has been split into its own standalone git repository so it can be published independently from the larger parent workspace it originally lived in.
+This repository is source-oriented. It does not claim any npm package, hosted deployment, or public release channel.
 
 ## License
 
