@@ -34,6 +34,19 @@ Only stop immediate execution if:
 - the current session truly does not expose the relay room tools
 - the tool call itself fails
 
+## Reply contract
+
+When a relay room tool exists for the requested action, do not answer from assumption.
+Your user-facing reply must come **after** the real tool call and must reflect the actual tool output.
+
+Do **not**:
+- say that a room was created before `relay_room_create` returns
+- say that a room was joined before `relay_room_join` returns
+- say that a message was sent before `relay_room_send` returns
+- fabricate room codes, peer session IDs, or delivery results
+
+If the tool is unavailable in the current session, say that plainly and stop.
+
 ## Required tool mapping
 
 ### 1. Create room
