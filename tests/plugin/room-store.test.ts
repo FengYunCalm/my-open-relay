@@ -26,9 +26,39 @@ describe("room store", () => {
 
     roomStore.joinRoom(room.roomCode, "session-b");
     const members = roomStore.listMembers(room.roomCode);
-    expect(members).toHaveLength(3);
-    expect(roomStore.getMemberSessionIDs(room.roomCode)).toEqual(["session-owner", "session-a", "session-b"]);
+    expect(members).toHaveLength(2);
+    expect(roomStore.getMemberSessionIDs(room.roomCode)).toEqual(["session-owner", "session-b"]);
     expect(roomStore.areSessionsPaired("session-owner", "session-b")).toBe(true);
-    expect(roomStore.getPeerSessionID("session-owner")).toBeUndefined();
+    expect(roomStore.getPeerSessionID("session-owner")).toBe("session-b");
+  });
+
+  it("replaces the stale peer when a private room is rejoined from a new session", () => {
+    const location = createTestDatabaseLocation("room-store-private-rejoin");
+    dbLocations.push(location);
+    const roomStore = new RoomStore(location);
+
+    const room = roomStore.createRoom("session-owner");
+    roomStore.joinRoom(room.roomCode, "session-old");
+    expect(roomStore.getPeerSessionID("session-owner")).toBe("session-old");
+
+    roomStore.joinRoom(room.roomCode, "session-new");
+
+    expect(roomStore.getPeerSessionID("session-owner")).toBe("session-new");
+    expect(roomStore.getMember(room.roomCode, "session-old")?.membershipStatus).toBe("removed");
+    expect(roomStore.listMembers(room.roomCode).map((member) => member.sessionID)).toEqual(["session-owner", "session-new"]);
+  });
+
+  it("treats group aliases case-insensitively and allows a private room to coexist with a group room", () => {
+    const location = createTestDatabaseLocation("room-store-alias");
+    dbLocations.push(location);
+    const roomStore = new RoomStore(location);
+
+    const groupRoom = roomStore.createRoom("session-owner", "group");
+    roomStore.joinRoom(groupRoom.roomCode, "session-a", "Alpha");
+    expect(() => roomStore.joinRoom(groupRoom.roomCode, "session-b", "alpha")).toThrow(/already in use/);
+
+    const privateRoom = roomStore.createRoom("session-owner", "private");
+    expect(privateRoom.kind).toBe("private");
+    expect(privateRoom.roomCode).not.toBe(groupRoom.roomCode);
   });
 });

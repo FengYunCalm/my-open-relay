@@ -52,6 +52,10 @@ function createRoomCode(): string {
   return `${Math.floor(Math.random() * 1_000_000)}`.padStart(6, "0");
 }
 
+function normalizeAlias(alias: string): string {
+  return alias.trim().toLocaleLowerCase();
+}
+
 export class RoomStore {
   private readonly database: SqliteDatabase;
 
@@ -61,7 +65,7 @@ export class RoomStore {
   }
 
   createRoom(sessionID: string, kind: RelayRoomKind = "private"): RelayRoom {
-    const existing = this.getRoomBySession(sessionID);
+    const existing = this.getRoomBySession(sessionID, kind);
     if (existing) {
       return existing;
     }
@@ -96,9 +100,19 @@ export class RoomStore {
       return room;
     }
 
+    if (room.kind === "private") {
+      this.database
+        .prepare(`
+          UPDATE relay_room_members
+          SET membership_status = 'removed', updated_at = ?
+          WHERE room_code = ? AND session_id != ? AND role != 'owner' AND membership_status = 'active'
+        `)
+        .run(now, roomCode, sessionID);
+    }
+
     const memberAlias = room.kind === "group" ? alias?.trim() : undefined;
     if (room.kind === "group" && !memberAlias) {
-      throw new Error(`Joining a group room requires an alias.`);
+      throw new Error("Joining a group room requires an alias.");
     }
 
     this.ensureAliasAvailable(roomCode, memberAlias, sessionID);
@@ -149,19 +163,23 @@ export class RoomStore {
     return row ? this.hydrate(row) : undefined;
   }
 
-  getRoomBySession(sessionID: string): RelayRoom | undefined {
-    const row = this.database
+  getRoomBySession(sessionID: string, kind?: RelayRoomKind): RelayRoom | undefined {
+    const rooms = this.listRoomsBySession(sessionID).filter((room) => !kind || room.kind === kind);
+    return rooms[0];
+  }
+
+  listRoomsBySession(sessionID: string): RelayRoom[] {
+    const rows = this.database
       .prepare(`
         SELECT r.*
         FROM relay_rooms r
         JOIN relay_room_members m ON m.room_code = r.room_code
         WHERE m.session_id = ? AND m.membership_status = 'active'
         ORDER BY r.updated_at DESC
-        LIMIT 1
       `)
-      .get(sessionID) as RelayRoomRow | undefined;
+      .all(sessionID) as RelayRoomRow[];
 
-    return row ? this.hydrate(row) : undefined;
+    return rows.map((row) => this.hydrate(row));
   }
 
   listMembers(roomCode: string): RelayRoomMember[] {
@@ -185,9 +203,10 @@ export class RoomStore {
   }
 
   getMemberByAlias(roomCode: string, alias: string): RelayRoomMember | undefined {
+    const normalizedAlias = normalizeAlias(alias);
     const row = this.database
-      .prepare(`SELECT * FROM relay_room_members WHERE room_code = ? AND alias = ? AND membership_status = 'active' LIMIT 1`)
-      .get(roomCode, alias) as RelayRoomMemberRow | undefined;
+      .prepare(`SELECT * FROM relay_room_members WHERE room_code = ? AND lower(alias) = ? AND membership_status = 'active' LIMIT 1`)
+      .get(roomCode, normalizedAlias) as RelayRoomMemberRow | undefined;
 
     return row ? this.hydrateMember(row) : undefined;
   }

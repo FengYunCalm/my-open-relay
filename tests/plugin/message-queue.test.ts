@@ -75,4 +75,40 @@ describe("durable room message queue", () => {
     expect(directParticipant?.lastNotifiedSeq).toBe(1);
     expect(groupParticipant?.lastNotifiedSeq).toBe(1);
   });
+
+  it("treats session.idle as a valid delivery trigger for queued messages", async () => {
+    const databasePath = createTestDatabaseLocation("message-queue-session-idle");
+    dbLocations.push(databasePath);
+    const promptAsync = vi.fn().mockResolvedValue({ data: true });
+    const hooks = await RelayPlugin(createPluginInput("project-message-queue", promptAsync), {
+      a2a: { port: 0 },
+      routing: { mode: "pair" },
+      runtime: { databasePath }
+    });
+
+    const state = getRelayPluginStateForTest("project-message-queue")!;
+    const room = state.runtime.roomStore.createRoom("session-owner");
+    state.runtime.roomStore.joinRoom(room.roomCode, "session-a");
+    const thread = state.runtime.threadStore.ensureDirectThread(room.roomCode, ["session-owner", "session-a"], "session-owner");
+
+    state.runtime.messageStore.appendMessage({
+      threadId: thread.threadId,
+      senderSessionID: "session-owner",
+      messageType: "relay",
+      body: { text: "hello from idle event" }
+    });
+
+    await hooks.event?.({
+      event: {
+        type: "session.idle",
+        properties: {
+          sessionID: "session-a"
+        }
+      } as never
+    });
+
+    expect(promptAsync).toHaveBeenCalledTimes(1);
+    const participant = state.runtime.threadStore.getParticipant(thread.threadId, "session-a");
+    expect(participant?.lastNotifiedSeq).toBe(1);
+  });
 });
