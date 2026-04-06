@@ -72,6 +72,14 @@ describe("MCP-first relay hooks", () => {
     const threadListOutput = { args: { roomCode: "123456", sessionID: "current" } as Record<string, unknown> };
     await hooks["tool.execute.before"]?.({ tool: "mcp__relay__thread_list", sessionID: "session-a", callID: "call-6" }, threadListOutput);
     expect(threadListOutput.args.sessionID).toBe("session-a");
+
+    const slashCreateOutput = { args: { kind: "private", sessionID: "/" } as Record<string, unknown> };
+    await hooks["tool.execute.before"]?.({ tool: "mcp__relay__room_create", sessionID: "session-a", callID: "call-7" }, slashCreateOutput);
+    expect(slashCreateOutput.args.sessionID).toBe("session-a");
+
+    const slashMessageOutput = { args: { threadId: "thread-1", message: "hello", senderSessionID: " / " } as Record<string, unknown> };
+    await hooks["tool.execute.before"]?.({ tool: "mcp__relay__message_send", sessionID: "session-a", callID: "call-8" }, slashMessageOutput);
+    expect(slashMessageOutput.args.senderSessionID).toBe("session-a");
   });
 
   it("flushes pending notifications after namespaced relay MCP tool execution", async () => {

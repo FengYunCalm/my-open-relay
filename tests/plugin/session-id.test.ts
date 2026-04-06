@@ -7,12 +7,16 @@ describe("relay session ID safeguards", () => {
     expect(shouldInjectRelaySessionID(undefined)).toBe(true);
     expect(shouldInjectRelaySessionID("current")).toBe(true);
     expect(shouldInjectRelaySessionID(" CURRENT ")).toBe(true);
+    expect(shouldInjectRelaySessionID("/")).toBe(true);
+    expect(shouldInjectRelaySessionID(" / ")).toBe(true);
     expect(shouldInjectRelaySessionID("session-a")).toBe(false);
   });
 
   it("rejects reserved current placeholders for direct relay MCP inputs", () => {
     expect(() => concreteRelaySessionIDSchema.parse("current")).toThrow(/reserved session placeholder/i);
     expect(() => concreteRelaySessionIDSchema.parse(" current ")).toThrow(/reserved session placeholder/i);
+    expect(() => concreteRelaySessionIDSchema.parse("/")).toThrow(/reserved session placeholder/i);
+    expect(() => concreteRelaySessionIDSchema.parse(" / ")).toThrow(/reserved session placeholder/i);
     expect(concreteRelaySessionIDSchema.parse("session-a")).toBe("session-a");
   });
 });
