@@ -1,7 +1,7 @@
 import { afterEach, describe, expect, it, vi } from "vitest";
 import type { PluginInput } from "@opencode-ai/plugin";
 
-import { RelayPlugin, getRelayPluginStateForTest, stopRelayPlugin } from "../support/relay-plugin-testkit.js";
+import { RelayPlugin, RelayRuntime, getRelayPluginStateForTest, stopRelayPlugin } from "../support/relay-plugin-testkit.js";
 import { cleanupDatabaseLocation, createTestDatabaseLocation } from "./test-db.js";
 
 const dbLocations: string[] = [];
@@ -217,6 +217,15 @@ describe("relay room tools", () => {
     expect(sent).toContain("Sent to peer session: session-new");
     expect(promptAsync).toHaveBeenCalledTimes(1);
     expect(promptAsync.mock.calls[0]?.[0]).toMatchObject({ path: { id: "session-new" } });
+    expect(promptAsync.mock.calls[0]?.[0]).toMatchObject({
+      body: {
+        parts: [
+          expect.objectContaining({
+            text: expect.stringContaining("Sender: paired agent session session-owner (not a human user)")
+          })
+        ]
+      }
+    });
   });
 
   it("shows the correct private-room peer even when the same owner is also in a group room", async () => {
@@ -285,5 +294,81 @@ describe("relay room tools", () => {
 
     expect(status).toContain(`Room code: ${privateRoomCode}`);
     expect(status).toContain("Peer session: session-private-peer");
+  });
+
+  it("uses direct injection when sending through relay_message_send on a private direct thread", async () => {
+    const databasePath = createTestDatabaseLocation("room-tools-private-thread-send");
+    dbLocations.push(databasePath);
+    const promptAsync = vi.fn().mockResolvedValue({ data: true });
+    const hooks = await RelayPlugin(createPluginInput("project-room-tools-private-thread-send", promptAsync), {
+      a2a: { port: 0 },
+      routing: { mode: "pair" },
+      runtime: { databasePath }
+    });
+
+    const created = await hooks.tool?.relay_room_create.execute({}, {
+      sessionID: "session-owner",
+      messageID: "message-a",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+    const roomCode = created?.match(/Room code: (\d{6})/)?.[1]!;
+
+    await hooks.tool?.relay_room_join.execute({ roomCode }, {
+      sessionID: "session-peer",
+      messageID: "message-b",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    const threads = JSON.parse(await hooks.tool?.relay_thread_list.execute({ scope: "room" }, {
+      sessionID: "session-owner",
+      messageID: "message-c",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    }) as string) as Array<{ threadId: string; kind: string }>;
+    const directThread = threads.find((thread) => thread.kind === "direct");
+
+    const sent = await hooks.tool?.relay_message_send.execute({ threadId: directThread!.threadId, message: "hello through thread" }, {
+      sessionID: "session-owner",
+      messageID: "message-d",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    expect(sent).toContain('"notifiedRecipients": [');
+    expect(promptAsync).toHaveBeenCalledTimes(1);
+    expect(promptAsync.mock.calls[0]?.[0]).toMatchObject({ path: { id: "session-peer" } });
+    expect(promptAsync.mock.calls[0]?.[0]).toMatchObject({
+      body: {
+        parts: [
+          expect.objectContaining({
+            text: expect.stringContaining("Sender: paired agent session session-owner (not a human user)")
+          })
+        ]
+      }
+    });
+
+    const state = getRelayPluginStateForTest("project-room-tools-private-thread-send")!;
+    const diagnostics = state.runtime.auditStore.list(RelayRuntime.diagnosticsTaskId);
+    expect(diagnostics.some((entry) => entry.eventType === "relay.send.entry" && entry.payload.tool === "relay_message_send")).toBe(true);
+    expect(diagnostics.some((entry) => entry.eventType === "relay.send.route" && entry.payload.deliveryPath === "private-direct-hook")).toBe(true);
+    expect(diagnostics.some((entry) => entry.eventType === "relay.send.inject" && entry.payload.injectorKind === "private-room-peer" && entry.payload.result === "ok")).toBe(true);
   });
 });

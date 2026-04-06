@@ -32,8 +32,9 @@ export { evaluateDelivery } from "../../packages/relay-plugin/src/runtime/delive
 export { HumanGuard } from "../../packages/relay-plugin/src/runtime/human-guard.ts";
 export { SessionInjector } from "../../packages/relay-plugin/src/runtime/injector.ts";
 export { LoopGuard } from "../../packages/relay-plugin/src/runtime/loop-guard.ts";
+export { RelayRuntime } from "../../packages/relay-plugin/src/runtime/relay-runtime.ts";
 export { createRelayPluginState } from "../../packages/relay-plugin/src/runtime/plugin-state.ts";
 export { ResponseObserver } from "../../packages/relay-plugin/src/runtime/response-observer.ts";
 export { SessionRegistry } from "../../packages/relay-plugin/src/runtime/session-registry.ts";
 export { buildTaskRelayPrompt, buildThreadRelayPrompt } from "../../packages/relay-plugin/src/runtime/prompt-preamble.ts";
-export { createRelayBridgeMcpServer } from "../../packages/relay-plugin/src/relay-mcp-server.ts";
+export { createRelayBridgeMcpServer, standaloneCompatToolNames } from "../../packages/relay-plugin/src/relay-mcp-server.ts";
