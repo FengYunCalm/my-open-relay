@@ -52,6 +52,8 @@ describe("relay message tools", () => {
       "mcp__relay__room_send",
       "mcp__relay__room_set_role",
       "mcp__relay__room_status",
+      "mcp__relay__team_start",
+      "mcp__relay__team_status",
       "mcp__relay__thread_create",
       "mcp__relay__thread_list",
       "mcp__relay__transcript_export",
@@ -64,6 +66,8 @@ describe("relay message tools", () => {
       "relay_room_send",
       "relay_room_set_role",
       "relay_room_status",
+      "relay_team_start",
+      "relay_team_status",
       "relay_thread_create",
       "relay_thread_list",
       "relay_transcript_export"

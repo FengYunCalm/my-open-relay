@@ -30,6 +30,7 @@ Repository: https://github.com/FengYunCalm/opencode-peer-session-relay
 - private/group room flow: `relay_room_create`, `relay_room_join`, `relay_room_status`, `relay_room_send`
 - team governance: `relay_room_members`, `relay_room_set_role`
 - durable thread/message flow: `relay_thread_create`, `relay_thread_list`, `relay_message_list`, `relay_message_send`, `relay_message_mark_read`, `relay_transcript_export`
+- workflow bootstrap/status flow: `relay_team_start`, `relay_team_status`
 - SSE task event streaming
 - idle-gated dispatch into OpenCode sessions
 - duplicate suppression, human takeover guard, replay path, and audit trail
@@ -59,6 +60,14 @@ For normal session-aware relay usage, call only the plugin tools: `relay_room_*`
 2. Other conversations join with a room code **and alias**
 3. The owner can broadcast to the room or privately message a specific alias
 4. Agents can inspect threads, read durable messages, mark read cursors, and export transcripts
+
+### Team workflow flow
+1. The manager session runs `/team <task>`
+2. The plugin creates a group room plus child worker sessions
+3. Workers join with fixed aliases and report workflow signals such as `[TEAM_READY]`, `[TEAM_PROGRESS]`, `[TEAM_BLOCKER]`, and `[TEAM_DONE]`
+4. The manager checks `relay_team_status` to monitor readiness, active work, blockers, completion, and the recent workflow event trail
+
+Quick tutorial: `docs/team-workflow-quickstart.md`
 
 ## Get the code
 
