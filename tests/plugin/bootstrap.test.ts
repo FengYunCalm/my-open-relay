@@ -2,11 +2,15 @@ import { afterEach, describe, expect, it, vi } from "vitest";
 import type { PluginInput } from "@opencode-ai/plugin";
 
 import {
+  A2ARelayHost,
   RelayPlugin,
   SessionInjector,
   getRelayPluginStateForTest,
   stopRelayPlugin
 } from "../support/relay-plugin-testkit.js";
+import { cleanupDatabaseLocation, createTestDatabaseLocation } from "./test-db.js";
+
+const dbLocations: string[] = [];
 
 function createPluginInput(projectID = "project-test"): PluginInput {
   return {
@@ -14,8 +18,10 @@ function createPluginInput(projectID = "project-test"): PluginInput {
     project: {
       id: projectID,
       name: "relay-project",
-      path: "C:/relay-project"
-    } as PluginInput["project"],
+      path: "C:/relay-project",
+      worktree: "C:/relay-project",
+      time: { created: Date.now() }
+    } as unknown as PluginInput["project"],
     directory: "C:/relay-project",
     worktree: "C:/relay-project",
     serverUrl: new URL("http://127.0.0.1:4096"),
@@ -26,6 +32,9 @@ function createPluginInput(projectID = "project-test"): PluginInput {
 afterEach(async () => {
   await stopRelayPlugin("project-test");
   await stopRelayPlugin("project-test-2");
+  await stopRelayPlugin("project-test-3");
+  await stopRelayPlugin("project-test-4");
+  dbLocations.splice(0).forEach(cleanupDatabaseLocation);
 });
 
 describe("relay plugin bootstrap", () => {
@@ -100,5 +109,26 @@ describe("relay plugin bootstrap", () => {
 
     expect(output.context.join("\n")).toContain("Relay Context");
     expect(output.context.join("\n")).toContain("session-2");
+  });
+
+  it("reuses a single relay instance across concurrent projects with the same config", async () => {
+    const databasePath = createTestDatabaseLocation("bootstrap-shared-instance");
+    dbLocations.push(databasePath);
+    const startSpy = vi.spyOn(A2ARelayHost.prototype, "start").mockImplementation(async function () {
+      await new Promise((resolve) => setTimeout(resolve, 10));
+      return "http://127.0.0.1:7339/a2a";
+    });
+
+    const [hooksA, hooksB] = await Promise.all([
+      RelayPlugin(createPluginInput("project-test-3"), { a2a: { port: 7339 }, runtime: { databasePath } }),
+      RelayPlugin(createPluginInput("project-test-4"), { a2a: { port: 7339 }, runtime: { databasePath } })
+    ]);
+
+    expect(hooksA.tool).toBeDefined();
+    expect(hooksB.tool).toBeDefined();
+    expect(startSpy).toHaveBeenCalledTimes(1);
+    expect(getRelayPluginStateForTest("project-test-3")).toBe(getRelayPluginStateForTest("project-test-4"));
+
+    startSpy.mockRestore();
   });
 });

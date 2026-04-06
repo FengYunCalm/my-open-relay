@@ -121,3 +121,12 @@ export function resolveRelayPluginConfig(input?: unknown): RelayPluginConfig {
   const merged = mergeRelayPluginConfig(fileConfig, directInput);
   return relayPluginConfigSchema.parse(merged);
 }
+
+export function buildRelayPluginInstanceKey(config: RelayPluginConfig): string {
+  return [
+    config.a2a.host,
+    String(config.a2a.port),
+    config.a2a.basePath,
+    config.runtime.databasePath ?? "__default_db__"
+  ].join("|");
+}
