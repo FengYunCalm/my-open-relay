@@ -11,9 +11,10 @@ describe("relay prompt preamble", () => {
       content: "Implement feature X"
     });
 
-    expect(prompt).toContain("[AGENT RELAY MESSAGE]");
-    expect(prompt).toContain("The sender is another agent, not a human user.");
+    expect(prompt).toContain("[RELAYED AGENT INPUT]");
+    expect(prompt).toContain("Sender: another agent (not a human user)");
     expect(prompt).toContain("Task ID: task-1");
+    expect(prompt).toContain("Response mode: use tools/workflow actions, not end-user chat replies");
     expect(prompt).toContain("Implement feature X");
   });
 
@@ -46,8 +47,46 @@ describe("relay prompt preamble", () => {
       }
     });
 
-    expect(prompt).toContain("Thread Kind: group");
+    expect(prompt).toContain("Thread: thread-1 (group)");
+    expect(prompt).toContain("Sender: one or more relay agents (not human users)");
+    expect(prompt).toContain("Response mode: use tools/workflow actions, not end-user chat replies");
     expect(prompt).toContain("sender_role=member");
     expect(prompt).toContain("hello group");
+  });
+
+  it("uses the old simple private relay prompt for private direct threads", () => {
+    const prompt = buildThreadRelayPrompt({
+      roomCode: "654321",
+      roomKind: "private",
+      recipientSessionID: "session-b",
+      thread: {
+        threadId: "thread-private",
+        roomCode: "654321",
+        kind: "direct",
+        createdBySessionID: "session-a",
+        createdAt: 1,
+        updatedAt: 1
+      },
+      messages: [
+        {
+          threadId: "thread-private",
+          seq: 1,
+          messageId: "relaymsg-1",
+          senderSessionID: "session-a",
+          messageType: "relay",
+          body: { text: "hello private" },
+          createdAt: 1
+        }
+      ],
+      senderRoles: {
+        "session-a": "owner"
+      }
+    });
+
+    expect(prompt).toContain("[RELAYED AGENT INPUT]");
+    expect(prompt).toContain("Sender: paired agent session session-a (not a human user)");
+    expect(prompt).toContain("Response mode: use tools/workflow actions, not end-user chat replies");
+    expect(prompt).toContain("Message:");
+    expect(prompt).toContain("hello private");
   });
 });
