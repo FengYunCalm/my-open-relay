@@ -3,7 +3,7 @@ export { RelayPlugin, pluginPackageName, pluginVersion };
 
 export { buildRelayAgentCard } from "../../packages/relay-plugin/src/a2a/agent-card.ts";
 export { validateLocalAuth } from "../../packages/relay-plugin/src/a2a/auth.ts";
-export { isRelayPairAllowed, resolveRelayPluginConfig } from "../../packages/relay-plugin/src/config.ts";
+export { isRelayPairAllowed, resolveInstalledConfigPathFromModuleUrl, resolveRelayPluginConfig } from "../../packages/relay-plugin/src/config.ts";
 export { createCancelTaskHandler } from "../../packages/relay-plugin/src/a2a/handlers/cancel-task.ts";
 export { createGetTaskHandler } from "../../packages/relay-plugin/src/a2a/handlers/get-task.ts";
 export { createSendMessageStreamHandler } from "../../packages/relay-plugin/src/a2a/handlers/send-message-stream.ts";
@@ -20,6 +20,7 @@ export { AuditStore } from "../../packages/relay-plugin/src/internal/store/audit
 export { initializeRelaySchema } from "../../packages/relay-plugin/src/internal/store/schema.ts";
 export { SessionLinkStore } from "../../packages/relay-plugin/src/internal/store/session-link-store.ts";
 export { TaskStore } from "../../packages/relay-plugin/src/internal/store/task-store.ts";
+export { TeamStore } from "../../packages/relay-plugin/src/internal/store/team-store.ts";
 export { RoomStore } from "../../packages/relay-plugin/src/internal/store/room-store.ts";
 export { ThreadStore } from "../../packages/relay-plugin/src/internal/store/thread-store.ts";
 export { MessageStore } from "../../packages/relay-plugin/src/internal/store/message-store.ts";

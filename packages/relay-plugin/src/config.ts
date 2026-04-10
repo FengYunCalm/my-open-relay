@@ -1,4 +1,5 @@
 import { existsSync, readFileSync } from "node:fs";
+import { fileURLToPath } from "node:url";
 
 import { z } from "zod";
 
@@ -58,12 +59,16 @@ export type RelaySessionPair = z.infer<typeof relaySessionPairSchema>;
 
 type RelayPluginConfigInput = z.infer<typeof relayPluginConfigInputSchema>;
 
+export function resolveInstalledConfigPathFromModuleUrl(moduleUrl: string): string {
+  return fileURLToPath(new URL("./opencode-a2a-relay.config.json", moduleUrl));
+}
+
 function resolveInstalledConfigPath(overridePath?: string): string {
   if (overridePath) {
     return overridePath;
   }
 
-  return new URL("./opencode-a2a-relay.config.json", import.meta.url).pathname;
+  return resolveInstalledConfigPathFromModuleUrl(import.meta.url);
 }
 
 function loadInstalledRelayPluginConfig(overridePath?: string): RelayPluginConfigInput {
