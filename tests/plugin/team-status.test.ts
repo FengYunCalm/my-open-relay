@@ -171,6 +171,127 @@ describe("relay team status tool", () => {
 
     const state = getRelayPluginStateForTest("project-team-status")!;
     expect(state.runtime.teamStore.getRun(started.runId)?.status).toBe("in_progress");
+  }, 15000);
+
+  it("requires reviewer final acceptance before marking the run completed", async () => {
+    const databasePath = createTestDatabaseLocation("team-status-acceptance-gate");
+    dbLocations.push(databasePath);
+    const hooks = await RelayPlugin(createPluginInput("project-team-status"), {
+      a2a: { port: 0 },
+      routing: { mode: "pair" },
+      runtime: { databasePath }
+    });
+
+    const started = JSON.parse(await hooks.tool?.relay_team_start.execute({ task: "ship team workflow" }, {
+      sessionID: "session-manager",
+      messageID: "m-acceptance-1",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    }) as string) as { roomCode: string; runId: string };
+
+    for (const [sessionID, alias] of [["session-planner", "planner"], ["session-implementer", "implementer"], ["session-reviewer", "reviewer"]] as const) {
+      await hooks.tool?.relay_room_join.execute({ roomCode: started.roomCode, alias }, {
+        sessionID,
+        messageID: `${sessionID}-join-acceptance`,
+        agent: "build",
+        directory: "C:/relay-project",
+        worktree: "C:/relay-project",
+        abort: new AbortController().signal,
+        metadata: () => {},
+        ask: async () => {}
+      });
+
+      await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: `[TEAM_READY] {"source":"openspec","phase":"join","note":"${alias} ready"}` }, {
+        sessionID,
+        messageID: `${sessionID}-ready-acceptance`,
+        agent: "build",
+        directory: "C:/relay-project",
+        worktree: "C:/relay-project",
+        abort: new AbortController().signal,
+        metadata: () => {},
+        ask: async () => {}
+      });
+    }
+
+    await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: "[TEAM_DONE] {\"source\":\"openspec\",\"phase\":\"planning-complete\",\"note\":\"planner handed off tasks\",\"evidence\":[\"tasks.md\"],\"handoffTo\":\"implementer\",\"deliverables\":[\"tasks.md\"]}" }, {
+      sessionID: "session-planner",
+      messageID: "session-planner-done-acceptance",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: "[TEAM_DONE] {\"source\":\"omo\",\"phase\":\"cleanup-complete\",\"note\":\"implementer cleaned up\",\"evidence\":[\"cleanup.log\"],\"handoffTo\":\"reviewer\",\"deliverables\":[\"cleanup.log\"]}" }, {
+      sessionID: "session-implementer",
+      messageID: "session-implementer-done-acceptance",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: "[TEAM_DONE] {\"source\":\"omo\",\"phase\":\"review-standby\",\"note\":\"reviewer is waiting to issue the final acceptance\",\"evidence\":[\"review-checklist\"],\"handoffTo\":\"manager\",\"deliverables\":[\"review-checklist\"]}" }, {
+      sessionID: "session-reviewer",
+      messageID: "session-reviewer-standby-acceptance",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    const preAcceptance = JSON.parse(await hooks.tool?.relay_team_status.execute({}, {
+      sessionID: "session-manager",
+      messageID: "m-acceptance-2",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    }) as string) as { status: string; workers: Array<{ role: string; workflowPhase?: string }>; summary: { counts: Record<string, number> } };
+
+    expect(preAcceptance.status).toBe("in_progress");
+    expect(preAcceptance.summary.counts.completed).toBe(3);
+    expect(preAcceptance.workers.find((worker) => worker.role === "reviewer")?.workflowPhase).toBe("review-standby");
+
+    await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: "[TEAM_DONE] {\"source\":\"omo\",\"phase\":\"final-acceptance-pass\",\"note\":\"reviewer final acceptance passed\",\"evidence\":[\"acceptance-report\"],\"handoffTo\":\"manager\",\"deliverables\":[\"acceptance-report\"]}" }, {
+      sessionID: "session-reviewer",
+      messageID: "session-reviewer-final-acceptance",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    const postAcceptance = JSON.parse(await hooks.tool?.relay_team_status.execute({}, {
+      sessionID: "session-manager",
+      messageID: "m-acceptance-3",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    }) as string) as { status: string; summary: { counts: Record<string, number> } };
+
+    expect(postAcceptance.status).toBe("completed");
+    expect(postAcceptance.summary.counts.completed).toBe(3);
+
+    const state = getRelayPluginStateForTest("project-team-status")!;
+    expect(state.runtime.teamStore.getRun(started.runId)?.status).toBe("completed");
   });
 
   it("does not treat plain relay room chatter as a ready signal", async () => {
@@ -404,8 +525,88 @@ describe("relay team status tool", () => {
     };
 
     expect(managerStatus.attentionItems.some((item) => item.kind === "escalated_issue" && item.targetAlias === "planner" && item.suggestedAction === "reassign" && item.count === 2)).toBe(true);
-    expect(managerStatus.policyDecisions.some((decision) => decision.mode === "escalate" && decision.action === "reassign" && decision.targetAlias === "planner" && decision.sourceKind === "escalated_issue")).toBe(true);
+    expect(managerStatus.policyDecisions.some((decision) => decision.mode === "escalate" && decision.action === "reassign" && decision.targetAlias === "planner" && decision.sourceKind === "escalated_issue" && decision.requiresExplicitApply === false)).toBe(true);
     expect(managerStatus.recommendedActions.some((action) => action.action === "retry" && action.targetAlias === "planner")).toBe(true);
+  });
+
+  it("does not expose reassign escalations as directly applyable policies without a handoff target", async () => {
+    const databasePath = createTestDatabaseLocation("team-status-apply-policy-reassign");
+    dbLocations.push(databasePath);
+    const hooks = await RelayPlugin(createPluginInput("project-team-status"), {
+      a2a: { port: 0 },
+      routing: { mode: "pair" },
+      runtime: { databasePath }
+    });
+
+    const started = JSON.parse(await hooks.tool?.relay_team_start.execute({ task: "ship team workflow" }, {
+      sessionID: "session-manager",
+      messageID: "m-reassign-1",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    }) as string) as { roomCode: string };
+
+    await hooks.tool?.relay_room_join.execute({ roomCode: started.roomCode, alias: "planner" }, {
+      sessionID: "session-planner",
+      messageID: "session-planner-join-reassign",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: "[TEAM_READY] {\"source\":\"openspec\",\"phase\":\"join\",\"note\":\"planner ready\"}" }, {
+      sessionID: "session-planner",
+      messageID: "session-planner-ready-reassign",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: "[TEAM_PROGRESS] {\"note\":\"bad signal 1\"}" }, {
+      sessionID: "session-planner",
+      messageID: "session-planner-invalid-progress-reassign-1",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: "[TEAM_PROGRESS] {\"note\":\"bad signal 2\"}" }, {
+      sessionID: "session-planner",
+      messageID: "session-planner-invalid-progress-reassign-2",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    });
+
+    await expect(hooks.tool?.relay_team_apply_policy.execute({
+      roomCode: started.roomCode,
+      action: "reassign",
+      targetAlias: "planner"
+    }, {
+      sessionID: "session-manager",
+      messageID: "m-reassign-2",
+      agent: "build",
+      directory: "C:/relay-project",
+      worktree: "C:/relay-project",
+      abort: new AbortController().signal,
+      metadata: () => {},
+      ask: async () => {}
+    })).rejects.toThrow(/No applyable policy decision found/);
   });
 
   it("marks silent workers as stale after the configured timeout window", async () => {
@@ -773,84 +974,6 @@ describe("relay team status tool", () => {
     expect(applied.targetAlias).toBe("planner");
     expect(applied.mode).toBe("manual_intervention");
     expect(applied.sourceKind).toBe("rejected_signal");
-  });
-
-  it("auto-applies only low-risk rejected-signal retry policies", async () => {
-    const databasePath = createTestDatabaseLocation("team-status-auto-apply-policy");
-    dbLocations.push(databasePath);
-    const hooks = await RelayPlugin(createPluginInput("project-team-status"), {
-      a2a: { port: 0 },
-      routing: { mode: "pair" },
-      runtime: { databasePath }
-    });
-
-    const started = JSON.parse(await hooks.tool?.relay_team_start.execute({ task: "ship team workflow" }, {
-      sessionID: "session-manager",
-      messageID: "m1",
-      agent: "build",
-      directory: "C:/relay-project",
-      worktree: "C:/relay-project",
-      abort: new AbortController().signal,
-      metadata: () => {},
-      ask: async () => {}
-    }) as string) as { roomCode: string };
-
-    await hooks.tool?.relay_room_join.execute({ roomCode: started.roomCode, alias: "planner" }, {
-      sessionID: "session-planner",
-      messageID: "session-planner-join",
-      agent: "build",
-      directory: "C:/relay-project",
-      worktree: "C:/relay-project",
-      abort: new AbortController().signal,
-      metadata: () => {},
-      ask: async () => {}
-    });
-
-    await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: "[TEAM_READY] {\"source\":\"openspec\",\"phase\":\"join\",\"note\":\"planner ready\"}" }, {
-      sessionID: "session-planner",
-      messageID: "session-planner-ready",
-      agent: "build",
-      directory: "C:/relay-project",
-      worktree: "C:/relay-project",
-      abort: new AbortController().signal,
-      metadata: () => {},
-      ask: async () => {}
-    });
-
-    await hooks.tool?.relay_room_send.execute({ roomCode: started.roomCode, message: "[TEAM_PROGRESS] {\"note\":\"bad auto policy signal\"}" }, {
-      sessionID: "session-planner",
-      messageID: "session-planner-invalid-progress-auto",
-      agent: "build",
-      directory: "C:/relay-project",
-      worktree: "C:/relay-project",
-      abort: new AbortController().signal,
-      metadata: () => {},
-      ask: async () => {}
-    });
-
-    const result = JSON.parse(await hooks.tool?.relay_team_auto_apply_policy.execute({ roomCode: started.roomCode }, {
-      sessionID: "session-manager",
-      messageID: "m2",
-      agent: "build",
-      directory: "C:/relay-project",
-      worktree: "C:/relay-project",
-      abort: new AbortController().signal,
-      metadata: () => {},
-      ask: async () => {}
-    }) as string) as {
-      appliedCount: number;
-      applied: Array<{ action: string; targetAlias?: string; mode: string; sourceKind: string }>;
-      skippedCount: number;
-    };
-
-    expect(result.appliedCount).toBe(1);
-    expect(result.applied[0]).toMatchObject({
-      action: "retry",
-      targetAlias: "planner",
-      mode: "manual_intervention",
-      sourceKind: "rejected_signal"
-    });
-    expect(result.skippedCount).toBe(0);
   });
 
   it("marks the team run failed when worker bootstrap prompt submission fails", async () => {

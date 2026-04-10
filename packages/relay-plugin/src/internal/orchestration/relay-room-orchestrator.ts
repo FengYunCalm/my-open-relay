@@ -17,6 +17,8 @@ export type RelayDeliveryHooks = {
     message: string;
   }): Promise<void>;
   notifyThreadParticipant(thread: RelayThread, sessionID: string, messages: RelayMessage[]): Promise<void>;
+  reserveThreadNotifications?(thread: RelayThread, sessionID: string, messages: RelayMessage[]): RelayMessage[];
+  releaseThreadNotifications?(thread: RelayThread, sessionID: string, messages: RelayMessage[]): void;
 };
 
 export type SendThreadMessageResult = {
@@ -444,15 +446,25 @@ export class RelayRoomOrchestrator {
         continue;
       }
 
+      const reservedMessages = this.deliveryHooks?.reserveThreadNotifications?.(thread, participant.sessionID, [message]) ?? [message];
+      if (reservedMessages.length === 0) {
+        continue;
+      }
+
       try {
-        await this.deliveryHooks!.notifyThreadParticipant(thread, participant.sessionID, [message]);
-        this.threadStore.markNotified(input.threadId, participant.sessionID, message.seq);
+        await this.deliveryHooks!.notifyThreadParticipant(thread, participant.sessionID, reservedMessages);
+        const lastDeliveredSeq = reservedMessages[reservedMessages.length - 1]?.seq;
+        if (lastDeliveredSeq !== undefined) {
+          this.threadStore.markNotified(input.threadId, participant.sessionID, lastDeliveredSeq);
+        }
         notifiedRecipients.push(participant.sessionID);
       } catch (error) {
         queuedRecipients.push({
           sessionID: participant.sessionID,
           reason: `live delivery failed: ${error instanceof Error ? error.message : "unknown error"}`
         });
+      } finally {
+        this.deliveryHooks?.releaseThreadNotifications?.(thread, participant.sessionID, reservedMessages);
       }
     }
 

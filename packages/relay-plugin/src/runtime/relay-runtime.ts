@@ -180,6 +180,8 @@ export class RelayRuntime {
   readonly sessionRegistry: SessionRegistry;
   readonly relayOrchestrator: RelayRoomOrchestrator;
 
+  private readonly inFlightThreadNotificationKeys = new Set<string>();
+
   private readonly sendMessage;
   private readonly sendMessageStream;
   private readonly getTask;
@@ -205,7 +207,9 @@ export class RelayRuntime {
       recordDiagnostic: (eventType, payload) => this.recordDiagnostic(eventType, payload),
       resolveNotificationDecision: (sessionID) => this.resolveNotificationDecision(sessionID),
       notifyPrivateRoomPeer: ({ sourceSessionID, peerSessionID, roomCode, message }) => this.notifyPrivateRoomPeer(sourceSessionID, peerSessionID, roomCode, message),
-      notifyThreadParticipant: (thread, sessionID, messages) => this.notifyThreadParticipant(thread, sessionID, messages)
+      notifyThreadParticipant: (thread, sessionID, messages) => this.notifyThreadParticipant(thread, sessionID, messages),
+      reserveThreadNotifications: (thread, sessionID, messages) => this.reserveThreadNotifications(thread.threadId, sessionID, messages),
+      releaseThreadNotifications: (thread, sessionID, messages) => this.releaseThreadNotifications(thread.threadId, sessionID, messages)
     });
 
     const sendMessageDependencies = {
@@ -753,6 +757,27 @@ export class RelayRuntime {
     this.relayOrchestrator.ensureDefaultThreadsForRoom(roomCode);
   }
 
+  private reserveThreadNotifications(threadId: string, sessionID: string, messages: RelayMessage[]): RelayMessage[] {
+    const deliverable: RelayMessage[] = [];
+
+    for (const message of messages) {
+      const key = `${threadId}:${sessionID}:${message.seq}`;
+      if (this.inFlightThreadNotificationKeys.has(key)) {
+        continue;
+      }
+      this.inFlightThreadNotificationKeys.add(key);
+      deliverable.push(message);
+    }
+
+    return deliverable;
+  }
+
+  private releaseThreadNotifications(threadId: string, sessionID: string, messages: RelayMessage[]): void {
+    for (const message of messages) {
+      this.inFlightThreadNotificationKeys.delete(`${threadId}:${sessionID}:${message.seq}`);
+    }
+  }
+
   private async notifyPendingMessages(sessionID: string): Promise<boolean> {
     let notifiedAny = false;
     const threadEntries = this.threadStore.listThreadsForSession(sessionID);
@@ -776,10 +801,19 @@ export class RelayRuntime {
           break;
         }
 
-        await this.notifyThreadParticipant(entry, sessionID, unreadMessages);
-        const lastDeliveredSeq = unreadMessages[unreadMessages.length - 1]?.seq ?? lastNotifiedSeq;
-        this.threadStore.markNotified(entry.threadId, sessionID, lastDeliveredSeq);
-        notifiedAny = true;
+        const reservedMessages = this.reserveThreadNotifications(entry.threadId, sessionID, unreadMessages);
+        if (reservedMessages.length === 0) {
+          break;
+        }
+
+        try {
+          await this.notifyThreadParticipant(entry, sessionID, reservedMessages);
+          const lastDeliveredSeq = reservedMessages[reservedMessages.length - 1]?.seq ?? lastNotifiedSeq;
+          this.threadStore.markNotified(entry.threadId, sessionID, lastDeliveredSeq);
+          notifiedAny = true;
+        } finally {
+          this.releaseThreadNotifications(entry.threadId, sessionID, reservedMessages);
+        }
       }
     }
 
@@ -1201,13 +1235,14 @@ export class RelayRuntime {
     };
 
     for (const item of attentionItems) {
+      const directlyApplyable = item.suggestedAction !== "reassign";
       pushDecision({
         mode: item.kind === "escalated_issue" ? "escalate" : "manual_intervention",
         action: item.suggestedAction,
         targetAlias: item.targetAlias,
         severity: item.severity,
         reason: item.reason,
-        requiresExplicitApply: true,
+        requiresExplicitApply: directlyApplyable,
         sourceKind: item.kind
       });
     }

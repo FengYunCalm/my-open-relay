@@ -76,6 +76,53 @@ describe("durable room message queue", () => {
     expect(groupParticipant?.lastNotifiedSeq).toBe(1);
   });
 
+  it("does not inject the same thread message twice when flush races with direct delivery", async () => {
+    const databasePath = createTestDatabaseLocation("message-queue-race-dedupe");
+    dbLocations.push(databasePath);
+
+    let resolveFirstPrompt: ((value: { data: true }) => void) | undefined;
+    const firstPrompt = new Promise<{ data: true }>((resolve) => {
+      resolveFirstPrompt = resolve;
+    });
+    let promptCallCount = 0;
+    const promptAsync = vi.fn().mockImplementation(() => {
+      promptCallCount += 1;
+      return promptCallCount === 1 ? firstPrompt : Promise.resolve({ data: true });
+    });
+
+    const hooks = await RelayPlugin(createPluginInput("project-message-queue", promptAsync), {
+      a2a: { port: 0 },
+      routing: { mode: "pair" },
+      runtime: { databasePath }
+    });
+
+    const state = getRelayPluginStateForTest("project-message-queue")!;
+    const room = state.runtime.roomStore.createRoom("session-owner", "group");
+    state.runtime.roomStore.joinRoom(room.roomCode, "session-a", "alpha");
+    const thread = state.runtime.threadStore.ensureDirectThread(room.roomCode, ["session-owner", "session-a"], "session-owner");
+
+    const directDelivery = state.runtime.sendThreadMessage({
+      threadId: thread.threadId,
+      senderSessionID: "session-owner",
+      message: "hello race",
+      messageType: "relay"
+    });
+
+    await vi.waitFor(() => {
+      expect(promptAsync).toHaveBeenCalledTimes(1);
+    });
+
+    const flushDelivery = state.runtime.flushPendingForKnownIdleSessions();
+
+    resolveFirstPrompt?.({ data: true });
+    await directDelivery;
+    await flushDelivery;
+
+    expect(promptAsync).toHaveBeenCalledTimes(1);
+    const participant = state.runtime.threadStore.getParticipant(thread.threadId, "session-a");
+    expect(participant?.lastNotifiedSeq).toBe(1);
+  });
+
   it("treats session.idle as a valid delivery trigger for queued messages", async () => {
     const databasePath = createTestDatabaseLocation("message-queue-session-idle");
     dbLocations.push(databasePath);

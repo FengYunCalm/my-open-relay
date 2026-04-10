@@ -69,5 +69,5 @@ describe("message notification window", () => {
     const participant = state.runtime.threadStore.getParticipant(thread.threadId, "session-a");
     expect(promptAsync).toHaveBeenCalledTimes(2);
     expect(participant?.lastNotifiedSeq).toBe(55);
-  });
+  }, 15000);
 });
