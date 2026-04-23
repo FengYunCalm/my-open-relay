@@ -42,6 +42,9 @@ describe("replay flow", () => {
     auditStore.append(taskId, "task.failed", { reason: "boom" });
 
     const mcp = createRelayOpsMcpServer(taskStore, auditStore, roomStore, threadStore, messageStore, {
+      getDiagnostics: () => [],
+      pauseSession: (sessionID, reason) => ({ sessionID, reason, paused: true }),
+      resumeSession: (sessionID) => ({ sessionID, resumed: false }),
       replayTask: async (requestedTaskId) => {
         const replayed = taskStore.updateStatus(requestedTaskId, "submitted");
         auditStore.append(requestedTaskId, "task.replayed", {});

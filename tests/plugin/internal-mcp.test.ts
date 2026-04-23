@@ -43,17 +43,47 @@ describe("internal MCP ops surface", () => {
       status: "failed"
     });
     auditStore.append(taskId, "task.failed", { reason: "boom" });
+    auditStore.append("__relay_diagnostics__", "relay.send.entry", { surface: "plugin", tool: "relay_room_send" });
 
     const room = roomStore.createRoom("session-owner");
     roomStore.joinRoom(room.roomCode, "session-a");
     const thread = threadStore.ensureDirectThread(room.roomCode, ["session-owner", "session-a"], "session-owner");
+    const pausedSessions = new Map<string, string>();
 
     const mcp = createRelayOpsMcpServer(taskStore, auditStore, roomStore, threadStore, messageStore, {
+      getStatus: (requestedTaskId) => ({
+        activeTaskCount: taskStore.listActiveTasks().length,
+        roomCount: roomStore.countRooms(),
+        threadCount: threadStore.countThreads(),
+        knownSessionCount: 2,
+        sessionStatusCounts: { idle: 1, busy: 1 },
+        pausedSessionCount: pausedSessions.size,
+        pausedSessions: [...pausedSessions.entries()].map(([sessionID, reason]) => ({ sessionID, reason })),
+        recentDiagnostics: auditStore.list("__relay_diagnostics__").slice(-10),
+        task: requestedTaskId ? taskStore.getTask(requestedTaskId) : undefined
+      }),
+      getDiagnostics: (limit) => auditStore.list("__relay_diagnostics__").slice(-(limit ?? 10)),
+      pauseSession: (sessionID, reason) => {
+        const resolvedReason = reason ?? "human takeover";
+        pausedSessions.set(sessionID, resolvedReason);
+        auditStore.append("__relay_diagnostics__", "relay.session.paused", { sessionID, reason: resolvedReason });
+        return { sessionID, reason: resolvedReason, paused: true as const };
+      },
+      resumeSession: (sessionID) => {
+        const previousReason = pausedSessions.get(sessionID);
+        const resumed = pausedSessions.delete(sessionID);
+        auditStore.append("__relay_diagnostics__", "relay.session.resumed", { sessionID, previousReason, resumed });
+        return { sessionID, previousReason, resumed };
+      },
       replayTask: async (requestedTaskId) => {
         const replayed = taskStore.updateStatus(requestedTaskId, "submitted");
         auditStore.append(requestedTaskId, "task.replayed", {});
         return replayed;
       },
+      listRoomMembers: (roomCode) => roomStore.listMembers(roomCode),
+      createThread: ({ roomCode, kind, createdBySessionID, participantSessionIDs, title }) => kind === "group"
+        ? threadStore.createGroupThread(roomCode, participantSessionIDs, createdBySessionID, title)
+        : threadStore.ensureDirectThread(roomCode, participantSessionIDs, createdBySessionID),
       listThreads: ({ roomCode, sessionID }) => roomCode ? threadStore.listThreadsForRoom(roomCode) : sessionID ? threadStore.listThreadsForSession(sessionID) : [],
       listMessages: (threadId, afterSeq, limit) => messageStore.listMessages(threadId, afterSeq, limit),
       sendThreadMessage: async ({ threadId, senderSessionID, message, messageType }) => {
@@ -70,6 +100,9 @@ describe("internal MCP ops surface", () => {
 
     expect(mcp.toolNames).toEqual([
       "relay-status",
+      "relay-diagnostics",
+      "relay-pause",
+      "relay-resume",
       "relay-replay",
       "relay-room-members",
       "relay-thread-create",
@@ -79,7 +112,28 @@ describe("internal MCP ops surface", () => {
       "relay-message-mark-read",
       "relay-transcript-export"
     ]);
-    expect(statusTool.execute(taskId)).toMatchObject({ activeTaskCount: 0, task: { taskId } });
+    expect(statusTool.execute(taskId)).toMatchObject({
+      activeTaskCount: 0,
+      roomCount: 1,
+      threadCount: 1,
+      knownSessionCount: 2,
+      pausedSessionCount: 0,
+      task: { taskId }
+    });
+    expect(mcp.getDiagnostics()).toHaveLength(1);
+
+    const paused = mcp.pauseSession("session-a", "operator pause") as { paused: boolean; reason: string };
+    expect(paused).toEqual({ paused: true, reason: "operator pause", sessionID: "session-a" });
+    expect(statusTool.execute().pausedSessionCount).toBe(1);
+
+    const resumed = mcp.resumeSession("session-a") as { resumed: boolean; previousReason?: string };
+    expect(resumed).toMatchObject({ resumed: true, previousReason: "operator pause", sessionID: "session-a" });
+    expect(statusTool.execute().pausedSessionCount).toBe(0);
+    expect(mcp.getDiagnostics().map((event) => event.eventType)).toEqual([
+      "relay.send.entry",
+      "relay.session.paused",
+      "relay.session.resumed"
+    ]);
 
     const replayed = await replayTool.execute(taskId) as { status: string };
     expect(replayed.status).toBe("submitted");
@@ -123,6 +177,9 @@ describe("internal MCP ops surface", () => {
     });
 
     const mcp = createRelayOpsMcpServer(taskStore, auditStore, roomStore, threadStore, messageStore, {
+      getDiagnostics: () => [],
+      pauseSession: (sessionID, reason) => ({ sessionID, reason, paused: true }),
+      resumeSession: (sessionID) => ({ sessionID, resumed: false }),
       replayTask: async (requestedTaskId) => {
         const task = taskStore.getTask(requestedTaskId)!;
         if (task.status !== "failed" && task.status !== "canceled") {
@@ -130,6 +187,8 @@ describe("internal MCP ops surface", () => {
         }
         return task;
       },
+      listRoomMembers: () => [],
+      createThread: () => undefined,
       listThreads: () => [],
       listMessages: () => [],
       sendThreadMessage: async () => undefined,

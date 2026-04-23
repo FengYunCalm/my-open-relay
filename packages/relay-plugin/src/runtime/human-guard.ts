@@ -24,4 +24,10 @@ export class HumanGuard {
 
     return this.pausedSessions.get(sessionID);
   }
+
+  listPausedSessions(): Array<{ sessionID: string; reason: string }> {
+    return [...this.pausedSessions.entries()]
+      .sort(([left], [right]) => left.localeCompare(right))
+      .map(([sessionID, reason]) => ({ sessionID, reason }));
+  }
 }

@@ -142,6 +142,14 @@ export class ThreadStore {
     return rows.map((row) => this.hydrate(row));
   }
 
+  countThreads(): number {
+    const row = this.database
+      .prepare(`SELECT COUNT(*) AS count FROM relay_threads`)
+      .get() as { count?: number } | undefined;
+
+    return row?.count ?? 0;
+  }
+
   listThreadsForSession(sessionID: string): Array<RelayThread & { participant: RelayThreadParticipant }> {
     const rows = this.database.prepare(`
         SELECT t.*, p.thread_id as participant_thread_id, p.session_id, p.last_read_seq, p.last_notified_seq, p.joined_at, p.updated_at as participant_updated_at

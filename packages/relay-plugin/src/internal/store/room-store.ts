@@ -198,6 +198,14 @@ export class RoomStore {
     return rows.map((row) => this.hydrate(row));
   }
 
+  countRooms(): number {
+    const row = this.database
+      .prepare(`SELECT COUNT(*) AS count FROM relay_rooms`)
+      .get() as { count?: number } | undefined;
+
+    return row?.count ?? 0;
+  }
+
   listMembers(roomCode: string): RelayRoomMember[] {
     const rows = this.database
       .prepare(`

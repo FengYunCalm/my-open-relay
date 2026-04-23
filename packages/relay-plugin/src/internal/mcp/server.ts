@@ -1,17 +1,40 @@
 import { z } from "zod";
 import { McpServer } from "@modelcontextprotocol/sdk/server/mcp.js";
 
+import type { AuditEventRecord } from "../store/audit-store.js";
 import type { AuditStore } from "../store/audit-store.js";
 import type { MessageStore } from "../store/message-store.js";
 import type { RoomStore } from "../store/room-store.js";
 import type { TaskStore } from "../store/task-store.js";
 import type { ThreadStore } from "../store/thread-store.js";
 
+export type RelayOpsStatusView = {
+  activeTaskCount: number;
+  roomCount: number;
+  threadCount: number;
+  knownSessionCount: number;
+  sessionStatusCounts: Record<string, number>;
+  pausedSessionCount: number;
+  pausedSessions: Array<{ sessionID: string; reason: string }>;
+  recentDiagnostics: AuditEventRecord[];
+  task?: unknown;
+};
+
+export type RelayOpsSessionControlResult = {
+  sessionID: string;
+  reason?: string;
+  paused?: boolean;
+  resumed?: boolean;
+  previousReason?: string;
+};
+
+export type RelayOpsDiagnosticRecord = AuditEventRecord;
+
 export type RelayOpsHandlers = {
-  getStatus?: (taskId?: string) => {
-    activeTaskCount: number;
-    task?: unknown;
-  };
+  getStatus?: (taskId?: string) => RelayOpsStatusView;
+  getDiagnostics: (limit?: number) => RelayOpsDiagnosticRecord[];
+  pauseSession: (sessionID: string, reason?: string) => RelayOpsSessionControlResult;
+  resumeSession: (sessionID: string) => RelayOpsSessionControlResult;
   replayTask: (taskId: string) => Promise<unknown> | unknown;
   listRoomMembers: (roomCode: string) => unknown;
   createThread: (input: { roomCode: string; kind: "direct" | "group"; createdBySessionID: string; participantSessionIDs: string[]; title?: string }) => unknown;
@@ -30,10 +53,10 @@ export type RelayOpsMcp = {
     mimeType: string;
     text: string;
   };
-  getStatus(taskId?: string): {
-    activeTaskCount: number;
-    task?: unknown;
-  };
+  getStatus(taskId?: string): RelayOpsStatusView;
+  getDiagnostics(limit?: number): RelayOpsDiagnosticRecord[];
+  pauseSession(sessionID: string, reason?: string): RelayOpsSessionControlResult;
+  resumeSession(sessionID: string): RelayOpsSessionControlResult;
   replayTask(taskId: string): Promise<unknown> | unknown;
   listRoomMembers(roomCode: string): unknown;
   createThread(input: { roomCode: string; kind: "direct" | "group"; createdBySessionID: string; participantSessionIDs: string[]; title?: string }): unknown;
@@ -59,8 +82,19 @@ export function createRelayOpsMcpServer(
 
   const getStatus = handlers.getStatus ?? ((taskId?: string) => ({
     activeTaskCount: taskStore.listActiveTasks().length,
+    roomCount: 0,
+    threadCount: 0,
+    knownSessionCount: 0,
+    sessionStatusCounts: {},
+    pausedSessionCount: 0,
+    pausedSessions: [],
+    recentDiagnostics: [],
     task: taskId ? taskStore.getTask(taskId) : undefined
   }));
+
+  const getDiagnostics = handlers.getDiagnostics;
+  const pauseSession = handlers.pauseSession;
+  const resumeSession = handlers.resumeSession;
 
   const readTaskResource = (taskId: string) => ({
     uri: `relay://task/${taskId}`,
@@ -85,6 +119,9 @@ export function createRelayOpsMcpServer(
   const exportTranscript = handlers.exportTranscript;
 
   server.registerTool("relay-status", { description: "Read relay task status", inputSchema: { taskId: z.string().optional() } }, async ({ taskId }) => ({ content: [{ type: "text", text: JSON.stringify(getStatus(taskId), null, 2) }] }) as never);
+  server.registerTool("relay-diagnostics", { description: "Read recent relay diagnostics", inputSchema: { limit: z.number().int().positive().optional() } }, async ({ limit }) => ({ content: [{ type: "text", text: JSON.stringify(getDiagnostics(limit), null, 2) }] }) as never);
+  server.registerTool("relay-pause", { description: "Pause automated relay delivery for a session", inputSchema: { sessionID: z.string(), reason: z.string().optional() } }, async ({ sessionID, reason }) => ({ content: [{ type: "text", text: JSON.stringify(pauseSession(sessionID, reason), null, 2) }] }) as never);
+  server.registerTool("relay-resume", { description: "Resume automated relay delivery for a session", inputSchema: { sessionID: z.string() } }, async ({ sessionID }) => ({ content: [{ type: "text", text: JSON.stringify(resumeSession(sessionID), null, 2) }] }) as never);
   server.registerTool("relay-replay", { description: "Replay a recoverable relay task", inputSchema: { taskId: z.string() } }, async ({ taskId }) => ({ content: [{ type: "text", text: JSON.stringify(await replayTask(taskId), null, 2) }] }) as never);
   server.registerTool("relay-room-members", { description: "List active room members", inputSchema: { roomCode: z.string() } }, async ({ roomCode }) => ({ content: [{ type: "text", text: JSON.stringify(listRoomMembers(roomCode), null, 2) }] }) as never);
   server.registerTool("relay-thread-create", { description: "Create a durable relay thread", inputSchema: { roomCode: z.string(), kind: z.enum(["direct", "group"]), createdBySessionID: z.string(), participantSessionIDs: z.array(z.string()).min(2), title: z.string().optional() } }, async ({ roomCode, kind, createdBySessionID, participantSessionIDs, title }) => ({ content: [{ type: "text", text: JSON.stringify(createThread({ roomCode, kind, createdBySessionID, participantSessionIDs, title }), null, 2) }] }) as never);
@@ -100,6 +137,9 @@ export function createRelayOpsMcpServer(
     server,
     toolNames: [
       "relay-status",
+      "relay-diagnostics",
+      "relay-pause",
+      "relay-resume",
       "relay-replay",
       "relay-room-members",
       "relay-thread-create",
@@ -111,6 +151,9 @@ export function createRelayOpsMcpServer(
     ],
     readTaskResource,
     getStatus,
+    getDiagnostics,
+    pauseSession,
+    resumeSession,
     replayTask,
     listRoomMembers,
     createThread,

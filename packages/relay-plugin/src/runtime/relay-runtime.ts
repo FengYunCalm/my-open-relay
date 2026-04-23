@@ -15,7 +15,7 @@ import { mapTaskStatusEvent, TaskEventHub } from "../a2a/mapper/outbound-events.
 import type { A2AHostResponse, JsonValue } from "../a2a/host.js";
 import type { RelayPluginConfig } from "../config.js";
 import { createRelayOpsMcpServer, type RelayOpsMcp } from "../internal/mcp/server.js";
-import { AuditStore } from "../internal/store/audit-store.js";
+import { AuditStore, type AuditEventRecord } from "../internal/store/audit-store.js";
 import { MessageStore, type RelayMessage } from "../internal/store/message-store.js";
 import { RelayRoomOrchestrator } from "../internal/orchestration/relay-room-orchestrator.js";
 import { RoomStore, type RelayRoom, type RelayRoomKind, type RelayRoomMemberRole } from "../internal/store/room-store.js";
@@ -209,6 +209,10 @@ export class RelayRuntime {
 
   createInternalOpsMcp(): RelayOpsMcp {
     return createRelayOpsMcpServer(this.taskStore, this.auditStore, this.roomStore, this.threadStore, this.messageStore, {
+      getStatus: (taskId) => this.getOperationsStatus(taskId),
+      getDiagnostics: (limit) => this.getRecentDiagnostics(limit),
+      pauseSession: (sessionID, reason) => this.pauseAutomation(sessionID, reason),
+      resumeSession: (sessionID) => this.resumeAutomation(sessionID),
       replayTask: async (taskId) => this.replayTask(taskId),
       listRoomMembers: (roomCode) => this.listRoomMembers(roomCode),
       createThread: (input) => this.createThread(input),
@@ -520,6 +524,55 @@ export class RelayRuntime {
 
   getTeamStatus(sessionID: string, runId?: string, roomCode?: string): RelayTeamStatusView {
     return this.teamStatusService.getTeamStatus(sessionID, runId, roomCode);
+  }
+
+  getOperationsStatus(taskId?: string, recentDiagnosticLimit = 10): {
+    activeTaskCount: number;
+    roomCount: number;
+    threadCount: number;
+    knownSessionCount: number;
+    sessionStatusCounts: Record<string, number>;
+    pausedSessionCount: number;
+    pausedSessions: Array<{ sessionID: string; reason: string }>;
+    recentDiagnostics: AuditEventRecord[];
+    task?: StoredRelayTask;
+  } {
+    const sessionSnapshots = this.sessionRegistry.entries();
+    const sessionStatusCounts = sessionSnapshots.reduce<Record<string, number>>((acc, snapshot) => {
+      const statusType = snapshot.status?.type ?? "unknown";
+      acc[statusType] = (acc[statusType] ?? 0) + 1;
+      return acc;
+    }, {});
+
+    return {
+      activeTaskCount: this.taskStore.listActiveTasks().length,
+      roomCount: this.roomStore.countRooms(),
+      threadCount: this.threadStore.countThreads(),
+      knownSessionCount: sessionSnapshots.length,
+      sessionStatusCounts,
+      pausedSessionCount: this.humanGuard.listPausedSessions().length,
+      pausedSessions: this.humanGuard.listPausedSessions(),
+      recentDiagnostics: this.getRecentDiagnostics(recentDiagnosticLimit),
+      task: taskId ? this.taskStore.getTask(taskId) : undefined
+    };
+  }
+
+  getRecentDiagnostics(limit = 10): AuditEventRecord[] {
+    return this.auditStore.list(RelayRuntime.diagnosticsTaskId).slice(-limit);
+  }
+
+  pauseAutomation(sessionID: string, reason = "human takeover"): { sessionID: string; reason: string; paused: true } {
+    this.humanGuard.pauseSession(sessionID, reason);
+    this.recordDiagnostic("relay.session.paused", { sessionID, reason });
+    return { sessionID, reason, paused: true };
+  }
+
+  resumeAutomation(sessionID: string): { sessionID: string; resumed: boolean; previousReason?: string } {
+    const previousReason = this.humanGuard.reason(sessionID);
+    const wasPaused = this.humanGuard.isPaused(sessionID);
+    this.humanGuard.resumeSession(sessionID);
+    this.recordDiagnostic("relay.session.resumed", { sessionID, previousReason, resumed: wasPaused });
+    return { sessionID, resumed: wasPaused, previousReason };
   }
 
   buildTeamCompactionContext(sessionID: string, limit: number): string[] {

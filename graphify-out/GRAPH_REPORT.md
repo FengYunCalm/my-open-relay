@@ -1,11 +1,11 @@
 # Graph Report - .  (2026-04-23)
 
 ## Corpus Check
-- 114 files · ~50,378 words
+- 114 files · ~51,115 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 476 nodes · 522 edges · 114 communities detected
+- 483 nodes · 532 edges · 114 communities detected
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
@@ -126,10 +126,10 @@
 - [[_COMMUNITY_Community 113|Community 113]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `RelayRuntime` - 39 edges
+1. `RelayRuntime` - 43 edges
 2. `TeamStore` - 24 edges
-3. `RoomStore` - 23 edges
-4. `ThreadStore` - 22 edges
+3. `RoomStore` - 24 edges
+4. `ThreadStore` - 23 edges
 5. `RelayRoomOrchestrator` - 19 edges
 6. `RelayMcpService` - 15 edges
 7. `TaskStore` - 14 edges
@@ -151,7 +151,7 @@ Cohesion: 0.14
 Nodes (3): createRunId(), deserializeEvidence(), TeamStore
 
 ### Community 2 - "Community 2"
-Cohesion: 0.13
+Cohesion: 0.12
 Nodes (4): createRoomCode(), normalizeAlias(), RoomStore, shouldRetryRoomMutation()
 
 ### Community 3 - "Community 3"
@@ -215,12 +215,12 @@ Cohesion: 0.29
 Nodes (1): AuditStore
 
 ### Community 18 - "Community 18"
-Cohesion: 0.33
-Nodes (1): SessionInjector
+Cohesion: 0.29
+Nodes (1): HumanGuard
 
 ### Community 19 - "Community 19"
 Cohesion: 0.33
-Nodes (1): HumanGuard
+Nodes (1): SessionInjector
 
 ### Community 20 - "Community 20"
 Cohesion: 0.33
@@ -762,7 +762,7 @@ _Questions this graph is uniquely positioned to answer:_
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.14 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
-  _Cohesion score 0.13 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.12 - nodes in this community are weakly interconnected._
 - **Should `Community 3` be split into smaller, more focused modules?**
   _Cohesion score 0.13 - nodes in this community are weakly interconnected._
 - **Should `Community 6` be split into smaller, more focused modules?**
