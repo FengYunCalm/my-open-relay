@@ -1,11 +1,11 @@
 # Graph Report - .  (2026-04-23)
 
 ## Corpus Check
-- 110 files · ~50,061 words
+- 111 files · ~50,218 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 460 nodes · 508 edges · 111 communities detected
+- 465 nodes · 512 edges · 111 communities detected
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
@@ -123,7 +123,7 @@
 - [[_COMMUNITY_Community 110|Community 110]]
 
 ## God Nodes (most connected - your core abstractions)
-1. `RelayRuntime` - 46 edges
+1. `RelayRuntime` - 39 edges
 2. `TeamStore` - 24 edges
 3. `RoomStore` - 23 edges
 4. `ThreadStore` - 22 edges
@@ -131,8 +131,8 @@
 6. `RelayMcpService` - 15 edges
 7. `TaskStore` - 14 edges
 8. `A2ARelayHost` - 11 edges
-9. `MessageStore` - 10 edges
-10. `SessionLinkStore` - 6 edges
+9. `TeamStatusService` - 11 edges
+10. `MessageStore` - 10 edges
 
 ## Surprising Connections (you probably didn't know these)
 - None detected - all connections are within the same source files.
@@ -140,8 +140,8 @@
 ## Communities
 
 ### Community 0 - "Community 0"
-Cohesion: 0.07
-Nodes (2): RelayRuntime, renderMessagePart()
+Cohesion: 0.06
+Nodes (8): getAcceptedDispatchSessionID(), isTaskDispatchAccepted(), jsonRpcError(), jsonRpcSuccess(), RelayRuntime, renderMessagePart(), sanitizeMessage(), sanitizePublicTask()
 
 ### Community 1 - "Community 1"
 Cohesion: 0.14
@@ -176,8 +176,8 @@ Cohesion: 0.22
 Nodes (3): createMessageId(), MessageStore, shouldRetryMessageInsert()
 
 ### Community 9 - "Community 9"
-Cohesion: 0.26
-Nodes (6): getAcceptedDispatchSessionID(), isTaskDispatchAccepted(), jsonRpcError(), jsonRpcSuccess(), sanitizeMessage(), sanitizePublicTask()
+Cohesion: 0.29
+Nodes (1): TeamStatusService
 
 ### Community 10 - "Community 10"
 Cohesion: 0.24
@@ -740,10 +740,8 @@ Nodes (0):
 ## Suggested Questions
 _Questions this graph is uniquely positioned to answer:_
 
-- **Why does `RelayRuntime` connect `Community 0` to `Community 9`?**
-  _High betweenness centrality (0.013) - this node is a cross-community bridge._
 - **Should `Community 0` be split into smaller, more focused modules?**
-  _Cohesion score 0.07 - nodes in this community are weakly interconnected._
+  _Cohesion score 0.06 - nodes in this community are weakly interconnected._
 - **Should `Community 1` be split into smaller, more focused modules?**
   _Cohesion score 0.14 - nodes in this community are weakly interconnected._
 - **Should `Community 2` be split into smaller, more focused modules?**
