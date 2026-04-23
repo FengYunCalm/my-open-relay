@@ -1,0 +1,99 @@
+import { afterEach, describe, expect, it, vi } from "vitest";
+import type { PluginInput } from "@opencode-ai/plugin";
+
+import { RelayPlugin, getRelayPluginStateForTest, stopRelayPlugin } from "../support/relay-plugin-testkit.js";
+import { cleanupDatabaseLocation, createTestDatabaseLocation } from "./test-db.js";
+
+const dbLocations: string[] = [];
+
+function createPluginInput(projectID = "project-team-message-format", promptAsync = vi.fn().mockResolvedValue({ data: true })): PluginInput {
+  return {
+    client: {
+      session: {
+        prompt: vi.fn().mockResolvedValue({ data: true }),
+        promptAsync
+      }
+    } as unknown as PluginInput["client"],
+    project: {
+      id: projectID,
+      worktree: "C:/relay-project",
+      time: { created: Date.now() }
+    } as PluginInput["project"],
+    directory: "C:/relay-project",
+    worktree: "C:/relay-project",
+    serverUrl: new URL("http://127.0.0.1:4096"),
+    $: {} as PluginInput["$"]
+  };
+}
+
+afterEach(async () => {
+  await stopRelayPlugin("project-team-message-format");
+  dbLocations.splice(0).forEach(cleanupDatabaseLocation);
+});
+
+describe("manager relay message formatting", () => {
+  it("injects a compact manager summary with worker session links for team thread updates", async () => {
+    const databasePath = createTestDatabaseLocation("team-message-format");
+    dbLocations.push(databasePath);
+    const promptAsync = vi.fn().mockResolvedValue({ data: true });
+    await RelayPlugin(createPluginInput("project-team-message-format", promptAsync), {
+      a2a: { port: 0 },
+      routing: { mode: "pair" },
+      runtime: { databasePath }
+    });
+
+    const state = getRelayPluginStateForTest("project-team-message-format")!;
+    const room = state.runtime.createRoom("session-manager", "group");
+    state.runtime.roomStore.joinRoom(room.roomCode, "session-reviewer", "reviewer");
+    const run = state.runtime.teamStore.createRun({
+      managerSessionID: "session-manager",
+      roomCode: room.roomCode,
+      task: "测试一下"
+    });
+    state.runtime.teamStore.addWorker({
+      runId: run.runId,
+      sessionID: "session-reviewer",
+      role: "reviewer",
+      alias: "reviewer",
+      title: "team/reviewer: 测试一下"
+    });
+    state.runtime.teamStore.addWorker({
+      runId: run.runId,
+      sessionID: "session-planner",
+      role: "planner",
+      alias: "planner",
+      title: "team/planner: 测试一下"
+    });
+    state.runtime.teamStore.addWorker({
+      runId: run.runId,
+      sessionID: "session-implementer",
+      role: "implementer",
+      alias: "implementer",
+      title: "team/implementer: 测试一下"
+    });
+
+    const thread = state.runtime.createThread({
+      roomCode: room.roomCode,
+      kind: "group",
+      createdBySessionID: "session-manager",
+      participantSessionIDs: ["session-manager", "session-reviewer"],
+      title: "room-main"
+    });
+
+    await state.runtime.sendThreadMessage({
+      threadId: thread.threadId,
+      senderSessionID: "session-reviewer",
+      message: '[TEAM_DONE] {"source":"omo","phase":"signal-review-complete","note":"Verdict pass","progress":100,"evidence":["ok"]}',
+      messageType: "relay"
+    });
+
+    expect(promptAsync).toHaveBeenCalledTimes(1);
+    const promptText = promptAsync.mock.calls[0]?.[0]?.body?.parts?.[0]?.text as string;
+    expect(promptText).toContain("[RELAY TEAM UPDATE]");
+    expect(promptText).toContain("[planner](/QzovcmVsYXktcHJvamVjdA/session/session-planner)");
+    expect(promptText).toContain("[implementer](/QzovcmVsYXktcHJvamVjdA/session/session-implementer)");
+    expect(promptText).toContain("[reviewer](/QzovcmVsYXktcHJvamVjdA/session/session-reviewer)");
+    expect(promptText).toContain("reviewer (member) DONE [phase=signal-review-complete · progress=100% · source=omo]: Verdict pass");
+    expect(promptText).not.toContain("[RELAYED AGENT INPUT]");
+  });
+});

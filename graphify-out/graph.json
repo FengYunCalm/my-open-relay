@@ -9,7 +9,7 @@
       "source_file": "vitest.config.ts",
       "source_location": "L1",
       "id": "vitest_config_ts",
-      "community": 70
+      "community": 71
     },
     {
       "label": "index.ts",
@@ -273,7 +273,7 @@
       "source_file": "packages/relay-plugin/src/local-plugin.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_local_plugin_ts",
-      "community": 71
+      "community": 72
     },
     {
       "label": "config.ts",
@@ -281,7 +281,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_config_ts",
-      "community": 14
+      "community": 15
     },
     {
       "label": "resolveInstalledConfigPathFromModuleUrl()",
@@ -289,7 +289,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L63",
       "id": "config_resolveinstalledconfigpathfrommoduleurl",
-      "community": 14
+      "community": 15
     },
     {
       "label": "resolveInstalledConfigPath()",
@@ -297,7 +297,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L74",
       "id": "config_resolveinstalledconfigpath",
-      "community": 14
+      "community": 15
     },
     {
       "label": "loadInstalledRelayPluginConfig()",
@@ -305,7 +305,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L82",
       "id": "config_loadinstalledrelaypluginconfig",
-      "community": 14
+      "community": 15
     },
     {
       "label": "mergeRelayPluginConfig()",
@@ -313,7 +313,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L92",
       "id": "config_mergerelaypluginconfig",
-      "community": 14
+      "community": 15
     },
     {
       "label": "isRelayPairAllowed()",
@@ -321,7 +321,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L110",
       "id": "config_isrelaypairallowed",
-      "community": 14
+      "community": 15
     },
     {
       "label": "resolveRelayPluginConfig()",
@@ -329,7 +329,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L132",
       "id": "config_resolverelaypluginconfig",
-      "community": 14
+      "community": 15
     },
     {
       "label": "buildRelayPluginInstanceKey()",
@@ -337,7 +337,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L139",
       "id": "config_buildrelayplugininstancekey",
-      "community": 14
+      "community": 15
     },
     {
       "label": "relay-mcp-server.ts",
@@ -1041,7 +1041,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_store_session_link_store_ts",
-      "community": 16
+      "community": 17
     },
     {
       "label": "SessionLinkStore",
@@ -1049,7 +1049,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L4",
       "id": "session_link_store_sessionlinkstore",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".constructor()",
@@ -1057,7 +1057,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L7",
       "id": "session_link_store_sessionlinkstore_constructor",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".transaction()",
@@ -1065,7 +1065,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L12",
       "id": "session_link_store_sessionlinkstore_transaction",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".link()",
@@ -1073,7 +1073,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L16",
       "id": "session_link_store_sessionlinkstore_link",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".getSessionID()",
@@ -1081,7 +1081,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L22",
       "id": "session_link_store_sessionlinkstore_getsessionid",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".close()",
@@ -1089,7 +1089,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L30",
       "id": "session_link_store_sessionlinkstore_close",
-      "community": 16
+      "community": 17
     },
     {
       "label": "audit-store.ts",
@@ -1097,7 +1097,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_store_audit_store_ts",
-      "community": 17
+      "community": 18
     },
     {
       "label": "AuditStore",
@@ -1105,7 +1105,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L12",
       "id": "audit_store_auditstore",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".constructor()",
@@ -1113,7 +1113,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L15",
       "id": "audit_store_auditstore_constructor",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".transaction()",
@@ -1121,7 +1121,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L20",
       "id": "audit_store_auditstore_transaction",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".append()",
@@ -1129,7 +1129,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L24",
       "id": "audit_store_auditstore_append",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".list()",
@@ -1137,7 +1137,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L39",
       "id": "audit_store_auditstore_list",
-      "community": 17
+      "community": 18
     },
     {
       "label": ".close()",
@@ -1145,7 +1145,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L59",
       "id": "audit_store_auditstore_close",
-      "community": 17
+      "community": 18
     },
     {
       "label": "message-store.ts",
@@ -2289,7 +2289,7 @@
       "source_file": "packages/relay-plugin/src/runtime/injector.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_injector_ts",
-      "community": 19
+      "community": 20
     },
     {
       "label": "SessionInjector",
@@ -2297,7 +2297,7 @@
       "source_file": "packages/relay-plugin/src/runtime/injector.ts",
       "source_location": "L33",
       "id": "injector_sessioninjector",
-      "community": 19
+      "community": 20
     },
     {
       "label": ".constructor()",
@@ -2305,7 +2305,7 @@
       "source_file": "packages/relay-plugin/src/runtime/injector.ts",
       "source_location": "L34",
       "id": "injector_sessioninjector_constructor",
-      "community": 19
+      "community": 20
     },
     {
       "label": ".injectAnchor()",
@@ -2313,7 +2313,7 @@
       "source_file": "packages/relay-plugin/src/runtime/injector.ts",
       "source_location": "L36",
       "id": "injector_sessioninjector_injectanchor",
-      "community": 19
+      "community": 20
     },
     {
       "label": ".injectAsync()",
@@ -2321,7 +2321,7 @@
       "source_file": "packages/relay-plugin/src/runtime/injector.ts",
       "source_location": "L47",
       "id": "injector_sessioninjector_injectasync",
-      "community": 19
+      "community": 20
     },
     {
       "label": ".submitAsync()",
@@ -2329,7 +2329,7 @@
       "source_file": "packages/relay-plugin/src/runtime/injector.ts",
       "source_location": "L58",
       "id": "injector_sessioninjector_submitasync",
-      "community": 19
+      "community": 20
     },
     {
       "label": "human-guard.ts",
@@ -2337,7 +2337,7 @@
       "source_file": "packages/relay-plugin/src/runtime/human-guard.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_human_guard_ts",
-      "community": 18
+      "community": 19
     },
     {
       "label": "HumanGuard",
@@ -2345,7 +2345,7 @@
       "source_file": "packages/relay-plugin/src/runtime/human-guard.ts",
       "source_location": "L1",
       "id": "human_guard_humanguard",
-      "community": 18
+      "community": 19
     },
     {
       "label": ".pauseSession()",
@@ -2353,7 +2353,7 @@
       "source_file": "packages/relay-plugin/src/runtime/human-guard.ts",
       "source_location": "L4",
       "id": "human_guard_humanguard_pausesession",
-      "community": 18
+      "community": 19
     },
     {
       "label": ".resumeSession()",
@@ -2361,7 +2361,7 @@
       "source_file": "packages/relay-plugin/src/runtime/human-guard.ts",
       "source_location": "L8",
       "id": "human_guard_humanguard_resumesession",
-      "community": 18
+      "community": 19
     },
     {
       "label": ".isPaused()",
@@ -2369,7 +2369,7 @@
       "source_file": "packages/relay-plugin/src/runtime/human-guard.ts",
       "source_location": "L12",
       "id": "human_guard_humanguard_ispaused",
-      "community": 18
+      "community": 19
     },
     {
       "label": ".reason()",
@@ -2377,7 +2377,7 @@
       "source_file": "packages/relay-plugin/src/runtime/human-guard.ts",
       "source_location": "L20",
       "id": "human_guard_humanguard_reason",
-      "community": 18
+      "community": 19
     },
     {
       "label": ".listPausedSessions()",
@@ -2385,7 +2385,7 @@
       "source_file": "packages/relay-plugin/src/runtime/human-guard.ts",
       "source_location": "L28",
       "id": "human_guard_humanguard_listpausedsessions",
-      "community": 18
+      "community": 19
     },
     {
       "label": "relay-runtime.ts",
@@ -2487,7 +2487,7 @@
       "label": ".constructor()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L145",
+      "source_location": "L146",
       "id": "relay_runtime_relayruntime_constructor",
       "community": 0
     },
@@ -2495,7 +2495,7 @@
       "label": ".close()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L196",
+      "source_location": "L197",
       "id": "relay_runtime_relayruntime_close",
       "community": 0
     },
@@ -2503,7 +2503,7 @@
       "label": ".buildAgentCard()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L206",
+      "source_location": "L207",
       "id": "relay_runtime_relayruntime_buildagentcard",
       "community": 0
     },
@@ -2511,7 +2511,7 @@
       "label": ".createInternalOpsMcp()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L210",
+      "source_location": "L211",
       "id": "relay_runtime_relayruntime_createinternalopsmcp",
       "community": 0
     },
@@ -2519,7 +2519,7 @@
       "label": ".handleJsonRpc()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L227",
+      "source_location": "L228",
       "id": "relay_runtime_relayruntime_handlejsonrpc",
       "community": 0
     },
@@ -2527,7 +2527,7 @@
       "label": ".resolveRoomForSession()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L264",
+      "source_location": "L265",
       "id": "relay_runtime_relayruntime_resolveroomforsession",
       "community": 0
     },
@@ -2535,7 +2535,7 @@
       "label": ".getPeerSessionID()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L268",
+      "source_location": "L269",
       "id": "relay_runtime_relayruntime_getpeersessionid",
       "community": 0
     },
@@ -2543,7 +2543,7 @@
       "label": ".createRoom()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L272",
+      "source_location": "L273",
       "id": "relay_runtime_relayruntime_createroom",
       "community": 0
     },
@@ -2551,7 +2551,7 @@
       "label": ".joinRoom()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L276",
+      "source_location": "L277",
       "id": "relay_runtime_relayruntime_joinroom",
       "community": 0
     },
@@ -2559,7 +2559,7 @@
       "label": ".onSessionStatus()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L292",
+      "source_location": "L293",
       "id": "relay_runtime_relayruntime_onsessionstatus",
       "community": 0
     },
@@ -2567,7 +2567,7 @@
       "label": ".sendRoomMessage()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L337",
+      "source_location": "L338",
       "id": "relay_runtime_relayruntime_sendroommessage",
       "community": 0
     },
@@ -2575,7 +2575,7 @@
       "label": ".interveneTeam()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L374",
+      "source_location": "L375",
       "id": "relay_runtime_relayruntime_interveneteam",
       "community": 0
     },
@@ -2583,7 +2583,7 @@
       "label": ".applyTeamPolicy()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L451",
+      "source_location": "L452",
       "id": "relay_runtime_relayruntime_applyteampolicy",
       "community": 0
     },
@@ -2591,7 +2591,7 @@
       "label": ".cleanupTeam()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L525",
+      "source_location": "L526",
       "id": "relay_runtime_relayruntime_cleanupteam",
       "community": 0
     },
@@ -2599,7 +2599,7 @@
       "label": ".getTeamStatus()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L664",
+      "source_location": "L665",
       "id": "relay_runtime_relayruntime_getteamstatus",
       "community": 0
     },
@@ -2607,7 +2607,7 @@
       "label": ".getOperationsStatus()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L668",
+      "source_location": "L669",
       "id": "relay_runtime_relayruntime_getoperationsstatus",
       "community": 0
     },
@@ -2615,7 +2615,7 @@
       "label": ".getRecentDiagnostics()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L699",
+      "source_location": "L700",
       "id": "relay_runtime_relayruntime_getrecentdiagnostics",
       "community": 0
     },
@@ -2623,7 +2623,7 @@
       "label": ".pauseAutomation()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L703",
+      "source_location": "L704",
       "id": "relay_runtime_relayruntime_pauseautomation",
       "community": 0
     },
@@ -2631,7 +2631,7 @@
       "label": ".resumeAutomation()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L709",
+      "source_location": "L710",
       "id": "relay_runtime_relayruntime_resumeautomation",
       "community": 0
     },
@@ -2639,7 +2639,7 @@
       "label": ".buildTeamCompactionContext()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L717",
+      "source_location": "L718",
       "id": "relay_runtime_relayruntime_buildteamcompactioncontext",
       "community": 0
     },
@@ -2647,7 +2647,7 @@
       "label": ".flushPendingForKnownIdleSessions()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L721",
+      "source_location": "L722",
       "id": "relay_runtime_relayruntime_flushpendingforknownidlesessions",
       "community": 0
     },
@@ -2655,7 +2655,7 @@
       "label": ".recordDiagnostic()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L735",
+      "source_location": "L736",
       "id": "relay_runtime_relayruntime_recorddiagnostic",
       "community": 0
     },
@@ -2663,7 +2663,7 @@
       "label": ".describeSessionClientError()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L739",
+      "source_location": "L740",
       "id": "relay_runtime_relayruntime_describesessionclienterror",
       "community": 0
     },
@@ -2671,7 +2671,7 @@
       "label": ".replayTask()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L752",
+      "source_location": "L753",
       "id": "relay_runtime_relayruntime_replaytask",
       "community": 0
     },
@@ -2679,7 +2679,7 @@
       "label": ".listThreads()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L781",
+      "source_location": "L782",
       "id": "relay_runtime_relayruntime_listthreads",
       "community": 0
     },
@@ -2687,7 +2687,7 @@
       "label": ".listRoomMembers()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L785",
+      "source_location": "L786",
       "id": "relay_runtime_relayruntime_listroommembers",
       "community": 0
     },
@@ -2695,7 +2695,7 @@
       "label": ".setRoomMemberRole()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L789",
+      "source_location": "L790",
       "id": "relay_runtime_relayruntime_setroommemberrole",
       "community": 0
     },
@@ -2703,7 +2703,7 @@
       "label": ".createThread()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L793",
+      "source_location": "L794",
       "id": "relay_runtime_relayruntime_createthread",
       "community": 0
     },
@@ -2711,7 +2711,7 @@
       "label": ".listMessages()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L803",
+      "source_location": "L804",
       "id": "relay_runtime_relayruntime_listmessages",
       "community": 0
     },
@@ -2719,7 +2719,7 @@
       "label": ".markThreadRead()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L807",
+      "source_location": "L808",
       "id": "relay_runtime_relayruntime_markthreadread",
       "community": 0
     },
@@ -2727,7 +2727,7 @@
       "label": ".exportTranscript()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L811",
+      "source_location": "L812",
       "id": "relay_runtime_relayruntime_exporttranscript",
       "community": 0
     },
@@ -2735,7 +2735,7 @@
       "label": ".sendThreadMessage()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L815",
+      "source_location": "L816",
       "id": "relay_runtime_relayruntime_sendthreadmessage",
       "community": 0
     },
@@ -2743,7 +2743,7 @@
       "label": ".dispatchTask()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L829",
+      "source_location": "L830",
       "id": "relay_runtime_relayruntime_dispatchtask",
       "community": 0
     },
@@ -2751,7 +2751,7 @@
       "label": ".dispatchStoredTask()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L839",
+      "source_location": "L840",
       "id": "relay_runtime_relayruntime_dispatchstoredtask",
       "community": 0
     },
@@ -2759,7 +2759,7 @@
       "label": ".assertRouteAllowed()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L887",
+      "source_location": "L888",
       "id": "relay_runtime_relayruntime_assertrouteallowed",
       "community": 0
     },
@@ -2767,7 +2767,7 @@
       "label": ".ensureDefaultThreadsForRoom()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L898",
+      "source_location": "L899",
       "id": "relay_runtime_relayruntime_ensuredefaultthreadsforroom",
       "community": 0
     },
@@ -2775,7 +2775,7 @@
       "label": ".reserveThreadNotifications()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L902",
+      "source_location": "L903",
       "id": "relay_runtime_relayruntime_reservethreadnotifications",
       "community": 0
     },
@@ -2783,7 +2783,7 @@
       "label": ".releaseThreadNotifications()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L917",
+      "source_location": "L918",
       "id": "relay_runtime_relayruntime_releasethreadnotifications",
       "community": 0
     },
@@ -2791,7 +2791,7 @@
       "label": ".notifyPendingMessages()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L923",
+      "source_location": "L924",
       "id": "relay_runtime_relayruntime_notifypendingmessages",
       "community": 0
     },
@@ -2799,7 +2799,7 @@
       "label": ".resolveNotificationDecision()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L965",
+      "source_location": "L966",
       "id": "relay_runtime_relayruntime_resolvenotificationdecision",
       "community": 0
     },
@@ -2807,7 +2807,7 @@
       "label": ".notifyThreadParticipant()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L978",
+      "source_location": "L979",
       "id": "relay_runtime_relayruntime_notifythreadparticipant",
       "community": 0
     },
@@ -2815,7 +2815,7 @@
       "label": ".notifyPrivateRoomPeer()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L1006",
+      "source_location": "L1036",
       "id": "relay_runtime_relayruntime_notifyprivateroompeer",
       "community": 0
     },
@@ -2823,7 +2823,7 @@
       "label": ".streamTaskEvents()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L1025",
+      "source_location": "L1055",
       "id": "relay_runtime_relayruntime_streamtaskevents",
       "community": 0
     },
@@ -2831,7 +2831,7 @@
       "label": ".recordRejectedTeamSignal()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L1032",
+      "source_location": "L1062",
       "id": "relay_runtime_relayruntime_recordrejectedteamsignal",
       "community": 0
     },
@@ -2841,7 +2841,7 @@
       "source_file": "packages/relay-plugin/src/runtime/session-registry.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_session_registry_ts",
-      "community": 20
+      "community": 21
     },
     {
       "label": "SessionRegistry",
@@ -2849,7 +2849,7 @@
       "source_file": "packages/relay-plugin/src/runtime/session-registry.ts",
       "source_location": "L9",
       "id": "session_registry_sessionregistry",
-      "community": 20
+      "community": 21
     },
     {
       "label": ".upsert()",
@@ -2857,7 +2857,7 @@
       "source_file": "packages/relay-plugin/src/runtime/session-registry.ts",
       "source_location": "L12",
       "id": "session_registry_sessionregistry_upsert",
-      "community": 20
+      "community": 21
     },
     {
       "label": ".get()",
@@ -2865,7 +2865,7 @@
       "source_file": "packages/relay-plugin/src/runtime/session-registry.ts",
       "source_location": "L16",
       "id": "session_registry_sessionregistry_get",
-      "community": 20
+      "community": 21
     },
     {
       "label": ".remove()",
@@ -2873,7 +2873,7 @@
       "source_file": "packages/relay-plugin/src/runtime/session-registry.ts",
       "source_location": "L20",
       "id": "session_registry_sessionregistry_remove",
-      "community": 20
+      "community": 21
     },
     {
       "label": ".entries()",
@@ -2881,7 +2881,7 @@
       "source_file": "packages/relay-plugin/src/runtime/session-registry.ts",
       "source_location": "L24",
       "id": "session_registry_sessionregistry_entries",
-      "community": 20
+      "community": 21
     },
     {
       "label": "delivery-gate.ts",
@@ -2905,39 +2905,71 @@
       "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
-      "community": 22
+      "community": 14
+    },
+    {
+      "label": "encodeDirectorySlug()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L12",
+      "id": "prompt_preamble_encodedirectoryslug",
+      "community": 14
+    },
+    {
+      "label": "createSessionHref()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L20",
+      "id": "prompt_preamble_createsessionhref",
+      "community": 14
+    },
+    {
+      "label": "renderManagerMessageLine()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L24",
+      "id": "prompt_preamble_rendermanagermessageline",
+      "community": 14
+    },
+    {
+      "label": "buildManagerThreadRelayPrompt()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L50",
+      "id": "prompt_preamble_buildmanagerthreadrelayprompt",
+      "community": 14
     },
     {
       "label": "renderMessageBody()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
-      "source_location": "L5",
+      "source_location": "L84",
       "id": "prompt_preamble_rendermessagebody",
-      "community": 22
+      "community": 14
     },
     {
       "label": "renderPrivateRelayMessage()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
-      "source_location": "L10",
+      "source_location": "L89",
       "id": "prompt_preamble_renderprivaterelaymessage",
-      "community": 22
+      "community": 14
     },
     {
       "label": "buildTaskRelayPrompt()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
-      "source_location": "L14",
+      "source_location": "L93",
       "id": "prompt_preamble_buildtaskrelayprompt",
-      "community": 22
+      "community": 14
     },
     {
       "label": "buildThreadRelayPrompt()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
-      "source_location": "L32",
+      "source_location": "L111",
       "id": "prompt_preamble_buildthreadrelayprompt",
-      "community": 22
+      "community": 14
     },
     {
       "label": "compaction-anchor.ts",
@@ -3041,7 +3073,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_plugin_instance_registry_ts",
-      "community": 15
+      "community": 16
     },
     {
       "label": "registerRelayPluginState()",
@@ -3049,7 +3081,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L7",
       "id": "plugin_instance_registry_registerrelaypluginstate",
-      "community": 15
+      "community": 16
     },
     {
       "label": "registerRelayProjectInstance()",
@@ -3057,7 +3089,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L11",
       "id": "plugin_instance_registry_registerrelayprojectinstance",
-      "community": 15
+      "community": 16
     },
     {
       "label": "readRelayPluginState()",
@@ -3065,7 +3097,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L15",
       "id": "plugin_instance_registry_readrelaypluginstate",
-      "community": 15
+      "community": 16
     },
     {
       "label": "registerRelayPluginStartup()",
@@ -3073,7 +3105,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L20",
       "id": "plugin_instance_registry_registerrelaypluginstartup",
-      "community": 15
+      "community": 16
     },
     {
       "label": "readRelayPluginStartup()",
@@ -3081,7 +3113,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L24",
       "id": "plugin_instance_registry_readrelaypluginstartup",
-      "community": 15
+      "community": 16
     },
     {
       "label": "deleteRelayPluginStartup()",
@@ -3089,7 +3121,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L28",
       "id": "plugin_instance_registry_deleterelaypluginstartup",
-      "community": 15
+      "community": 16
     },
     {
       "label": "deleteRelayPluginState()",
@@ -3097,7 +3129,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L32",
       "id": "plugin_instance_registry_deleterelaypluginstate",
-      "community": 15
+      "community": 16
     },
     {
       "label": "response-observer.ts",
@@ -3105,7 +3137,7 @@
       "source_file": "packages/relay-plugin/src/runtime/response-observer.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_response_observer_ts",
-      "community": 21
+      "community": 22
     },
     {
       "label": "ResponseObserver",
@@ -3113,7 +3145,7 @@
       "source_file": "packages/relay-plugin/src/runtime/response-observer.ts",
       "source_location": "L8",
       "id": "response_observer_responseobserver",
-      "community": 21
+      "community": 22
     },
     {
       "label": ".constructor()",
@@ -3121,7 +3153,7 @@
       "source_file": "packages/relay-plugin/src/runtime/response-observer.ts",
       "source_location": "L9",
       "id": "response_observer_responseobserver_constructor",
-      "community": 21
+      "community": 22
     },
     {
       "label": ".accept()",
@@ -3129,7 +3161,7 @@
       "source_file": "packages/relay-plugin/src/runtime/response-observer.ts",
       "source_location": "L16",
       "id": "response_observer_responseobserver_accept",
-      "community": 21
+      "community": 22
     },
     {
       "label": ".updateStatus()",
@@ -3137,7 +3169,7 @@
       "source_file": "packages/relay-plugin/src/runtime/response-observer.ts",
       "source_location": "L29",
       "id": "response_observer_responseobserver_updatestatus",
-      "community": 21
+      "community": 22
     },
     {
       "label": ".appendArtifact()",
@@ -3145,7 +3177,7 @@
       "source_file": "packages/relay-plugin/src/runtime/response-observer.ts",
       "source_location": "L40",
       "id": "response_observer_responseobserver_appendartifact",
-      "community": 21
+      "community": 22
     },
     {
       "label": "message.ts",
@@ -3153,7 +3185,7 @@
       "source_file": "packages/a2a-protocol/src/message.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_message_ts",
-      "community": 72
+      "community": 73
     },
     {
       "label": "ids.ts",
@@ -3185,7 +3217,7 @@
       "source_file": "packages/a2a-protocol/src/task.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_task_ts",
-      "community": 73
+      "community": 74
     },
     {
       "label": "index.ts",
@@ -3193,7 +3225,7 @@
       "source_file": "packages/a2a-protocol/src/index.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_index_ts",
-      "community": 74
+      "community": 75
     },
     {
       "label": "agent-card.ts",
@@ -3217,7 +3249,7 @@
       "source_file": "packages/a2a-protocol/src/security.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_security_ts",
-      "community": 75
+      "community": 76
     },
     {
       "label": "events.ts",
@@ -3225,7 +3257,7 @@
       "source_file": "packages/a2a-protocol/src/events.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_events_ts",
-      "community": 76
+      "community": 77
     },
     {
       "label": "extensions.ts",
@@ -3233,7 +3265,7 @@
       "source_file": "packages/a2a-protocol/src/extensions.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_extensions_ts",
-      "community": 77
+      "community": 78
     },
     {
       "label": "jsonrpc.ts",
@@ -3241,7 +3273,7 @@
       "source_file": "packages/a2a-protocol/src/jsonrpc.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_jsonrpc_ts",
-      "community": 78
+      "community": 79
     },
     {
       "label": "time.ts",
@@ -3273,7 +3305,7 @@
       "source_file": "packages/relay-shared/src/index.ts",
       "source_location": "L1",
       "id": "packages_relay_shared_src_index_ts",
-      "community": 79
+      "community": 80
     },
     {
       "label": "result.ts",
@@ -3321,7 +3353,7 @@
       "source_file": "packages/relay-shared/src/constants.ts",
       "source_location": "L1",
       "id": "packages_relay_shared_src_constants_ts",
-      "community": 80
+      "community": 81
     },
     {
       "label": "restart-recovery.test.ts",
@@ -3329,7 +3361,7 @@
       "source_file": "tests/e2e/restart-recovery.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_restart_recovery_test_ts",
-      "community": 81
+      "community": 82
     },
     {
       "label": "replay-flow.test.ts",
@@ -3337,7 +3369,7 @@
       "source_file": "tests/e2e/replay-flow.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_replay_flow_test_ts",
-      "community": 82
+      "community": 83
     },
     {
       "label": "human-interrupt.test.ts",
@@ -3345,7 +3377,7 @@
       "source_file": "tests/e2e/human-interrupt.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_human_interrupt_test_ts",
-      "community": 83
+      "community": 84
     },
     {
       "label": "smoke.test.ts",
@@ -3353,7 +3385,7 @@
       "source_file": "tests/e2e/smoke.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_smoke_test_ts",
-      "community": 84
+      "community": 85
     },
     {
       "label": "duplicate-suppression.test.ts",
@@ -3361,7 +3393,7 @@
       "source_file": "tests/e2e/duplicate-suppression.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_duplicate_suppression_test_ts",
-      "community": 85
+      "community": 86
     },
     {
       "label": "a2a-happy-path.test.ts",
@@ -3369,7 +3401,7 @@
       "source_file": "tests/e2e/a2a-happy-path.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_a2a_happy_path_test_ts",
-      "community": 86
+      "community": 87
     },
     {
       "label": "streaming-status.test.ts",
@@ -3377,7 +3409,7 @@
       "source_file": "tests/e2e/streaming-status.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_streaming_status_test_ts",
-      "community": 87
+      "community": 88
     },
     {
       "label": "smoke.test.ts",
@@ -3385,7 +3417,7 @@
       "source_file": "tests/protocol/smoke.test.ts",
       "source_location": "L1",
       "id": "tests_protocol_smoke_test_ts",
-      "community": 88
+      "community": 89
     },
     {
       "label": "jsonrpc.test.ts",
@@ -3393,7 +3425,7 @@
       "source_file": "tests/protocol/jsonrpc.test.ts",
       "source_location": "L1",
       "id": "tests_protocol_jsonrpc_test_ts",
-      "community": 89
+      "community": 90
     },
     {
       "label": "task-model.test.ts",
@@ -3401,7 +3433,7 @@
       "source_file": "tests/protocol/task-model.test.ts",
       "source_location": "L1",
       "id": "tests_protocol_task_model_test_ts",
-      "community": 90
+      "community": 91
     },
     {
       "label": "agent-card.test.ts",
@@ -3409,7 +3441,7 @@
       "source_file": "tests/protocol/agent-card.test.ts",
       "source_location": "L1",
       "id": "tests_protocol_agent_card_test_ts",
-      "community": 91
+      "community": 92
     },
     {
       "label": "relay-mcp-server.test.ts",
@@ -3433,7 +3465,7 @@
       "source_file": "tests/plugin/opencode-entrypoints.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_opencode_entrypoints_test_ts",
-      "community": 92
+      "community": 93
     },
     {
       "label": "a2a-http.test.ts",
@@ -3465,7 +3497,7 @@
       "source_file": "tests/plugin/send-message-stream.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_send_message_stream_test_ts",
-      "community": 93
+      "community": 94
     },
     {
       "label": "thread-message-store.test.ts",
@@ -3473,7 +3505,7 @@
       "source_file": "tests/plugin/thread-message-store.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_thread_message_store_test_ts",
-      "community": 94
+      "community": 95
     },
     {
       "label": "team-status.test.ts",
@@ -3497,7 +3529,7 @@
       "source_file": "tests/plugin/config-path.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_config_path_test_ts",
-      "community": 95
+      "community": 96
     },
     {
       "label": "team-cleanup.test.ts",
@@ -3521,7 +3553,7 @@
       "source_file": "tests/plugin/room-store.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_room_store_test_ts",
-      "community": 96
+      "community": 97
     },
     {
       "label": "message-queue.test.ts",
@@ -3545,7 +3577,7 @@
       "source_file": "tests/plugin/local-plugin-entry.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_local_plugin_entry_test_ts",
-      "community": 97
+      "community": 98
     },
     {
       "label": "replay-runtime.test.ts",
@@ -3569,7 +3601,7 @@
       "source_file": "tests/plugin/smoke.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_smoke_test_ts",
-      "community": 98
+      "community": 99
     },
     {
       "label": "prompt-preamble.test.ts",
@@ -3577,7 +3609,7 @@
       "source_file": "tests/plugin/prompt-preamble.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_prompt_preamble_test_ts",
-      "community": 99
+      "community": 100
     },
     {
       "label": "internal-mcp.test.ts",
@@ -3585,7 +3617,7 @@
       "source_file": "tests/plugin/internal-mcp.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_internal_mcp_test_ts",
-      "community": 100
+      "community": 101
     },
     {
       "label": "team-governance.test.ts",
@@ -3609,7 +3641,7 @@
       "source_file": "tests/plugin/response-observer.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_response_observer_test_ts",
-      "community": 101
+      "community": 102
     },
     {
       "label": "store.test.ts",
@@ -3617,7 +3649,7 @@
       "source_file": "tests/plugin/store.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_store_test_ts",
-      "community": 102
+      "community": 103
     },
     {
       "label": "dispatch-failure.test.ts",
@@ -3641,7 +3673,7 @@
       "source_file": "tests/plugin/task-store-rules.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_task_store_rules_test_ts",
-      "community": 103
+      "community": 104
     },
     {
       "label": "loop-guard.test.ts",
@@ -3649,7 +3681,7 @@
       "source_file": "tests/plugin/loop-guard.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_loop_guard_test_ts",
-      "community": 104
+      "community": 105
     },
     {
       "label": "message-notification-window.test.ts",
@@ -3689,7 +3721,7 @@
       "source_file": "tests/plugin/relay-mcp-room-coexistence.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_relay_mcp_room_coexistence_test_ts",
-      "community": 105
+      "community": 106
     },
     {
       "label": "a2a-host.test.ts",
@@ -3697,7 +3729,7 @@
       "source_file": "tests/plugin/a2a-host.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_a2a_host_test_ts",
-      "community": 106
+      "community": 107
     },
     {
       "label": "mcp-first-hooks.test.ts",
@@ -3721,7 +3753,7 @@
       "source_file": "tests/plugin/delivery-gate.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_delivery_gate_test_ts",
-      "community": 107
+      "community": 108
     },
     {
       "label": "relay-orchestration.test.ts",
@@ -3729,7 +3761,7 @@
       "source_file": "tests/plugin/relay-orchestration.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_relay_orchestration_test_ts",
-      "community": 108
+      "community": 109
     },
     {
       "label": "package-surface.test.ts",
@@ -3737,7 +3769,7 @@
       "source_file": "tests/plugin/package-surface.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_package_surface_test_ts",
-      "community": 109
+      "community": 110
     },
     {
       "label": "bootstrap.test.ts",
@@ -3793,7 +3825,7 @@
       "source_file": "tests/plugin/package-manifest.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_package_manifest_test_ts",
-      "community": 110
+      "community": 111
     },
     {
       "label": "test-boundary-regression.test.ts",
@@ -3849,7 +3881,7 @@
       "source_file": "tests/plugin/team-store.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_team_store_test_ts",
-      "community": 111
+      "community": 112
     },
     {
       "label": "mcp-group-room.test.ts",
@@ -3868,12 +3900,28 @@
       "community": 68
     },
     {
+      "label": "team-message-format.test.ts",
+      "file_type": "code",
+      "source_file": "tests/plugin/team-message-format.test.ts",
+      "source_location": "L1",
+      "id": "tests_plugin_team_message_format_test_ts",
+      "community": 69
+    },
+    {
+      "label": "createPluginInput()",
+      "file_type": "code",
+      "source_file": "tests/plugin/team-message-format.test.ts",
+      "source_location": "L9",
+      "id": "team_message_format_test_createplugininput",
+      "community": 69
+    },
+    {
       "label": "human-guard.test.ts",
       "file_type": "code",
       "source_file": "tests/plugin/human-guard.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_human_guard_test_ts",
-      "community": 112
+      "community": 113
     },
     {
       "label": "session-id.test.ts",
@@ -3881,7 +3929,7 @@
       "source_file": "tests/plugin/session-id.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_session_id_test_ts",
-      "community": 113
+      "community": 114
     },
     {
       "label": "room-tools.test.ts",
@@ -3889,7 +3937,7 @@
       "source_file": "tests/plugin/room-tools.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_room_tools_test_ts",
-      "community": 69
+      "community": 70
     },
     {
       "label": "createPluginInput()",
@@ -3897,7 +3945,7 @@
       "source_file": "tests/plugin/room-tools.test.ts",
       "source_location": "L9",
       "id": "room_tools_test_createplugininput",
-      "community": 69
+      "community": 70
     },
     {
       "label": "agent-card.test.ts",
@@ -3905,7 +3953,7 @@
       "source_file": "tests/plugin/agent-card.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_agent_card_test_ts",
-      "community": 114
+      "community": 115
     },
     {
       "label": "relay-plugin-testkit.ts",
@@ -3913,7 +3961,7 @@
       "source_file": "tests/support/relay-plugin-testkit.ts",
       "source_location": "L1",
       "id": "tests_support_relay_plugin_testkit_ts",
-      "community": 115
+      "community": 116
     }
   ],
   "links": [
@@ -8661,7 +8709,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L239",
+      "source_location": "L240",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_handlejsonrpc",
       "_tgt": "relay_runtime_jsonrpcsuccess",
@@ -8673,7 +8721,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L1026",
+      "source_location": "L1056",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_streamtaskevents",
       "_tgt": "relay_runtime_jsonrpcsuccess",
@@ -8685,7 +8733,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L230",
+      "source_location": "L231",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_handlejsonrpc",
       "_tgt": "relay_runtime_jsonrpcerror",
@@ -8697,7 +8745,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L854",
+      "source_location": "L855",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_dispatchstoredtask",
       "_tgt": "relay_runtime_rendermessagepart",
@@ -8721,7 +8769,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L846",
+      "source_location": "L847",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_dispatchstoredtask",
       "_tgt": "relay_runtime_istaskdispatchaccepted",
@@ -8745,7 +8793,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L239",
+      "source_location": "L240",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_handlejsonrpc",
       "_tgt": "relay_runtime_sanitizepublictask",
@@ -8757,7 +8805,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L1026",
+      "source_location": "L1056",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_streamtaskevents",
       "_tgt": "relay_runtime_sanitizepublictask",
@@ -8769,7 +8817,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L145",
+      "source_location": "L146",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_constructor",
@@ -8781,7 +8829,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L196",
+      "source_location": "L197",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_close",
@@ -8793,7 +8841,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L206",
+      "source_location": "L207",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_buildagentcard",
@@ -8805,7 +8853,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L210",
+      "source_location": "L211",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_createinternalopsmcp",
@@ -8817,7 +8865,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L227",
+      "source_location": "L228",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_handlejsonrpc",
@@ -8829,7 +8877,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L264",
+      "source_location": "L265",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_resolveroomforsession",
@@ -8841,7 +8889,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L268",
+      "source_location": "L269",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_getpeersessionid",
@@ -8853,7 +8901,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L272",
+      "source_location": "L273",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_createroom",
@@ -8865,7 +8913,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L276",
+      "source_location": "L277",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_joinroom",
@@ -8877,7 +8925,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L292",
+      "source_location": "L293",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_onsessionstatus",
@@ -8889,7 +8937,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L337",
+      "source_location": "L338",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_sendroommessage",
@@ -8901,7 +8949,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L374",
+      "source_location": "L375",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_interveneteam",
@@ -8913,7 +8961,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L451",
+      "source_location": "L452",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_applyteampolicy",
@@ -8925,7 +8973,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L525",
+      "source_location": "L526",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_cleanupteam",
@@ -8937,7 +8985,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L664",
+      "source_location": "L665",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_getteamstatus",
@@ -8949,7 +8997,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L668",
+      "source_location": "L669",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_getoperationsstatus",
@@ -8961,7 +9009,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L699",
+      "source_location": "L700",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_getrecentdiagnostics",
@@ -8973,7 +9021,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L703",
+      "source_location": "L704",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_pauseautomation",
@@ -8985,7 +9033,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L709",
+      "source_location": "L710",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_resumeautomation",
@@ -8997,7 +9045,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L717",
+      "source_location": "L718",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_buildteamcompactioncontext",
@@ -9009,7 +9057,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L721",
+      "source_location": "L722",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_flushpendingforknownidlesessions",
@@ -9021,7 +9069,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L735",
+      "source_location": "L736",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_recorddiagnostic",
@@ -9033,7 +9081,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L739",
+      "source_location": "L740",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_describesessionclienterror",
@@ -9045,7 +9093,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L752",
+      "source_location": "L753",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_replaytask",
@@ -9057,7 +9105,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L781",
+      "source_location": "L782",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_listthreads",
@@ -9069,7 +9117,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L785",
+      "source_location": "L786",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_listroommembers",
@@ -9081,7 +9129,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L789",
+      "source_location": "L790",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_setroommemberrole",
@@ -9093,7 +9141,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L793",
+      "source_location": "L794",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_createthread",
@@ -9105,7 +9153,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L803",
+      "source_location": "L804",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_listmessages",
@@ -9117,7 +9165,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L807",
+      "source_location": "L808",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_markthreadread",
@@ -9129,7 +9177,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L811",
+      "source_location": "L812",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_exporttranscript",
@@ -9141,7 +9189,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L815",
+      "source_location": "L816",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_sendthreadmessage",
@@ -9153,7 +9201,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L829",
+      "source_location": "L830",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_dispatchtask",
@@ -9165,7 +9213,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L839",
+      "source_location": "L840",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_dispatchstoredtask",
@@ -9177,7 +9225,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L887",
+      "source_location": "L888",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_assertrouteallowed",
@@ -9189,7 +9237,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L898",
+      "source_location": "L899",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_ensuredefaultthreadsforroom",
@@ -9201,7 +9249,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L902",
+      "source_location": "L903",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_reservethreadnotifications",
@@ -9213,7 +9261,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L917",
+      "source_location": "L918",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_releasethreadnotifications",
@@ -9225,7 +9273,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L923",
+      "source_location": "L924",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_notifypendingmessages",
@@ -9237,7 +9285,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L965",
+      "source_location": "L966",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_resolvenotificationdecision",
@@ -9249,7 +9297,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L978",
+      "source_location": "L979",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_notifythreadparticipant",
@@ -9261,7 +9309,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L1006",
+      "source_location": "L1036",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_notifyprivateroompeer",
@@ -9273,7 +9321,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L1025",
+      "source_location": "L1055",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_streamtaskevents",
@@ -9285,7 +9333,7 @@
       "relation": "method",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L1032",
+      "source_location": "L1062",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime",
       "_tgt": "relay_runtime_relayruntime_recordrejectedteamsignal",
@@ -9297,7 +9345,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L244",
+      "source_location": "L245",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_handlejsonrpc",
       "_tgt": "relay_runtime_relayruntime_streamtaskevents",
@@ -9309,7 +9357,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L314",
+      "source_location": "L315",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_onsessionstatus",
       "_tgt": "relay_runtime_relayruntime_notifypendingmessages",
@@ -9321,7 +9369,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L334",
+      "source_location": "L335",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_onsessionstatus",
       "_tgt": "relay_runtime_relayruntime_dispatchstoredtask",
@@ -9333,7 +9381,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L366",
+      "source_location": "L367",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_sendroommessage",
       "_tgt": "relay_runtime_relayruntime_recordrejectedteamsignal",
@@ -9345,7 +9393,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L422",
+      "source_location": "L423",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_interveneteam",
       "_tgt": "relay_runtime_relayruntime_sendroommessage",
@@ -9357,7 +9405,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L491",
+      "source_location": "L492",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_applyteampolicy",
       "_tgt": "relay_runtime_relayruntime_interveneteam",
@@ -9369,7 +9417,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L482",
+      "source_location": "L483",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_applyteampolicy",
       "_tgt": "relay_runtime_relayruntime_getteamstatus",
@@ -9381,7 +9429,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L589",
+      "source_location": "L590",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_cleanupteam",
       "_tgt": "relay_runtime_relayruntime_describesessionclienterror",
@@ -9393,7 +9441,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L694",
+      "source_location": "L695",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_getoperationsstatus",
       "_tgt": "relay_runtime_relayruntime_getrecentdiagnostics",
@@ -9405,7 +9453,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L705",
+      "source_location": "L706",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_pauseautomation",
       "_tgt": "relay_runtime_relayruntime_recorddiagnostic",
@@ -9417,7 +9465,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L713",
+      "source_location": "L714",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_resumeautomation",
       "_tgt": "relay_runtime_relayruntime_recorddiagnostic",
@@ -9429,7 +9477,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L724",
+      "source_location": "L725",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_flushpendingforknownidlesessions",
       "_tgt": "relay_runtime_relayruntime_resolvenotificationdecision",
@@ -9441,7 +9489,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L729",
+      "source_location": "L730",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_flushpendingforknownidlesessions",
       "_tgt": "relay_runtime_relayruntime_notifypendingmessages",
@@ -9453,7 +9501,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L862",
+      "source_location": "L863",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_dispatchstoredtask",
       "_tgt": "relay_runtime_relayruntime_recorddiagnostic",
@@ -9465,7 +9513,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L997",
+      "source_location": "L984",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_notifythreadparticipant",
       "_tgt": "relay_runtime_relayruntime_recorddiagnostic",
@@ -9477,7 +9525,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L1016",
+      "source_location": "L1046",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_notifyprivateroompeer",
       "_tgt": "relay_runtime_relayruntime_recorddiagnostic",
@@ -9489,7 +9537,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L774",
+      "source_location": "L775",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_replaytask",
       "_tgt": "relay_runtime_relayruntime_dispatchstoredtask",
@@ -9501,7 +9549,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L937",
+      "source_location": "L938",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_notifypendingmessages",
       "_tgt": "relay_runtime_relayruntime_listmessages",
@@ -9513,7 +9561,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L836",
+      "source_location": "L837",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_dispatchtask",
       "_tgt": "relay_runtime_relayruntime_dispatchstoredtask",
@@ -9525,7 +9573,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L946",
+      "source_location": "L947",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_notifypendingmessages",
       "_tgt": "relay_runtime_relayruntime_reservethreadnotifications",
@@ -9537,7 +9585,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L957",
+      "source_location": "L958",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_notifypendingmessages",
       "_tgt": "relay_runtime_relayruntime_releasethreadnotifications",
@@ -9549,7 +9597,7 @@
       "relation": "calls",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/relay-runtime.ts",
-      "source_location": "L952",
+      "source_location": "L953",
       "weight": 1.0,
       "_src": "relay_runtime_relayruntime_notifypendingmessages",
       "_tgt": "relay_runtime_relayruntime_notifythreadparticipant",
@@ -9633,7 +9681,55 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
-      "source_location": "L5",
+      "source_location": "L12",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
+      "_tgt": "prompt_preamble_encodedirectoryslug",
+      "source": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
+      "target": "prompt_preamble_encodedirectoryslug",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L20",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
+      "_tgt": "prompt_preamble_createsessionhref",
+      "source": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
+      "target": "prompt_preamble_createsessionhref",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L24",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
+      "_tgt": "prompt_preamble_rendermanagermessageline",
+      "source": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
+      "target": "prompt_preamble_rendermanagermessageline",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L50",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
+      "_tgt": "prompt_preamble_buildmanagerthreadrelayprompt",
+      "source": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
+      "target": "prompt_preamble_buildmanagerthreadrelayprompt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L84",
       "weight": 1.0,
       "_src": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
       "_tgt": "prompt_preamble_rendermessagebody",
@@ -9645,7 +9741,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
-      "source_location": "L10",
+      "source_location": "L89",
       "weight": 1.0,
       "_src": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
       "_tgt": "prompt_preamble_renderprivaterelaymessage",
@@ -9657,7 +9753,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
-      "source_location": "L14",
+      "source_location": "L93",
       "weight": 1.0,
       "_src": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
       "_tgt": "prompt_preamble_buildtaskrelayprompt",
@@ -9669,11 +9765,35 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
-      "source_location": "L32",
+      "source_location": "L111",
       "weight": 1.0,
       "_src": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
       "_tgt": "prompt_preamble_buildthreadrelayprompt",
       "source": "packages_relay_plugin_src_runtime_prompt_preamble_ts",
+      "target": "prompt_preamble_buildthreadrelayprompt",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L21",
+      "weight": 1.0,
+      "_src": "prompt_preamble_createsessionhref",
+      "_tgt": "prompt_preamble_encodedirectoryslug",
+      "source": "prompt_preamble_encodedirectoryslug",
+      "target": "prompt_preamble_createsessionhref",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/runtime/prompt-preamble.ts",
+      "source_location": "L138",
+      "weight": 1.0,
+      "_src": "prompt_preamble_buildthreadrelayprompt",
+      "_tgt": "prompt_preamble_buildmanagerthreadrelayprompt",
+      "source": "prompt_preamble_buildmanagerthreadrelayprompt",
       "target": "prompt_preamble_buildthreadrelayprompt",
       "confidence_score": 1.0
     },
@@ -10359,6 +10479,18 @@
       "_tgt": "mcp_group_room_test_createplugininput",
       "source": "tests_plugin_mcp_group_room_test_ts",
       "target": "mcp_group_room_test_createplugininput",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "tests/plugin/team-message-format.test.ts",
+      "source_location": "L9",
+      "weight": 1.0,
+      "_src": "tests_plugin_team_message_format_test_ts",
+      "_tgt": "team_message_format_test_createplugininput",
+      "source": "tests_plugin_team_message_format_test_ts",
+      "target": "team_message_format_test_createplugininput",
       "confidence_score": 1.0
     },
     {

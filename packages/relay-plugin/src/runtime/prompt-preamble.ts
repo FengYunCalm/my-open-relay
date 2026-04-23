@@ -1,6 +1,85 @@
 import type { RelayMessage } from "../internal/store/message-store.js";
 import type { RelayRoomMemberRole } from "../internal/store/room-store.js";
 import type { RelayThread } from "../internal/store/thread-store.js";
+import { classifyRelayWorkflowSignal, relayWorkflowSignalPrefixes } from "./team-workflow.js";
+
+type ManagerRelayWorkerLink = {
+  alias: string;
+  role: string;
+  sessionID: string;
+};
+
+function encodeDirectorySlug(value: string): string {
+  return Buffer.from(value, "utf8")
+    .toString("base64")
+    .replace(/\+/g, "-")
+    .replace(/\//g, "_")
+    .replace(/=+$/g, "");
+}
+
+function createSessionHref(directory: string, sessionID: string): string {
+  return `/${encodeDirectorySlug(directory)}/session/${sessionID}`;
+}
+
+function renderManagerMessageLine(message: RelayMessage, alias?: string, role?: RelayRoomMemberRole): string {
+  const text = typeof message.body.text === "string" ? message.body.text.trim() : JSON.stringify(message.body, null, 2);
+  const signal = classifyRelayWorkflowSignal(text);
+  const senderLabel = alias ?? message.senderSessionID;
+  const roleLabel = role ? ` (${role})` : "";
+
+  if (signal.matched && signal.accepted) {
+    const signalLabel = text.startsWith(relayWorkflowSignalPrefixes.ready)
+      ? "READY"
+      : text.startsWith(relayWorkflowSignalPrefixes.progress)
+        ? "PROGRESS"
+        : text.startsWith(relayWorkflowSignalPrefixes.blocker)
+          ? "BLOCKER"
+          : "DONE";
+    const details = [
+      signal.phase ? `phase=${signal.phase}` : undefined,
+      signal.progress !== undefined ? `progress=${signal.progress}%` : undefined,
+      signal.source ? `source=${signal.source}` : undefined
+    ].filter(Boolean).join(" · ");
+    return `- ${senderLabel}${roleLabel} ${signalLabel}${details ? ` [${details}]` : ""}: ${signal.note}`;
+  }
+
+  const normalized = text.replace(/\s+/g, " ").trim();
+  return `- ${senderLabel}${roleLabel}: ${normalized}`;
+}
+
+function buildManagerThreadRelayPrompt(input: {
+  roomCode: string;
+  thread: RelayThread;
+  recipientSessionID: string;
+  messages: RelayMessage[];
+  senderRoles: Record<string, RelayRoomMemberRole | undefined>;
+  senderAliases?: Record<string, string | undefined>;
+  directory: string;
+  workerLinks: ManagerRelayWorkerLink[];
+}): string {
+  const workerLinkLine = input.workerLinks.length > 0
+    ? input.workerLinks
+      .map((worker) => `[${worker.alias}](${createSessionHref(input.directory, worker.sessionID)})`)
+      .join(" | ")
+    : "none";
+
+  const lines = input.messages.map((message) => renderManagerMessageLine(
+    message,
+    input.senderAliases?.[message.senderSessionID],
+    input.senderRoles[message.senderSessionID]
+  ));
+
+  return [
+    "[RELAY TEAM UPDATE]",
+    `Room: ${input.roomCode}`,
+    `Thread: ${input.thread.threadId} (${input.thread.kind})`,
+    `Recipient session: ${input.recipientSessionID}`,
+    `Worker sessions: ${workerLinkLine}`,
+    "Use relay_team_status for the aggregate state; use room/thread transcript tools only if you need raw details.",
+    "Updates:",
+    ...lines
+  ].join("\n\n");
+}
 
 function renderMessageBody(message: RelayMessage): string {
   const text = typeof message.body.text === "string" ? message.body.text : JSON.stringify(message.body, null, 2);
@@ -37,6 +116,10 @@ export function buildThreadRelayPrompt(input: {
   messages: RelayMessage[];
   senderRoles: Record<string, RelayRoomMemberRole | undefined>;
   senderAliases?: Record<string, string | undefined>;
+  managerView?: {
+    directory: string;
+    workerLinks: ManagerRelayWorkerLink[];
+  };
 }): string {
   if (input.roomKind === "private" && input.thread.kind === "direct") {
     const latestSender = input.messages[input.messages.length - 1]?.senderSessionID ?? "unknown-session";
@@ -49,6 +132,19 @@ export function buildThreadRelayPrompt(input: {
       "Message:",
       renderedMessages
     ].join("\n\n");
+  }
+
+  if (input.managerView) {
+    return buildManagerThreadRelayPrompt({
+      roomCode: input.roomCode,
+      thread: input.thread,
+      recipientSessionID: input.recipientSessionID,
+      messages: input.messages,
+      senderRoles: input.senderRoles,
+      senderAliases: input.senderAliases,
+      directory: input.managerView.directory,
+      workerLinks: input.managerView.workerLinks
+    });
   }
 
   const header = [

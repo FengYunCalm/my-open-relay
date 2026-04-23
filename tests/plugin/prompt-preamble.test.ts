@@ -89,4 +89,55 @@ describe("relay prompt preamble", () => {
     expect(prompt).toContain("Message:");
     expect(prompt).toContain("hello private");
   });
+
+  it("builds a compact manager summary with worker session links for team rooms", () => {
+    const prompt = buildThreadRelayPrompt({
+      roomCode: "030900",
+      recipientSessionID: "session-manager",
+      thread: {
+        threadId: "thread-team",
+        roomCode: "030900",
+        kind: "group",
+        title: "room-main",
+        createdBySessionID: "session-manager",
+        createdAt: 1,
+        updatedAt: 1
+      },
+      messages: [
+        {
+          threadId: "thread-team",
+          seq: 5,
+          messageId: "relaymsg-5",
+          senderSessionID: "session-reviewer",
+          messageType: "relay",
+          body: {
+            text: '[TEAM_DONE] {"source":"omo","phase":"signal-review-complete","note":"Verdict pass","progress":100,"evidence":["ok"]}'
+          },
+          createdAt: 1
+        }
+      ],
+      senderRoles: {
+        "session-reviewer": "member"
+      },
+      senderAliases: {
+        "session-reviewer": "reviewer"
+      },
+      managerView: {
+        directory: "C:/relay-project",
+        workerLinks: [
+          { alias: "planner", role: "planner", sessionID: "session-planner" },
+          { alias: "implementer", role: "implementer", sessionID: "session-implementer" },
+          { alias: "reviewer", role: "reviewer", sessionID: "session-reviewer" }
+        ]
+      }
+    });
+
+    expect(prompt).toContain("[RELAY TEAM UPDATE]");
+    expect(prompt).toContain("Worker sessions:");
+    expect(prompt).toContain("[planner](/QzovcmVsYXktcHJvamVjdA/session/session-planner)");
+    expect(prompt).toContain("[implementer](/QzovcmVsYXktcHJvamVjdA/session/session-implementer)");
+    expect(prompt).toContain("[reviewer](/QzovcmVsYXktcHJvamVjdA/session/session-reviewer)");
+    expect(prompt).toContain("reviewer (member) DONE [phase=signal-review-complete · progress=100% · source=omo]: Verdict pass");
+    expect(prompt).not.toContain("[RELAYED AGENT INPUT]");
+  });
 });

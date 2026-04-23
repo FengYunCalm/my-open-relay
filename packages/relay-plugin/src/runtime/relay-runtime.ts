@@ -136,6 +136,7 @@ export class RelayRuntime {
 
   private readonly inFlightTaskDispatches = new Set<string>();
   private readonly inFlightThreadNotificationKeys = new Set<string>();
+  private readonly lastInjectedThreadSeqByRecipient = new Map<string, number>();
 
   private readonly sendMessage;
   private readonly sendMessageStream;
@@ -976,6 +977,22 @@ export class RelayRuntime {
   }
 
   private async notifyThreadParticipant(thread: RelayThread, sessionID: string, messages: RelayMessage[]): Promise<void> {
+    const latestSeq = messages[messages.length - 1]?.seq ?? 0;
+    const injectionKey = `${thread.threadId}:${sessionID}`;
+    const lastInjectedSeq = this.lastInjectedThreadSeqByRecipient.get(injectionKey) ?? 0;
+    if (latestSeq <= lastInjectedSeq) {
+      this.recordDiagnostic("relay.send.inject_skipped", {
+        injectorKind: "thread-notify",
+        roomCode: thread.roomCode,
+        threadId: thread.threadId,
+        targetSessionID: sessionID,
+        latestSeq,
+        lastInjectedSeq,
+        reason: "already_injected"
+      });
+      return;
+    }
+
     const roomKind = this.roomStore.getRoom(thread.roomCode)?.kind;
     const senderRoles = Object.fromEntries(
       messages.map((message) => [message.senderSessionID, this.roomStore.getMember(thread.roomCode, message.senderSessionID)?.role as RelayRoomMemberRole | undefined])
@@ -983,6 +1000,17 @@ export class RelayRuntime {
     const senderAliases = Object.fromEntries(
       messages.map((message) => [message.senderSessionID, this.roomStore.getMember(thread.roomCode, message.senderSessionID)?.alias])
     );
+    const teamAccess = this.teamStore.getRunAccess(sessionID, thread.roomCode);
+    const managerView = teamAccess?.role === "manager"
+      ? {
+          directory: this.input.directory,
+          workerLinks: this.teamStore.listWorkers(teamAccess.run.runId).map((worker) => ({
+            alias: worker.alias,
+            role: worker.role,
+            sessionID: worker.sessionID
+          }))
+        }
+      : undefined;
 
     const prompt = buildThreadRelayPrompt({
       roomCode: thread.roomCode,
@@ -991,9 +1019,11 @@ export class RelayRuntime {
       recipientSessionID: sessionID,
       messages,
       senderRoles,
-      senderAliases
+      senderAliases,
+      managerView
     });
     await this.injector.submitAsync(sessionID, prompt);
+    this.lastInjectedThreadSeqByRecipient.set(injectionKey, latestSeq);
     this.recordDiagnostic("relay.send.inject", {
       injectorKind: "thread-notify",
       roomCode: thread.roomCode,
