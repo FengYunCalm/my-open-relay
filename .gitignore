@@ -16,3 +16,4 @@ packages/*/src/*.d.ts
 packages/*/src/*.d.ts.map
 .DS_Store
 Thumbs.db
+graphify-out/cache/
