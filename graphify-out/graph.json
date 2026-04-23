@@ -9,7 +9,7 @@
       "source_file": "vitest.config.ts",
       "source_location": "L1",
       "id": "vitest_config_ts",
-      "community": 68
+      "community": 69
     },
     {
       "label": "index.ts",
@@ -17,47 +17,23 @@
       "source_file": "packages/relay-plugin/src/index.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_index_ts",
-      "community": 17
+      "community": 26
     },
     {
       "label": "tryExtractSessionID()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L18",
+      "source_location": "L16",
       "id": "index_tryextractsessionid",
-      "community": 17
-    },
-    {
-      "label": "parseParticipantSessionIDs()",
-      "file_type": "code",
-      "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L29",
-      "id": "index_parseparticipantsessionids",
-      "community": 17
-    },
-    {
-      "label": "getRelayToolSuffix()",
-      "file_type": "code",
-      "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L53",
-      "id": "index_getrelaytoolsuffix",
-      "community": 17
-    },
-    {
-      "label": "applyRelaySessionDefaults()",
-      "file_type": "code",
-      "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L70",
-      "id": "index_applyrelaysessiondefaults",
-      "community": 17
+      "community": 26
     },
     {
       "label": "RelayPlugin()",
       "file_type": "code",
       "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L96",
+      "source_location": "L27",
       "id": "index_relayplugin",
-      "community": 17
+      "community": 26
     },
     {
       "label": "relay-mcp-service.ts",
@@ -193,7 +169,7 @@
       "source_file": "packages/relay-plugin/src/relay-mcp-stdio.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_relay_mcp_stdio_ts",
-      "community": 36
+      "community": 37
     },
     {
       "label": "main()",
@@ -201,7 +177,95 @@
       "source_file": "packages/relay-plugin/src/relay-mcp-stdio.ts",
       "source_location": "L4",
       "id": "relay_mcp_stdio_main",
-      "community": 36
+      "community": 37
+    },
+    {
+      "label": "relay-tool-surface.ts",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L1",
+      "id": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "community": 10
+    },
+    {
+      "label": "parseParticipantSessionIDs()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L26",
+      "id": "relay_tool_surface_parseparticipantsessionids",
+      "community": 10
+    },
+    {
+      "label": "normalizeRoomRole()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L33",
+      "id": "relay_tool_surface_normalizeroomrole",
+      "community": 10
+    },
+    {
+      "label": "normalizeTeamAction()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L37",
+      "id": "relay_tool_surface_normalizeteamaction",
+      "community": 10
+    },
+    {
+      "label": "parseDeliverables()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L47",
+      "id": "relay_tool_surface_parsedeliverables",
+      "community": 10
+    },
+    {
+      "label": "getNamespacedRelayToolID()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L53",
+      "id": "relay_tool_surface_getnamespacedrelaytoolid",
+      "community": 10
+    },
+    {
+      "label": "createNamespacedRelayTools()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L61",
+      "id": "relay_tool_surface_createnamespacedrelaytools",
+      "community": 10
+    },
+    {
+      "label": "getRelayToolSuffix()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L67",
+      "id": "relay_tool_surface_getrelaytoolsuffix",
+      "community": 10
+    },
+    {
+      "label": "isHookedRelayTool()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L84",
+      "id": "relay_tool_surface_ishookedrelaytool",
+      "community": 10
+    },
+    {
+      "label": "applyRelaySessionDefaults()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L88",
+      "id": "relay_tool_surface_applyrelaysessiondefaults",
+      "community": 10
+    },
+    {
+      "label": "createRelayPluginTools()",
+      "file_type": "code",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L114",
+      "id": "relay_tool_surface_createrelayplugintools",
+      "community": 10
     },
     {
       "label": "local-plugin.ts",
@@ -209,7 +273,7 @@
       "source_file": "packages/relay-plugin/src/local-plugin.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_local_plugin_ts",
-      "community": 69
+      "community": 70
     },
     {
       "label": "config.ts",
@@ -217,7 +281,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_config_ts",
-      "community": 13
+      "community": 14
     },
     {
       "label": "resolveInstalledConfigPathFromModuleUrl()",
@@ -225,7 +289,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L63",
       "id": "config_resolveinstalledconfigpathfrommoduleurl",
-      "community": 13
+      "community": 14
     },
     {
       "label": "resolveInstalledConfigPath()",
@@ -233,7 +297,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L74",
       "id": "config_resolveinstalledconfigpath",
-      "community": 13
+      "community": 14
     },
     {
       "label": "loadInstalledRelayPluginConfig()",
@@ -241,7 +305,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L82",
       "id": "config_loadinstalledrelaypluginconfig",
-      "community": 13
+      "community": 14
     },
     {
       "label": "mergeRelayPluginConfig()",
@@ -249,7 +313,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L92",
       "id": "config_mergerelaypluginconfig",
-      "community": 13
+      "community": 14
     },
     {
       "label": "isRelayPairAllowed()",
@@ -257,7 +321,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L110",
       "id": "config_isrelaypairallowed",
-      "community": 13
+      "community": 14
     },
     {
       "label": "resolveRelayPluginConfig()",
@@ -265,7 +329,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L132",
       "id": "config_resolverelaypluginconfig",
-      "community": 13
+      "community": 14
     },
     {
       "label": "buildRelayPluginInstanceKey()",
@@ -273,7 +337,7 @@
       "source_file": "packages/relay-plugin/src/config.ts",
       "source_location": "L139",
       "id": "config_buildrelayplugininstancekey",
-      "community": 13
+      "community": 14
     },
     {
       "label": "relay-mcp-server.ts",
@@ -281,7 +345,7 @@
       "source_file": "packages/relay-plugin/src/relay-mcp-server.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_relay_mcp_server_ts",
-      "community": 26
+      "community": 27
     },
     {
       "label": "resolveCompatDatabasePath()",
@@ -289,7 +353,7 @@
       "source_file": "packages/relay-plugin/src/relay-mcp-server.ts",
       "source_location": "L38",
       "id": "relay_mcp_server_resolvecompatdatabasepath",
-      "community": 26
+      "community": 27
     },
     {
       "label": "createRelayBridgeMcpServer()",
@@ -297,7 +361,7 @@
       "source_file": "packages/relay-plugin/src/relay-mcp-server.ts",
       "source_location": "L58",
       "id": "relay_mcp_server_createrelaybridgemcpserver",
-      "community": 26
+      "community": 27
     },
     {
       "label": "session-id.ts",
@@ -305,7 +369,7 @@
       "source_file": "packages/relay-plugin/src/session-id.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_session_id_ts",
-      "community": 27
+      "community": 28
     },
     {
       "label": "isRelayCurrentSessionPlaceholder()",
@@ -313,7 +377,7 @@
       "source_file": "packages/relay-plugin/src/session-id.ts",
       "source_location": "L6",
       "id": "session_id_isrelaycurrentsessionplaceholder",
-      "community": 27
+      "community": 28
     },
     {
       "label": "shouldInjectRelaySessionID()",
@@ -321,7 +385,7 @@
       "source_file": "packages/relay-plugin/src/session-id.ts",
       "source_location": "L15",
       "id": "session_id_shouldinjectrelaysessionid",
-      "community": 27
+      "community": 28
     },
     {
       "label": "relay-host-factory.ts",
@@ -329,7 +393,7 @@
       "source_file": "packages/relay-plugin/src/a2a/relay-host-factory.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_a2a_relay_host_factory_ts",
-      "community": 37
+      "community": 38
     },
     {
       "label": "createRelayA2AHost()",
@@ -337,7 +401,7 @@
       "source_file": "packages/relay-plugin/src/a2a/relay-host-factory.ts",
       "source_location": "L5",
       "id": "relay_host_factory_createrelaya2ahost",
-      "community": 37
+      "community": 38
     },
     {
       "label": "agent-card.ts",
@@ -345,7 +409,7 @@
       "source_file": "packages/relay-plugin/src/a2a/agent-card.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_a2a_agent_card_ts",
-      "community": 38
+      "community": 39
     },
     {
       "label": "buildRelayAgentCard()",
@@ -353,7 +417,7 @@
       "source_file": "packages/relay-plugin/src/a2a/agent-card.ts",
       "source_location": "L13",
       "id": "agent_card_buildrelayagentcard",
-      "community": 38
+      "community": 39
     },
     {
       "label": "host.ts",
@@ -465,7 +529,7 @@
       "source_file": "packages/relay-plugin/src/a2a/auth.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_a2a_auth_ts",
-      "community": 39
+      "community": 40
     },
     {
       "label": "validateLocalAuth()",
@@ -473,7 +537,7 @@
       "source_file": "packages/relay-plugin/src/a2a/auth.ts",
       "source_location": "L7",
       "id": "auth_validatelocalauth",
-      "community": 39
+      "community": 40
     },
     {
       "label": "outbound-events.ts",
@@ -481,7 +545,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_a2a_mapper_outbound_events_ts",
-      "community": 10
+      "community": 11
     },
     {
       "label": "sanitizePart()",
@@ -489,7 +553,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L11",
       "id": "outbound_events_sanitizepart",
-      "community": 10
+      "community": 11
     },
     {
       "label": "sanitizeMessage()",
@@ -497,7 +561,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L18",
       "id": "outbound_events_sanitizemessage",
-      "community": 10
+      "community": 11
     },
     {
       "label": "sanitizeArtifact()",
@@ -505,7 +569,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L30",
       "id": "outbound_events_sanitizeartifact",
-      "community": 10
+      "community": 11
     },
     {
       "label": "TaskEventHub",
@@ -513,7 +577,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L38",
       "id": "outbound_events_taskeventhub",
-      "community": 10
+      "community": 11
     },
     {
       "label": ".detach()",
@@ -521,7 +585,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L41",
       "id": "outbound_events_taskeventhub_detach",
-      "community": 10
+      "community": 11
     },
     {
       "label": ".stream()",
@@ -529,7 +593,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L52",
       "id": "outbound_events_taskeventhub_stream",
-      "community": 10
+      "community": 11
     },
     {
       "label": ".emit()",
@@ -537,7 +601,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L95",
       "id": "outbound_events_taskeventhub_emit",
-      "community": 10
+      "community": 11
     },
     {
       "label": "mapTaskStatusEvent()",
@@ -545,7 +609,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L119",
       "id": "outbound_events_maptaskstatusevent",
-      "community": 10
+      "community": 11
     },
     {
       "label": "mapArtifactUpdateEvent()",
@@ -553,7 +617,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/outbound-events.ts",
       "source_location": "L130",
       "id": "outbound_events_mapartifactupdateevent",
-      "community": 10
+      "community": 11
     },
     {
       "label": "inbound-request.ts",
@@ -561,7 +625,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/inbound-request.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_a2a_mapper_inbound_request_ts",
-      "community": 40
+      "community": 41
     },
     {
       "label": "mapSendMessageRequest()",
@@ -569,7 +633,7 @@
       "source_file": "packages/relay-plugin/src/a2a/mapper/inbound-request.ts",
       "source_location": "L30",
       "id": "inbound_request_mapsendmessagerequest",
-      "community": 40
+      "community": 41
     },
     {
       "label": "get-task.ts",
@@ -577,7 +641,7 @@
       "source_file": "packages/relay-plugin/src/a2a/handlers/get-task.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_a2a_handlers_get_task_ts",
-      "community": 41
+      "community": 42
     },
     {
       "label": "createGetTaskHandler()",
@@ -585,7 +649,7 @@
       "source_file": "packages/relay-plugin/src/a2a/handlers/get-task.ts",
       "source_location": "L3",
       "id": "get_task_creategettaskhandler",
-      "community": 41
+      "community": 42
     },
     {
       "label": "send-message-stream.ts",
@@ -625,7 +689,7 @@
       "source_file": "packages/relay-plugin/src/a2a/handlers/cancel-task.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_a2a_handlers_cancel_task_ts",
-      "community": 42
+      "community": 43
     },
     {
       "label": "createCancelTaskHandler()",
@@ -633,7 +697,7 @@
       "source_file": "packages/relay-plugin/src/a2a/handlers/cancel-task.ts",
       "source_location": "L6",
       "id": "cancel_task_createcanceltaskhandler",
-      "community": 42
+      "community": 43
     },
     {
       "label": "send-message.ts",
@@ -673,7 +737,7 @@
       "source_file": "packages/relay-plugin/src/internal/mcp/server.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_mcp_server_ts",
-      "community": 43
+      "community": 44
     },
     {
       "label": "createRelayOpsMcpServer()",
@@ -681,7 +745,7 @@
       "source_file": "packages/relay-plugin/src/internal/mcp/server.ts",
       "source_location": "L47",
       "id": "server_createrelayopsmcpserver",
-      "community": 43
+      "community": 44
     },
     {
       "label": "task-resource.ts",
@@ -689,7 +753,7 @@
       "source_file": "packages/relay-plugin/src/internal/mcp/resources/task-resource.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_mcp_resources_task_resource_ts",
-      "community": 44
+      "community": 45
     },
     {
       "label": "createTaskResource()",
@@ -697,7 +761,7 @@
       "source_file": "packages/relay-plugin/src/internal/mcp/resources/task-resource.ts",
       "source_location": "L3",
       "id": "task_resource_createtaskresource",
-      "community": 44
+      "community": 45
     },
     {
       "label": "relay-status.ts",
@@ -705,7 +769,7 @@
       "source_file": "packages/relay-plugin/src/internal/mcp/tools/relay-status.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_mcp_tools_relay_status_ts",
-      "community": 45
+      "community": 46
     },
     {
       "label": "createRelayStatusTool()",
@@ -713,7 +777,7 @@
       "source_file": "packages/relay-plugin/src/internal/mcp/tools/relay-status.ts",
       "source_location": "L3",
       "id": "relay_status_createrelaystatustool",
-      "community": 45
+      "community": 46
     },
     {
       "label": "relay-replay.ts",
@@ -721,7 +785,7 @@
       "source_file": "packages/relay-plugin/src/internal/mcp/tools/relay-replay.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_mcp_tools_relay_replay_ts",
-      "community": 46
+      "community": 47
     },
     {
       "label": "createRelayReplayTool()",
@@ -729,7 +793,7 @@
       "source_file": "packages/relay-plugin/src/internal/mcp/tools/relay-replay.ts",
       "source_location": "L3",
       "id": "relay_replay_createrelayreplaytool",
-      "community": 46
+      "community": 47
     },
     {
       "label": "state-access.ts",
@@ -737,7 +801,7 @@
       "source_file": "packages/relay-plugin/src/internal/testing/state-access.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_testing_state_access_ts",
-      "community": 28
+      "community": 29
     },
     {
       "label": "getRelayPluginStateForTest()",
@@ -745,7 +809,7 @@
       "source_file": "packages/relay-plugin/src/internal/testing/state-access.ts",
       "source_location": "L3",
       "id": "state_access_getrelaypluginstatefortest",
-      "community": 28
+      "community": 29
     },
     {
       "label": "stopRelayPluginForTest()",
@@ -753,7 +817,7 @@
       "source_file": "packages/relay-plugin/src/internal/testing/state-access.ts",
       "source_location": "L7",
       "id": "state_access_stoprelaypluginfortest",
-      "community": 28
+      "community": 29
     },
     {
       "label": "team-status-policy.ts",
@@ -761,7 +825,7 @@
       "source_file": "packages/relay-plugin/src/internal/policy/team-status-policy.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_policy_team_status_policy_ts",
-      "community": 29
+      "community": 30
     },
     {
       "label": "reviewerFinalAcceptanceSatisfied()",
@@ -769,7 +833,7 @@
       "source_file": "packages/relay-plugin/src/internal/policy/team-status-policy.ts",
       "source_location": "L3",
       "id": "team_status_policy_reviewerfinalacceptancesatisfied",
-      "community": 29
+      "community": 30
     },
     {
       "label": "aggregateTeamRunStatus()",
@@ -777,7 +841,7 @@
       "source_file": "packages/relay-plugin/src/internal/policy/team-status-policy.ts",
       "source_location": "L12",
       "id": "team_status_policy_aggregateteamrunstatus",
-      "community": 29
+      "community": 30
     },
     {
       "label": "team-worker-transition-policy.ts",
@@ -785,7 +849,7 @@
       "source_file": "packages/relay-plugin/src/internal/policy/team-worker-transition-policy.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_policy_team_worker_transition_policy_ts",
-      "community": 47
+      "community": 48
     },
     {
       "label": "validateWorkerSignalTransition()",
@@ -793,7 +857,7 @@
       "source_file": "packages/relay-plugin/src/internal/policy/team-worker-transition-policy.ts",
       "source_location": "L14",
       "id": "team_worker_transition_policy_validateworkersignaltransition",
-      "community": 47
+      "community": 48
     },
     {
       "label": "relay-room-orchestrator.ts",
@@ -961,7 +1025,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/schema.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_store_schema_ts",
-      "community": 48
+      "community": 49
     },
     {
       "label": "initializeRelaySchema()",
@@ -969,7 +1033,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/schema.ts",
       "source_location": "L3",
       "id": "schema_initializerelayschema",
-      "community": 48
+      "community": 49
     },
     {
       "label": "session-link-store.ts",
@@ -977,7 +1041,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_store_session_link_store_ts",
-      "community": 15
+      "community": 16
     },
     {
       "label": "SessionLinkStore",
@@ -985,7 +1049,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L4",
       "id": "session_link_store_sessionlinkstore",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".constructor()",
@@ -993,7 +1057,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L7",
       "id": "session_link_store_sessionlinkstore_constructor",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".transaction()",
@@ -1001,7 +1065,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L12",
       "id": "session_link_store_sessionlinkstore_transaction",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".link()",
@@ -1009,7 +1073,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L16",
       "id": "session_link_store_sessionlinkstore_link",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".getSessionID()",
@@ -1017,7 +1081,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L22",
       "id": "session_link_store_sessionlinkstore_getsessionid",
-      "community": 15
+      "community": 16
     },
     {
       "label": ".close()",
@@ -1025,7 +1089,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/session-link-store.ts",
       "source_location": "L30",
       "id": "session_link_store_sessionlinkstore_close",
-      "community": 15
+      "community": 16
     },
     {
       "label": "audit-store.ts",
@@ -1033,7 +1097,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_store_audit_store_ts",
-      "community": 16
+      "community": 17
     },
     {
       "label": "AuditStore",
@@ -1041,7 +1105,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L12",
       "id": "audit_store_auditstore",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".constructor()",
@@ -1049,7 +1113,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L15",
       "id": "audit_store_auditstore_constructor",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".transaction()",
@@ -1057,7 +1121,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L20",
       "id": "audit_store_auditstore_transaction",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".append()",
@@ -1065,7 +1129,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L24",
       "id": "audit_store_auditstore_append",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".list()",
@@ -1073,7 +1137,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L39",
       "id": "audit_store_auditstore_list",
-      "community": 16
+      "community": 17
     },
     {
       "label": ".close()",
@@ -1081,7 +1145,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/audit-store.ts",
       "source_location": "L59",
       "id": "audit_store_auditstore_close",
-      "community": 16
+      "community": 17
     },
     {
       "label": "message-store.ts",
@@ -1329,7 +1393,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_internal_store_sqlite_ts",
-      "community": 11
+      "community": 12
     },
     {
       "label": "isSharedDatabaseLocation()",
@@ -1337,7 +1401,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L38",
       "id": "sqlite_isshareddatabaselocation",
-      "community": 11
+      "community": 12
     },
     {
       "label": "isRetryableSqliteError()",
@@ -1345,7 +1409,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L42",
       "id": "sqlite_isretryablesqliteerror",
-      "community": 11
+      "community": 12
     },
     {
       "label": "configureSqliteDatabase()",
@@ -1353,7 +1417,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L47",
       "id": "sqlite_configuresqlitedatabase",
-      "community": 11
+      "community": 12
     },
     {
       "label": "withSqliteRetry()",
@@ -1361,7 +1425,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L67",
       "id": "sqlite_withsqliteretry",
-      "community": 11
+      "community": 12
     },
     {
       "label": "openBunDatabase()",
@@ -1369,7 +1433,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L84",
       "id": "sqlite_openbundatabase",
-      "community": 11
+      "community": 12
     },
     {
       "label": "openNodeDatabase()",
@@ -1377,7 +1441,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L101",
       "id": "sqlite_opennodedatabase",
-      "community": 11
+      "community": 12
     },
     {
       "label": "createRawSqliteDatabase()",
@@ -1385,7 +1449,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L118",
       "id": "sqlite_createrawsqlitedatabase",
-      "community": 11
+      "community": 12
     },
     {
       "label": "acquireSqliteHandle()",
@@ -1393,7 +1457,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L126",
       "id": "sqlite_acquiresqlitehandle",
-      "community": 11
+      "community": 12
     },
     {
       "label": "openSqliteDatabase()",
@@ -1401,7 +1465,7 @@
       "source_file": "packages/relay-plugin/src/internal/store/sqlite.ts",
       "source_location": "L169",
       "id": "sqlite_opensqlitedatabase",
-      "community": 11
+      "community": 12
     },
     {
       "label": "thread-store.ts",
@@ -2185,7 +2249,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-state.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_plugin_state_ts",
-      "community": 49
+      "community": 50
     },
     {
       "label": "createRelayPluginState()",
@@ -2193,7 +2257,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-state.ts",
       "source_location": "L14",
       "id": "plugin_state_createrelaypluginstate",
-      "community": 49
+      "community": 50
     },
     {
       "label": "injector.ts",
@@ -2745,7 +2809,7 @@
       "source_file": "packages/relay-plugin/src/runtime/delivery-gate.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_delivery_gate_ts",
-      "community": 50
+      "community": 51
     },
     {
       "label": "evaluateDelivery()",
@@ -2753,7 +2817,7 @@
       "source_file": "packages/relay-plugin/src/runtime/delivery-gate.ts",
       "source_location": "L8",
       "id": "delivery_gate_evaluatedelivery",
-      "community": 50
+      "community": 51
     },
     {
       "label": "prompt-preamble.ts",
@@ -2801,7 +2865,7 @@
       "source_file": "packages/relay-plugin/src/runtime/compaction-anchor.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_compaction_anchor_ts",
-      "community": 51
+      "community": 52
     },
     {
       "label": "buildCompactionContext()",
@@ -2809,7 +2873,7 @@
       "source_file": "packages/relay-plugin/src/runtime/compaction-anchor.ts",
       "source_location": "L3",
       "id": "compaction_anchor_buildcompactioncontext",
-      "community": 51
+      "community": 52
     },
     {
       "label": "team-workflow.ts",
@@ -2817,7 +2881,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_team_workflow_ts",
-      "community": 12
+      "community": 13
     },
     {
       "label": "normalizeSignalPayload()",
@@ -2825,7 +2889,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L113",
       "id": "team_workflow_normalizesignalpayload",
-      "community": 12
+      "community": 13
     },
     {
       "label": "validateWorkflowSignal()",
@@ -2833,7 +2897,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L156",
       "id": "team_workflow_validateworkflowsignal",
-      "community": 12
+      "community": 13
     },
     {
       "label": "classifyRelayWorkflowSignal()",
@@ -2841,7 +2905,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L189",
       "id": "team_workflow_classifyrelayworkflowsignal",
-      "community": 12
+      "community": 13
     },
     {
       "label": "ensureSessionApi()",
@@ -2849,7 +2913,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L268",
       "id": "team_workflow_ensuresessionapi",
-      "community": 12
+      "community": 13
     },
     {
       "label": "extractCreatedSessionID()",
@@ -2857,7 +2921,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L277",
       "id": "team_workflow_extractcreatedsessionid",
-      "community": 12
+      "community": 13
     },
     {
       "label": "summarizeTask()",
@@ -2865,7 +2929,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L289",
       "id": "team_workflow_summarizetask",
-      "community": 12
+      "community": 13
     },
     {
       "label": "buildSessionTitle()",
@@ -2873,7 +2937,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L294",
       "id": "team_workflow_buildsessiontitle",
-      "community": 12
+      "community": 13
     },
     {
       "label": "buildWorkerBootstrapPrompt()",
@@ -2881,7 +2945,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L298",
       "id": "team_workflow_buildworkerbootstrapprompt",
-      "community": 12
+      "community": 13
     },
     {
       "label": "bootstrapRelayWorkflowTeam()",
@@ -2889,7 +2953,7 @@
       "source_file": "packages/relay-plugin/src/runtime/team-workflow.ts",
       "source_location": "L337",
       "id": "team_workflow_bootstraprelayworkflowteam",
-      "community": 12
+      "community": 13
     },
     {
       "label": "plugin-instance-registry.ts",
@@ -2897,7 +2961,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L1",
       "id": "packages_relay_plugin_src_runtime_plugin_instance_registry_ts",
-      "community": 14
+      "community": 15
     },
     {
       "label": "registerRelayPluginState()",
@@ -2905,7 +2969,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L7",
       "id": "plugin_instance_registry_registerrelaypluginstate",
-      "community": 14
+      "community": 15
     },
     {
       "label": "registerRelayProjectInstance()",
@@ -2913,7 +2977,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L11",
       "id": "plugin_instance_registry_registerrelayprojectinstance",
-      "community": 14
+      "community": 15
     },
     {
       "label": "readRelayPluginState()",
@@ -2921,7 +2985,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L15",
       "id": "plugin_instance_registry_readrelaypluginstate",
-      "community": 14
+      "community": 15
     },
     {
       "label": "registerRelayPluginStartup()",
@@ -2929,7 +2993,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L20",
       "id": "plugin_instance_registry_registerrelaypluginstartup",
-      "community": 14
+      "community": 15
     },
     {
       "label": "readRelayPluginStartup()",
@@ -2937,7 +3001,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L24",
       "id": "plugin_instance_registry_readrelaypluginstartup",
-      "community": 14
+      "community": 15
     },
     {
       "label": "deleteRelayPluginStartup()",
@@ -2945,7 +3009,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L28",
       "id": "plugin_instance_registry_deleterelaypluginstartup",
-      "community": 14
+      "community": 15
     },
     {
       "label": "deleteRelayPluginState()",
@@ -2953,7 +3017,7 @@
       "source_file": "packages/relay-plugin/src/runtime/plugin-instance-registry.ts",
       "source_location": "L32",
       "id": "plugin_instance_registry_deleterelaypluginstate",
-      "community": 14
+      "community": 15
     },
     {
       "label": "response-observer.ts",
@@ -3009,7 +3073,7 @@
       "source_file": "packages/a2a-protocol/src/message.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_message_ts",
-      "community": 70
+      "community": 71
     },
     {
       "label": "ids.ts",
@@ -3017,7 +3081,7 @@
       "source_file": "packages/a2a-protocol/src/ids.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_ids_ts",
-      "community": 30
+      "community": 31
     },
     {
       "label": "createOpaqueId()",
@@ -3025,7 +3089,7 @@
       "source_file": "packages/a2a-protocol/src/ids.ts",
       "source_location": "L5",
       "id": "ids_createopaqueid",
-      "community": 30
+      "community": 31
     },
     {
       "label": "hasOpaqueIdPrefix()",
@@ -3033,7 +3097,7 @@
       "source_file": "packages/a2a-protocol/src/ids.ts",
       "source_location": "L15",
       "id": "ids_hasopaqueidprefix",
-      "community": 30
+      "community": 31
     },
     {
       "label": "task.ts",
@@ -3041,7 +3105,7 @@
       "source_file": "packages/a2a-protocol/src/task.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_task_ts",
-      "community": 71
+      "community": 72
     },
     {
       "label": "index.ts",
@@ -3049,7 +3113,7 @@
       "source_file": "packages/a2a-protocol/src/index.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_index_ts",
-      "community": 72
+      "community": 73
     },
     {
       "label": "agent-card.ts",
@@ -3057,7 +3121,7 @@
       "source_file": "packages/a2a-protocol/src/agent-card.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_agent_card_ts",
-      "community": 52
+      "community": 53
     },
     {
       "label": "parseAgentCard()",
@@ -3065,7 +3129,7 @@
       "source_file": "packages/a2a-protocol/src/agent-card.ts",
       "source_location": "L41",
       "id": "agent_card_parseagentcard",
-      "community": 52
+      "community": 53
     },
     {
       "label": "security.ts",
@@ -3073,7 +3137,7 @@
       "source_file": "packages/a2a-protocol/src/security.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_security_ts",
-      "community": 73
+      "community": 74
     },
     {
       "label": "events.ts",
@@ -3081,7 +3145,7 @@
       "source_file": "packages/a2a-protocol/src/events.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_events_ts",
-      "community": 74
+      "community": 75
     },
     {
       "label": "extensions.ts",
@@ -3089,7 +3153,7 @@
       "source_file": "packages/a2a-protocol/src/extensions.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_extensions_ts",
-      "community": 75
+      "community": 76
     },
     {
       "label": "jsonrpc.ts",
@@ -3097,7 +3161,7 @@
       "source_file": "packages/a2a-protocol/src/jsonrpc.ts",
       "source_location": "L1",
       "id": "packages_a2a_protocol_src_jsonrpc_ts",
-      "community": 76
+      "community": 77
     },
     {
       "label": "time.ts",
@@ -3105,7 +3169,7 @@
       "source_file": "packages/relay-shared/src/time.ts",
       "source_location": "L1",
       "id": "packages_relay_shared_src_time_ts",
-      "community": 31
+      "community": 32
     },
     {
       "label": "now()",
@@ -3113,7 +3177,7 @@
       "source_file": "packages/relay-shared/src/time.ts",
       "source_location": "L1",
       "id": "time_now",
-      "community": 31
+      "community": 32
     },
     {
       "label": "toIsoTime()",
@@ -3121,7 +3185,7 @@
       "source_file": "packages/relay-shared/src/time.ts",
       "source_location": "L5",
       "id": "time_toisotime",
-      "community": 31
+      "community": 32
     },
     {
       "label": "index.ts",
@@ -3129,7 +3193,7 @@
       "source_file": "packages/relay-shared/src/index.ts",
       "source_location": "L1",
       "id": "packages_relay_shared_src_index_ts",
-      "community": 77
+      "community": 78
     },
     {
       "label": "result.ts",
@@ -3137,7 +3201,7 @@
       "source_file": "packages/relay-shared/src/result.ts",
       "source_location": "L1",
       "id": "packages_relay_shared_src_result_ts",
-      "community": 32
+      "community": 33
     },
     {
       "label": "ok()",
@@ -3145,7 +3209,7 @@
       "source_file": "packages/relay-shared/src/result.ts",
       "source_location": "L5",
       "id": "result_ok",
-      "community": 32
+      "community": 33
     },
     {
       "label": "err()",
@@ -3153,7 +3217,7 @@
       "source_file": "packages/relay-shared/src/result.ts",
       "source_location": "L9",
       "id": "result_err",
-      "community": 32
+      "community": 33
     },
     {
       "label": "logger.ts",
@@ -3161,7 +3225,7 @@
       "source_file": "packages/relay-shared/src/logger.ts",
       "source_location": "L1",
       "id": "packages_relay_shared_src_logger_ts",
-      "community": 53
+      "community": 54
     },
     {
       "label": "createLogRecord()",
@@ -3169,7 +3233,7 @@
       "source_file": "packages/relay-shared/src/logger.ts",
       "source_location": "L11",
       "id": "logger_createlogrecord",
-      "community": 53
+      "community": 54
     },
     {
       "label": "constants.ts",
@@ -3177,7 +3241,7 @@
       "source_file": "packages/relay-shared/src/constants.ts",
       "source_location": "L1",
       "id": "packages_relay_shared_src_constants_ts",
-      "community": 78
+      "community": 79
     },
     {
       "label": "restart-recovery.test.ts",
@@ -3185,7 +3249,7 @@
       "source_file": "tests/e2e/restart-recovery.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_restart_recovery_test_ts",
-      "community": 79
+      "community": 80
     },
     {
       "label": "replay-flow.test.ts",
@@ -3193,7 +3257,7 @@
       "source_file": "tests/e2e/replay-flow.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_replay_flow_test_ts",
-      "community": 80
+      "community": 81
     },
     {
       "label": "human-interrupt.test.ts",
@@ -3201,7 +3265,7 @@
       "source_file": "tests/e2e/human-interrupt.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_human_interrupt_test_ts",
-      "community": 81
+      "community": 82
     },
     {
       "label": "smoke.test.ts",
@@ -3209,7 +3273,7 @@
       "source_file": "tests/e2e/smoke.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_smoke_test_ts",
-      "community": 82
+      "community": 83
     },
     {
       "label": "duplicate-suppression.test.ts",
@@ -3217,7 +3281,7 @@
       "source_file": "tests/e2e/duplicate-suppression.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_duplicate_suppression_test_ts",
-      "community": 83
+      "community": 84
     },
     {
       "label": "a2a-happy-path.test.ts",
@@ -3225,7 +3289,7 @@
       "source_file": "tests/e2e/a2a-happy-path.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_a2a_happy_path_test_ts",
-      "community": 84
+      "community": 85
     },
     {
       "label": "streaming-status.test.ts",
@@ -3233,7 +3297,7 @@
       "source_file": "tests/e2e/streaming-status.test.ts",
       "source_location": "L1",
       "id": "tests_e2e_streaming_status_test_ts",
-      "community": 85
+      "community": 86
     },
     {
       "label": "smoke.test.ts",
@@ -3241,7 +3305,7 @@
       "source_file": "tests/protocol/smoke.test.ts",
       "source_location": "L1",
       "id": "tests_protocol_smoke_test_ts",
-      "community": 86
+      "community": 87
     },
     {
       "label": "jsonrpc.test.ts",
@@ -3249,7 +3313,7 @@
       "source_file": "tests/protocol/jsonrpc.test.ts",
       "source_location": "L1",
       "id": "tests_protocol_jsonrpc_test_ts",
-      "community": 87
+      "community": 88
     },
     {
       "label": "task-model.test.ts",
@@ -3257,7 +3321,7 @@
       "source_file": "tests/protocol/task-model.test.ts",
       "source_location": "L1",
       "id": "tests_protocol_task_model_test_ts",
-      "community": 88
+      "community": 89
     },
     {
       "label": "agent-card.test.ts",
@@ -3265,7 +3329,7 @@
       "source_file": "tests/protocol/agent-card.test.ts",
       "source_location": "L1",
       "id": "tests_protocol_agent_card_test_ts",
-      "community": 89
+      "community": 90
     },
     {
       "label": "relay-mcp-server.test.ts",
@@ -3273,7 +3337,7 @@
       "source_file": "tests/plugin/relay-mcp-server.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_relay_mcp_server_test_ts",
-      "community": 54
+      "community": 55
     },
     {
       "label": "restoreEnv()",
@@ -3281,7 +3345,7 @@
       "source_file": "tests/plugin/relay-mcp-server.test.ts",
       "source_location": "L9",
       "id": "relay_mcp_server_test_restoreenv",
-      "community": 54
+      "community": 55
     },
     {
       "label": "a2a-http.test.ts",
@@ -3289,7 +3353,7 @@
       "source_file": "tests/plugin/a2a-http.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_a2a_http_test_ts",
-      "community": 33
+      "community": 34
     },
     {
       "label": "waitForTaskId()",
@@ -3297,7 +3361,7 @@
       "source_file": "tests/plugin/a2a-http.test.ts",
       "source_location": "L14",
       "id": "a2a_http_test_waitfortaskid",
-      "community": 33
+      "community": 34
     },
     {
       "label": "createPluginInput()",
@@ -3305,7 +3369,7 @@
       "source_file": "tests/plugin/a2a-http.test.ts",
       "source_location": "L26",
       "id": "a2a_http_test_createplugininput",
-      "community": 33
+      "community": 34
     },
     {
       "label": "send-message-stream.test.ts",
@@ -3313,7 +3377,7 @@
       "source_file": "tests/plugin/send-message-stream.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_send_message_stream_test_ts",
-      "community": 90
+      "community": 91
     },
     {
       "label": "thread-message-store.test.ts",
@@ -3321,7 +3385,7 @@
       "source_file": "tests/plugin/thread-message-store.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_thread_message_store_test_ts",
-      "community": 91
+      "community": 92
     },
     {
       "label": "team-status.test.ts",
@@ -3329,7 +3393,7 @@
       "source_file": "tests/plugin/team-status.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_team_status_test_ts",
-      "community": 55
+      "community": 56
     },
     {
       "label": "createPluginInput()",
@@ -3337,7 +3401,7 @@
       "source_file": "tests/plugin/team-status.test.ts",
       "source_location": "L9",
       "id": "team_status_test_createplugininput",
-      "community": 55
+      "community": 56
     },
     {
       "label": "config-path.test.ts",
@@ -3345,7 +3409,7 @@
       "source_file": "tests/plugin/config-path.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_config_path_test_ts",
-      "community": 92
+      "community": 93
     },
     {
       "label": "room-store.test.ts",
@@ -3353,7 +3417,7 @@
       "source_file": "tests/plugin/room-store.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_room_store_test_ts",
-      "community": 93
+      "community": 94
     },
     {
       "label": "message-queue.test.ts",
@@ -3361,7 +3425,7 @@
       "source_file": "tests/plugin/message-queue.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_message_queue_test_ts",
-      "community": 56
+      "community": 57
     },
     {
       "label": "createPluginInput()",
@@ -3369,7 +3433,7 @@
       "source_file": "tests/plugin/message-queue.test.ts",
       "source_location": "L9",
       "id": "message_queue_test_createplugininput",
-      "community": 56
+      "community": 57
     },
     {
       "label": "local-plugin-entry.test.ts",
@@ -3377,7 +3441,7 @@
       "source_file": "tests/plugin/local-plugin-entry.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_local_plugin_entry_test_ts",
-      "community": 94
+      "community": 95
     },
     {
       "label": "replay-runtime.test.ts",
@@ -3385,7 +3449,7 @@
       "source_file": "tests/plugin/replay-runtime.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_replay_runtime_test_ts",
-      "community": 57
+      "community": 58
     },
     {
       "label": "createPluginInput()",
@@ -3393,7 +3457,7 @@
       "source_file": "tests/plugin/replay-runtime.test.ts",
       "source_location": "L14",
       "id": "replay_runtime_test_createplugininput",
-      "community": 57
+      "community": 58
     },
     {
       "label": "smoke.test.ts",
@@ -3401,7 +3465,7 @@
       "source_file": "tests/plugin/smoke.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_smoke_test_ts",
-      "community": 95
+      "community": 96
     },
     {
       "label": "prompt-preamble.test.ts",
@@ -3409,7 +3473,7 @@
       "source_file": "tests/plugin/prompt-preamble.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_prompt_preamble_test_ts",
-      "community": 96
+      "community": 97
     },
     {
       "label": "internal-mcp.test.ts",
@@ -3417,7 +3481,7 @@
       "source_file": "tests/plugin/internal-mcp.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_internal_mcp_test_ts",
-      "community": 97
+      "community": 98
     },
     {
       "label": "team-governance.test.ts",
@@ -3425,7 +3489,7 @@
       "source_file": "tests/plugin/team-governance.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_team_governance_test_ts",
-      "community": 58
+      "community": 59
     },
     {
       "label": "createPluginInput()",
@@ -3433,7 +3497,7 @@
       "source_file": "tests/plugin/team-governance.test.ts",
       "source_location": "L9",
       "id": "team_governance_test_createplugininput",
-      "community": 58
+      "community": 59
     },
     {
       "label": "response-observer.test.ts",
@@ -3441,7 +3505,7 @@
       "source_file": "tests/plugin/response-observer.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_response_observer_test_ts",
-      "community": 98
+      "community": 99
     },
     {
       "label": "store.test.ts",
@@ -3449,7 +3513,7 @@
       "source_file": "tests/plugin/store.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_store_test_ts",
-      "community": 99
+      "community": 100
     },
     {
       "label": "dispatch-failure.test.ts",
@@ -3457,7 +3521,7 @@
       "source_file": "tests/plugin/dispatch-failure.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_dispatch_failure_test_ts",
-      "community": 59
+      "community": 60
     },
     {
       "label": "createPluginInput()",
@@ -3465,7 +3529,7 @@
       "source_file": "tests/plugin/dispatch-failure.test.ts",
       "source_location": "L13",
       "id": "dispatch_failure_test_createplugininput",
-      "community": 59
+      "community": 60
     },
     {
       "label": "task-store-rules.test.ts",
@@ -3473,7 +3537,7 @@
       "source_file": "tests/plugin/task-store-rules.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_task_store_rules_test_ts",
-      "community": 100
+      "community": 101
     },
     {
       "label": "loop-guard.test.ts",
@@ -3481,7 +3545,7 @@
       "source_file": "tests/plugin/loop-guard.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_loop_guard_test_ts",
-      "community": 101
+      "community": 102
     },
     {
       "label": "message-notification-window.test.ts",
@@ -3489,7 +3553,7 @@
       "source_file": "tests/plugin/message-notification-window.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_message_notification_window_test_ts",
-      "community": 60
+      "community": 61
     },
     {
       "label": "createPluginInput()",
@@ -3497,7 +3561,7 @@
       "source_file": "tests/plugin/message-notification-window.test.ts",
       "source_location": "L9",
       "id": "message_notification_window_test_createplugininput",
-      "community": 60
+      "community": 61
     },
     {
       "label": "team-start.test.ts",
@@ -3505,7 +3569,7 @@
       "source_file": "tests/plugin/team-start.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_team_start_test_ts",
-      "community": 61
+      "community": 62
     },
     {
       "label": "createPluginInput()",
@@ -3513,7 +3577,7 @@
       "source_file": "tests/plugin/team-start.test.ts",
       "source_location": "L9",
       "id": "team_start_test_createplugininput",
-      "community": 61
+      "community": 62
     },
     {
       "label": "relay-mcp-room-coexistence.test.ts",
@@ -3521,7 +3585,7 @@
       "source_file": "tests/plugin/relay-mcp-room-coexistence.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_relay_mcp_room_coexistence_test_ts",
-      "community": 102
+      "community": 103
     },
     {
       "label": "a2a-host.test.ts",
@@ -3529,7 +3593,7 @@
       "source_file": "tests/plugin/a2a-host.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_a2a_host_test_ts",
-      "community": 103
+      "community": 104
     },
     {
       "label": "mcp-first-hooks.test.ts",
@@ -3537,7 +3601,7 @@
       "source_file": "tests/plugin/mcp-first-hooks.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_mcp_first_hooks_test_ts",
-      "community": 62
+      "community": 63
     },
     {
       "label": "createPluginInput()",
@@ -3545,7 +3609,7 @@
       "source_file": "tests/plugin/mcp-first-hooks.test.ts",
       "source_location": "L9",
       "id": "mcp_first_hooks_test_createplugininput",
-      "community": 62
+      "community": 63
     },
     {
       "label": "delivery-gate.test.ts",
@@ -3553,7 +3617,7 @@
       "source_file": "tests/plugin/delivery-gate.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_delivery_gate_test_ts",
-      "community": 104
+      "community": 105
     },
     {
       "label": "relay-orchestration.test.ts",
@@ -3561,7 +3625,7 @@
       "source_file": "tests/plugin/relay-orchestration.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_relay_orchestration_test_ts",
-      "community": 105
+      "community": 106
     },
     {
       "label": "package-surface.test.ts",
@@ -3569,7 +3633,7 @@
       "source_file": "tests/plugin/package-surface.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_package_surface_test_ts",
-      "community": 106
+      "community": 107
     },
     {
       "label": "bootstrap.test.ts",
@@ -3577,7 +3641,7 @@
       "source_file": "tests/plugin/bootstrap.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_bootstrap_test_ts",
-      "community": 63
+      "community": 64
     },
     {
       "label": "createPluginInput()",
@@ -3585,7 +3649,7 @@
       "source_file": "tests/plugin/bootstrap.test.ts",
       "source_location": "L15",
       "id": "bootstrap_test_createplugininput",
-      "community": 63
+      "community": 64
     },
     {
       "label": "message-tools.test.ts",
@@ -3593,7 +3657,7 @@
       "source_file": "tests/plugin/message-tools.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_message_tools_test_ts",
-      "community": 64
+      "community": 65
     },
     {
       "label": "createPluginInput()",
@@ -3601,7 +3665,7 @@
       "source_file": "tests/plugin/message-tools.test.ts",
       "source_location": "L9",
       "id": "message_tools_test_createplugininput",
-      "community": 64
+      "community": 65
     },
     {
       "label": "send-message.test.ts",
@@ -3609,7 +3673,7 @@
       "source_file": "tests/plugin/send-message.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_send_message_test_ts",
-      "community": 65
+      "community": 66
     },
     {
       "label": "createRequest()",
@@ -3617,7 +3681,7 @@
       "source_file": "tests/plugin/send-message.test.ts",
       "source_location": "L20",
       "id": "send_message_test_createrequest",
-      "community": 65
+      "community": 66
     },
     {
       "label": "package-manifest.test.ts",
@@ -3625,7 +3689,7 @@
       "source_file": "tests/plugin/package-manifest.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_package_manifest_test_ts",
-      "community": 107
+      "community": 108
     },
     {
       "label": "test-boundary-regression.test.ts",
@@ -3633,7 +3697,7 @@
       "source_file": "tests/plugin/test-boundary-regression.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_test_boundary_regression_test_ts",
-      "community": 34
+      "community": 35
     },
     {
       "label": "collectSourceFiles()",
@@ -3641,7 +3705,7 @@
       "source_file": "tests/plugin/test-boundary-regression.test.ts",
       "source_location": "L27",
       "id": "test_boundary_regression_test_collectsourcefiles",
-      "community": 34
+      "community": 35
     },
     {
       "label": "collectModuleSpecifiers()",
@@ -3649,7 +3713,7 @@
       "source_file": "tests/plugin/test-boundary-regression.test.ts",
       "source_location": "L47",
       "id": "test_boundary_regression_test_collectmodulespecifiers",
-      "community": 34
+      "community": 35
     },
     {
       "label": "test-db.ts",
@@ -3657,7 +3721,7 @@
       "source_file": "tests/plugin/test-db.ts",
       "source_location": "L1",
       "id": "tests_plugin_test_db_ts",
-      "community": 35
+      "community": 36
     },
     {
       "label": "createTestDatabaseLocation()",
@@ -3665,7 +3729,7 @@
       "source_file": "tests/plugin/test-db.ts",
       "source_location": "L6",
       "id": "test_db_createtestdatabaselocation",
-      "community": 35
+      "community": 36
     },
     {
       "label": "cleanupDatabaseLocation()",
@@ -3673,7 +3737,7 @@
       "source_file": "tests/plugin/test-db.ts",
       "source_location": "L10",
       "id": "test_db_cleanupdatabaselocation",
-      "community": 35
+      "community": 36
     },
     {
       "label": "team-store.test.ts",
@@ -3681,7 +3745,7 @@
       "source_file": "tests/plugin/team-store.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_team_store_test_ts",
-      "community": 108
+      "community": 109
     },
     {
       "label": "mcp-group-room.test.ts",
@@ -3689,7 +3753,7 @@
       "source_file": "tests/plugin/mcp-group-room.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_mcp_group_room_test_ts",
-      "community": 66
+      "community": 67
     },
     {
       "label": "createPluginInput()",
@@ -3697,7 +3761,7 @@
       "source_file": "tests/plugin/mcp-group-room.test.ts",
       "source_location": "L9",
       "id": "mcp_group_room_test_createplugininput",
-      "community": 66
+      "community": 67
     },
     {
       "label": "human-guard.test.ts",
@@ -3705,7 +3769,7 @@
       "source_file": "tests/plugin/human-guard.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_human_guard_test_ts",
-      "community": 109
+      "community": 110
     },
     {
       "label": "session-id.test.ts",
@@ -3713,7 +3777,7 @@
       "source_file": "tests/plugin/session-id.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_session_id_test_ts",
-      "community": 110
+      "community": 111
     },
     {
       "label": "room-tools.test.ts",
@@ -3721,7 +3785,7 @@
       "source_file": "tests/plugin/room-tools.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_room_tools_test_ts",
-      "community": 67
+      "community": 68
     },
     {
       "label": "createPluginInput()",
@@ -3729,7 +3793,7 @@
       "source_file": "tests/plugin/room-tools.test.ts",
       "source_location": "L9",
       "id": "room_tools_test_createplugininput",
-      "community": 67
+      "community": 68
     },
     {
       "label": "agent-card.test.ts",
@@ -3737,7 +3801,7 @@
       "source_file": "tests/plugin/agent-card.test.ts",
       "source_location": "L1",
       "id": "tests_plugin_agent_card_test_ts",
-      "community": 111
+      "community": 112
     },
     {
       "label": "relay-plugin-testkit.ts",
@@ -3745,7 +3809,7 @@
       "source_file": "tests/support/relay-plugin-testkit.ts",
       "source_location": "L1",
       "id": "tests_support_relay_plugin_testkit_ts",
-      "community": 112
+      "community": 113
     }
   ],
   "links": [
@@ -3753,7 +3817,7 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L18",
+      "source_location": "L16",
       "weight": 1.0,
       "_src": "packages_relay_plugin_src_index_ts",
       "_tgt": "index_tryextractsessionid",
@@ -3765,60 +3829,12 @@
       "relation": "contains",
       "confidence": "EXTRACTED",
       "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L29",
-      "weight": 1.0,
-      "_src": "packages_relay_plugin_src_index_ts",
-      "_tgt": "index_parseparticipantsessionids",
-      "source": "packages_relay_plugin_src_index_ts",
-      "target": "index_parseparticipantsessionids",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L53",
-      "weight": 1.0,
-      "_src": "packages_relay_plugin_src_index_ts",
-      "_tgt": "index_getrelaytoolsuffix",
-      "source": "packages_relay_plugin_src_index_ts",
-      "target": "index_getrelaytoolsuffix",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L70",
-      "weight": 1.0,
-      "_src": "packages_relay_plugin_src_index_ts",
-      "_tgt": "index_applyrelaysessiondefaults",
-      "source": "packages_relay_plugin_src_index_ts",
-      "target": "index_applyrelaysessiondefaults",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "contains",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L96",
+      "source_location": "L27",
       "weight": 1.0,
       "_src": "packages_relay_plugin_src_index_ts",
       "_tgt": "index_relayplugin",
       "source": "packages_relay_plugin_src_index_ts",
       "target": "index_relayplugin",
-      "confidence_score": 1.0
-    },
-    {
-      "relation": "calls",
-      "confidence": "EXTRACTED",
-      "source_file": "packages/relay-plugin/src/index.ts",
-      "source_location": "L71",
-      "weight": 1.0,
-      "_src": "index_applyrelaysessiondefaults",
-      "_tgt": "index_getrelaytoolsuffix",
-      "source": "index_getrelaytoolsuffix",
-      "target": "index_applyrelaysessiondefaults",
       "confidence_score": 1.0
     },
     {
@@ -4011,6 +4027,162 @@
       "_tgt": "relay_mcp_stdio_main",
       "source": "packages_relay_plugin_src_relay_mcp_stdio_ts",
       "target": "relay_mcp_stdio_main",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L26",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_parseparticipantsessionids",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_parseparticipantsessionids",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L33",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_normalizeroomrole",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_normalizeroomrole",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L37",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_normalizeteamaction",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_normalizeteamaction",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L47",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_parsedeliverables",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_parsedeliverables",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L53",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_getnamespacedrelaytoolid",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_getnamespacedrelaytoolid",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L61",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_createnamespacedrelaytools",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_createnamespacedrelaytools",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L67",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_getrelaytoolsuffix",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_getrelaytoolsuffix",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L84",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_ishookedrelaytool",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_ishookedrelaytool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L88",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_applyrelaysessiondefaults",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_applyrelaysessiondefaults",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "contains",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L114",
+      "weight": 1.0,
+      "_src": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "_tgt": "relay_tool_surface_createrelayplugintools",
+      "source": "packages_relay_plugin_src_relay_tool_surface_ts",
+      "target": "relay_tool_surface_createrelayplugintools",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L373",
+      "weight": 1.0,
+      "_src": "relay_tool_surface_createrelayplugintools",
+      "_tgt": "relay_tool_surface_createnamespacedrelaytools",
+      "source": "relay_tool_surface_createnamespacedrelaytools",
+      "target": "relay_tool_surface_createrelayplugintools",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L85",
+      "weight": 1.0,
+      "_src": "relay_tool_surface_ishookedrelaytool",
+      "_tgt": "relay_tool_surface_getrelaytoolsuffix",
+      "source": "relay_tool_surface_getrelaytoolsuffix",
+      "target": "relay_tool_surface_ishookedrelaytool",
+      "confidence_score": 1.0
+    },
+    {
+      "relation": "calls",
+      "confidence": "EXTRACTED",
+      "source_file": "packages/relay-plugin/src/relay-tool-surface.ts",
+      "source_location": "L89",
+      "weight": 1.0,
+      "_src": "relay_tool_surface_applyrelaysessiondefaults",
+      "_tgt": "relay_tool_surface_getrelaytoolsuffix",
+      "source": "relay_tool_surface_getrelaytoolsuffix",
+      "target": "relay_tool_surface_applyrelaysessiondefaults",
       "confidence_score": 1.0
     },
     {
