@@ -109,6 +109,7 @@ export function initializeRelaySchema(database: SqliteDatabase): void {
       created_at INTEGER NOT NULL,
       joined_at INTEGER,
       ready_at INTEGER,
+      cleaned_up_at INTEGER,
       updated_at INTEGER NOT NULL,
       PRIMARY KEY (run_id, session_id)
     );
@@ -141,7 +142,11 @@ export function initializeRelaySchema(database: SqliteDatabase): void {
     database.exec(`ALTER TABLE relay_team_workers ADD COLUMN progress INTEGER;`);
   } catch {}
 
-  try {
-    database.exec(`ALTER TABLE relay_team_workers ADD COLUMN evidence_json TEXT;`);
-  } catch {}
+    try {
+      database.exec(`ALTER TABLE relay_team_workers ADD COLUMN evidence_json TEXT;`);
+    } catch {}
+
+    try {
+      database.exec(`ALTER TABLE relay_team_workers ADD COLUMN cleaned_up_at INTEGER;`);
+    } catch {}
 }

@@ -86,6 +86,7 @@ Repo-local `/relay-*` commands are operator shortcuts for the internal ops MCP s
 4. The manager checks `relay_team_status` to monitor readiness, active work, blockers, completion, and the recent workflow event trail
 5. The manager uses `relay_team_intervene` for standardized retry/reassign/unblock actions that are recorded in the workflow timeline
 6. A team run only reaches `completed` after the reviewer emits a final acceptance handoff with phase `final-acceptance-pass`
+7. Once the run is settled, the manager can use `relay_team_cleanup` to delete the worker root sessions while keeping relay history intact
 
 Quick tutorial: `docs/team-workflow-quickstart.md`
 

@@ -5,7 +5,7 @@ import type { RelayTeamRun, RelayTeamRunStatus, RelayTeamWorker, TeamStore } fro
 import type { HumanGuard } from "./human-guard.js";
 import type { SessionRegistry } from "./session-registry.js";
 
-export type RelayTeamWorkerHealth = "active" | "stale" | "paused" | "unknown" | "settled";
+export type RelayTeamWorkerHealth = "active" | "stale" | "paused" | "unknown" | "settled" | "cleaned_up";
 
 export type RelayTeamWorkerView = RelayTeamWorker & {
   health: RelayTeamWorkerHealth;
@@ -146,6 +146,7 @@ export class TeamStatusService {
           decorated.workflowSource ? `source=${decorated.workflowSource}` : undefined,
           decorated.workflowPhase ? `phase=${decorated.workflowPhase}` : undefined,
           decorated.progress !== undefined ? `progress=${decorated.progress}` : undefined,
+          decorated.cleanedUpAt ? "cleanup=done" : undefined,
           decorated.lastNote ? `note=${decorated.lastNote}` : undefined
         ].filter(Boolean);
         return `- ${parts.join(" ")}`;
@@ -161,7 +162,9 @@ export class TeamStatusService {
       && now - latestActivityAt > this.dependencies.teamWorkerStaleAfterMs;
 
     let health: RelayTeamWorkerHealth;
-    if (["completed", "failed"].includes(worker.status)) {
+    if (worker.cleanedUpAt) {
+      health = "cleaned_up";
+    } else if (["completed", "failed"].includes(worker.status)) {
       health = "settled";
     } else if (this.dependencies.humanGuard.isPaused(worker.sessionID)) {
       health = "paused";
@@ -177,12 +180,15 @@ export class TeamStatusService {
       ...worker,
       health,
       stale,
-      sessionStatus: sessionSnapshot?.status?.type,
-      sessionUpdatedAt: sessionSnapshot?.updatedAt
+      sessionStatus: worker.cleanedUpAt ? undefined : sessionSnapshot?.status?.type,
+      sessionUpdatedAt: worker.cleanedUpAt ? undefined : sessionSnapshot?.updatedAt
     };
   }
 
   private buildTeamNextStep(run: RelayTeamRun, workers: RelayTeamWorkerView[]): string {
+    if (workers.length > 0 && workers.every((worker) => !!worker.cleanedUpAt)) {
+      return "Worker sessions were cleaned up. Relay room, thread, and audit history remain available for review.";
+    }
     if (run.status === "failed") {
       return "Inspect failed worker notes and decide whether to restart the workflow team.";
     }

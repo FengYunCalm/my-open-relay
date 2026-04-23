@@ -86,6 +86,7 @@
 4. manager 通过 `relay_team_status` 查看 ready / active / blocked / completed 状态和最近 workflow timeline
 5. manager 使用 `relay_team_intervene` 执行标准化 retry / reassign / unblock 操作，并把结果写入 workflow timeline
 6. 只有 reviewer 发出 `phase: "final-acceptance-pass"` 的最终验收完成信号后，team run 才会进入 `completed`
+7. run 进入稳定状态后，manager 可以用 `relay_team_cleanup` 删除 worker 主会话，同时保留 relay 历史记录
 
 快速教程：`docs/team-workflow-quickstart.md`
 

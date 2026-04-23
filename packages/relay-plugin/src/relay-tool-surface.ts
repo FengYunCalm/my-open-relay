@@ -365,6 +365,21 @@ export function createRelayPluginTools(
         action: normalizeTeamAction(action),
         targetAlias
       }), null, 2)
+    }),
+    relay_team_cleanup: tool({
+      description: "Delete settled worker sessions for a relay workflow team while keeping relay history intact",
+      args: {
+        runId: tool.schema.string().optional(),
+        roomCode: tool.schema.string().optional(),
+        targetAlias: tool.schema.string().optional(),
+        force: tool.schema.boolean().optional()
+      },
+      execute: async ({ runId, roomCode, targetAlias, force }, context) => JSON.stringify(await state.runtime.cleanupTeam(context.sessionID, {
+        runId,
+        roomCode,
+        targetAlias,
+        force
+      }), null, 2)
     })
   } satisfies RelayPluginToolMap;
 

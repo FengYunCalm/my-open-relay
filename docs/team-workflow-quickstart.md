@@ -90,6 +90,7 @@ If one of those systems is not actually exposed in the worker session, fall back
    - `relay_transcript_export`
 4. If a worker becomes `blocked`, `failed`, `stale`, or repeatedly sends rejected TEAM signals, use `relay_team_intervene` to issue a standardized manager action (`retry`, `reassign`, `unblock`, `nudge`)
 5. Use `relay_team_status` again to confirm the intervention was recorded in `recentEvents`
+6. After a run reaches `completed` or `failed`, use `relay_team_cleanup` to delete the worker root sessions without losing relay room, thread, or audit history
 
 `relay_team_status` also returns:
 

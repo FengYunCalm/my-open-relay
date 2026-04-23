@@ -522,6 +522,145 @@ export class RelayRuntime {
     };
   }
 
+  async cleanupTeam(
+    managerSessionID: string,
+    input: {
+      runId?: string;
+      roomCode?: string;
+      targetAlias?: string;
+      force?: boolean;
+    }
+  ): Promise<{
+    runId: string;
+    roomCode: string;
+    runStatus: string;
+    targetAlias?: string;
+    force: boolean;
+    cleaned: Array<{ sessionID: string; alias: string; role: string; cleanedUpAt?: number; reason: string }>;
+    alreadyCleaned: Array<{ sessionID: string; alias: string; role: string; cleanedUpAt?: number }>;
+    failed: Array<{ sessionID: string; alias: string; role: string; error: string }>;
+    nextStep: string;
+  }> {
+    const access = this.teamStore.getRunAccess(managerSessionID, input.roomCode, input.runId);
+    if (!access) {
+      throw new Error(`No relay workflow team is bound to session ${managerSessionID}.`);
+    }
+    if (access.role !== "manager") {
+      throw new Error("Only the manager session can clean up team worker sessions.");
+    }
+
+    const run = access.run;
+    if (!input.force && !["completed", "failed"].includes(run.status)) {
+      throw new Error("Team cleanup only runs after the workflow is completed or failed. Pass force=true to override.");
+    }
+
+    const workers = this.teamStore
+      .listWorkers(run.runId)
+      .filter((worker) => !input.targetAlias || worker.alias === input.targetAlias);
+
+    if (workers.length === 0) {
+      throw new Error(input.targetAlias
+        ? `No team worker matches alias ${input.targetAlias}.`
+        : `No team workers are registered for run ${run.runId}.`);
+    }
+
+    const cleaned: Array<{ sessionID: string; alias: string; role: string; cleanedUpAt?: number; reason: string }> = [];
+    const alreadyCleaned: Array<{ sessionID: string; alias: string; role: string; cleanedUpAt?: number }> = [];
+    const failed: Array<{ sessionID: string; alias: string; role: string; error: string }> = [];
+
+    for (const worker of workers) {
+      if (worker.cleanedUpAt) {
+        alreadyCleaned.push({
+          sessionID: worker.sessionID,
+          alias: worker.alias,
+          role: worker.role,
+          cleanedUpAt: worker.cleanedUpAt
+        });
+        continue;
+      }
+
+      try {
+        const sessionInfo = await this.input.client.session.get({
+          path: { id: worker.sessionID },
+          query: { directory: this.input.directory }
+        });
+
+        if (sessionInfo.error && sessionInfo.response?.status !== 404) {
+          throw this.describeSessionClientError(sessionInfo.error);
+        }
+
+        let reason = "already_missing";
+        if (sessionInfo.response?.status !== 404 && sessionInfo.data) {
+          const deleted = await this.input.client.session.delete({
+            path: { id: worker.sessionID },
+            query: { directory: this.input.directory }
+          });
+
+          if (deleted.error && deleted.response?.status !== 404) {
+            throw this.describeSessionClientError(deleted.error);
+          }
+
+          reason = deleted.response?.status === 404 ? "already_missing" : "deleted";
+        }
+
+        const updated = this.teamStore.markWorkerCleanedUp(worker.sessionID, run.roomCode) ?? worker;
+        this.auditStore.append(run.runId, "team.worker.cleaned_up", {
+          managerSessionID,
+          sessionID: worker.sessionID,
+          alias: worker.alias,
+          role: worker.role,
+          reason
+        });
+        cleaned.push({
+          sessionID: worker.sessionID,
+          alias: worker.alias,
+          role: worker.role,
+          cleanedUpAt: updated.cleanedUpAt,
+          reason
+        });
+      } catch (error) {
+        const message = error instanceof Error ? error.message : "unknown cleanup failure";
+        this.auditStore.append(run.runId, "team.worker.cleanup_failed", {
+          managerSessionID,
+          sessionID: worker.sessionID,
+          alias: worker.alias,
+          role: worker.role,
+          error: message
+        });
+        failed.push({
+          sessionID: worker.sessionID,
+          alias: worker.alias,
+          role: worker.role,
+          error: message
+        });
+      }
+    }
+
+    this.auditStore.append(run.runId, "team.run.cleaned_up", {
+      managerSessionID,
+      roomCode: run.roomCode,
+      targetAlias: input.targetAlias,
+      force: Boolean(input.force),
+      cleanedCount: cleaned.length,
+      alreadyCleanedCount: alreadyCleaned.length,
+      failedCount: failed.length
+    });
+
+    return {
+      runId: run.runId,
+      roomCode: run.roomCode,
+      runStatus: run.status,
+      targetAlias: input.targetAlias,
+      force: Boolean(input.force),
+      cleaned,
+      alreadyCleaned,
+      failed,
+      nextStep: failed.length > 0
+        ? "Some worker sessions could not be cleaned up. Review failed entries and retry relay_team_cleanup if needed."
+        : "Worker sessions were cleaned up. Relay history remains available through relay_team_status, transcripts, and audit events."
+    };
+  }
+
   getTeamStatus(sessionID: string, runId?: string, roomCode?: string): RelayTeamStatusView {
     return this.teamStatusService.getTeamStatus(sessionID, runId, roomCode);
   }
@@ -595,6 +734,19 @@ export class RelayRuntime {
 
   recordDiagnostic(eventType: string, payload: Record<string, unknown>): void {
     this.auditStore.append(RelayRuntime.diagnosticsTaskId, eventType, payload);
+  }
+
+  private describeSessionClientError(error: unknown): Error {
+    if (error instanceof Error) {
+      return error;
+    }
+    if (typeof error === "string" && error.trim().length > 0) {
+      return new Error(error);
+    }
+    if (error && typeof error === "object" && "message" in error && typeof error.message === "string") {
+      return new Error(error.message);
+    }
+    return new Error("Session API request failed.");
   }
 
   async replayTask(taskId: string): Promise<StoredRelayTask | undefined> {

@@ -33,6 +33,7 @@ export type RelayTeamWorker = {
   createdAt: number;
   joinedAt?: number;
   readyAt?: number;
+  cleanedUpAt?: number;
   updatedAt: number;
 };
 
@@ -67,6 +68,7 @@ type RelayTeamWorkerRow = {
   created_at: number;
   joined_at: number | null;
   ready_at: number | null;
+  cleaned_up_at: number | null;
   updated_at: number;
 };
 
@@ -190,8 +192,8 @@ export class TeamStore {
       const now = Date.now();
       this.database
         .prepare(`
-          INSERT INTO relay_team_workers (run_id, session_id, role, alias, title, status, last_note, workflow_source, workflow_phase, progress, evidence_json, created_at, joined_at, ready_at, updated_at)
-          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+          INSERT INTO relay_team_workers (run_id, session_id, role, alias, title, status, last_note, workflow_source, workflow_phase, progress, evidence_json, created_at, joined_at, ready_at, cleaned_up_at, updated_at)
+          VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
         `)
         .run(
           input.runId,
@@ -206,6 +208,7 @@ export class TeamStore {
           input.progress ?? null,
           serializeEvidence(input.evidence),
           now,
+          null,
           null,
           null,
           now
@@ -320,6 +323,12 @@ export class TeamStore {
     }));
   }
 
+  markWorkerCleanedUp(sessionID: string, roomCode?: string): RelayTeamWorker | undefined {
+    return this.updateWorkerBySession(sessionID, roomCode, () => ({
+      cleanedUpAt: Date.now()
+    }));
+  }
+
   markRunFailed(runId: string): RelayTeamRun {
     this.database.prepare(`UPDATE relay_team_runs SET status = ?, updated_at = ? WHERE run_id = ?`).run("failed", Date.now(), runId);
     return this.getRun(runId)!;
@@ -355,7 +364,7 @@ export class TeamStore {
   private updateWorkerBySession(
     sessionID: string,
     roomCode: string | undefined,
-    mutate: (worker: RelayTeamWorker) => Partial<Pick<RelayTeamWorker, "alias" | "status" | "lastNote" | "joinedAt" | "readyAt" | "workflowSource" | "workflowPhase" | "progress" | "evidence">>
+    mutate: (worker: RelayTeamWorker) => Partial<Pick<RelayTeamWorker, "alias" | "status" | "lastNote" | "joinedAt" | "readyAt" | "workflowSource" | "workflowPhase" | "progress" | "evidence" | "cleanedUpAt">>
   ): RelayTeamWorker | undefined {
     const row = this.findWorkerRow(sessionID, roomCode);
     if (!row) {
@@ -369,7 +378,7 @@ export class TeamStore {
       this.database
         .prepare(`
           UPDATE relay_team_workers
-          SET alias = ?, status = ?, last_note = ?, workflow_source = ?, workflow_phase = ?, progress = ?, evidence_json = ?, joined_at = ?, ready_at = ?, updated_at = ?
+          SET alias = ?, status = ?, last_note = ?, workflow_source = ?, workflow_phase = ?, progress = ?, evidence_json = ?, joined_at = ?, ready_at = ?, cleaned_up_at = ?, updated_at = ?
           WHERE run_id = ? AND session_id = ?
         `)
         .run(
@@ -382,6 +391,7 @@ export class TeamStore {
           serializeEvidence(patch.evidence ?? worker.evidence),
           patch.joinedAt ?? worker.joinedAt ?? null,
           patch.readyAt ?? worker.readyAt ?? null,
+          patch.cleanedUpAt ?? worker.cleanedUpAt ?? null,
           now,
           worker.runId,
           worker.sessionID
@@ -434,6 +444,7 @@ export class TeamStore {
       createdAt: row.created_at,
       joinedAt: row.joined_at ?? undefined,
       readyAt: row.ready_at ?? undefined,
+      cleanedUpAt: row.cleaned_up_at ?? undefined,
       updatedAt: row.updated_at
     };
   }
