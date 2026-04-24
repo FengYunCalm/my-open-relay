@@ -2,6 +2,81 @@ import { describe, expect, it } from "vitest";
 
 import { buildTaskRelayPrompt, buildThreadRelayPrompt } from "../support/relay-plugin-testkit.js";
 
+type TestTeamStatus = {
+  runId: string;
+  roomCode: string;
+  task: string;
+  status: string;
+  managerSessionID: string;
+  currentSessionRole: string;
+  workers: Array<{
+    runId: string;
+    sessionID: string;
+    role: string;
+    alias: string;
+    title: string;
+    status: string;
+    lastNote?: string;
+    workflowPhase?: string;
+    progress?: number;
+    createdAt: number;
+    updatedAt: number;
+    health: string;
+    stale: boolean;
+  }>;
+  summary: {
+    counts: Record<string, number>;
+    healthCounts: Record<string, number>;
+  };
+  recentEvents: unknown[];
+  attentionItems: unknown[];
+  interventionOutcomes: unknown[];
+  policyDecisions: unknown[];
+  recommendedActions: Array<{
+    action: string;
+    targetAlias?: string;
+    handoffTo?: string;
+    reason: string;
+  }>;
+  nextStep: string;
+};
+
+function createManagerTeamStatus(overrides: Partial<TestTeamStatus> = {}): TestTeamStatus {
+  return {
+    runId: "run-1",
+    roomCode: "030900",
+    task: "测试一下",
+    status: "completed",
+    managerSessionID: "session-manager",
+    currentSessionRole: "manager",
+    workers: [
+      {
+        runId: "run-1",
+        sessionID: "session-reviewer",
+        role: "reviewer",
+        alias: "reviewer",
+        title: "team/reviewer: 测试一下",
+        status: "completed",
+        lastNote: "Verdict pass",
+        workflowPhase: "signal-review-complete",
+        progress: 100,
+        createdAt: 1,
+        updatedAt: 1,
+        health: "settled",
+        stale: false
+      }
+    ],
+    summary: { counts: { completed: 1 }, healthCounts: { settled: 1 } },
+    recentEvents: [],
+    attentionItems: [],
+    interventionOutcomes: [],
+    policyDecisions: [],
+    recommendedActions: [],
+    nextStep: "done",
+    ...overrides
+  };
+}
+
 describe("relay prompt preamble", () => {
   it("builds a task relay prompt with fixed agent-awareness preamble", () => {
     const prompt = buildTaskRelayPrompt({
@@ -128,7 +203,8 @@ describe("relay prompt preamble", () => {
           { alias: "planner", role: "planner", sessionID: "session-planner" },
           { alias: "implementer", role: "implementer", sessionID: "session-implementer" },
           { alias: "reviewer", role: "reviewer", sessionID: "session-reviewer" }
-        ]
+        ],
+        teamStatus: createManagerTeamStatus() as never
       }
     });
 
@@ -137,7 +213,7 @@ describe("relay prompt preamble", () => {
     expect(prompt).toContain("[planner](/QzovcmVsYXktcHJvamVjdA/session/session-planner)");
     expect(prompt).toContain("[implementer](/QzovcmVsYXktcHJvamVjdA/session/session-implementer)");
     expect(prompt).toContain("[reviewer](/QzovcmVsYXktcHJvamVjdA/session/session-reviewer)");
-    expect(prompt).toContain("Workers:");
+    expect(prompt).toContain("Status:");
     expect(prompt).toContain("- reviewer: done [signal-review-complete · 100%] - Verdict pass");
     expect(prompt).toContain("Action:");
     expect(prompt).toContain("- pass candidate; confirm with relay_team_status, then decide whether to clean up the team");
@@ -199,13 +275,111 @@ describe("relay prompt preamble", () => {
         workerLinks: [
           { alias: "planner", role: "planner", sessionID: "session-planner" },
           { alias: "reviewer", role: "reviewer", sessionID: "session-reviewer" }
-        ]
+        ],
+        teamStatus: createManagerTeamStatus({
+          status: "blocked",
+          workers: [
+            {
+              runId: "run-1",
+              sessionID: "session-planner",
+              role: "planner",
+              alias: "planner",
+              title: "team/planner: 测试一下",
+              status: "in_progress",
+              lastNote: "Minimal plan drafted",
+              workflowPhase: "planning",
+              progress: 70,
+              createdAt: 1,
+              updatedAt: 2,
+              health: "active",
+              stale: false
+            },
+            {
+              runId: "run-1",
+              sessionID: "session-reviewer",
+              role: "reviewer",
+              alias: "reviewer",
+              title: "team/reviewer: 测试一下",
+              status: "blocked",
+              lastNote: "Need a concrete target",
+              workflowPhase: "review-intake",
+              progress: 20,
+              createdAt: 1,
+              updatedAt: 3,
+              health: "active",
+              stale: false
+            }
+          ],
+          summary: { counts: { in_progress: 1, blocked: 1 }, healthCounts: { active: 2 } },
+          recommendedActions: [
+            {
+              action: "unblock",
+              targetAlias: "reviewer",
+              reason: "reviewer is blocked"
+            }
+          ]
+        }) as never
       }
     });
 
-    expect(prompt).toContain("- planner: progress [planning · 70%] - Minimal plan drafted");
     expect(prompt).not.toContain("planner ready for work");
+    expect(prompt).toContain("Blocking:");
     expect(prompt).toContain("- reviewer: blocked [review-intake · 20%] - Need a concrete target");
-    expect(prompt).toContain("- reviewer: manager input needed - Need a concrete target");
+    expect(prompt).toContain("- reviewer: manager input needed");
+  });
+
+  it("normalizes stable blocked phases so repeated blocker updates can be suppressed", () => {
+    const prompt = buildThreadRelayPrompt({
+      roomCode: "030900",
+      recipientSessionID: "session-manager",
+      thread: {
+        threadId: "thread-team",
+        roomCode: "030900",
+        kind: "group",
+        title: "room-main",
+        createdBySessionID: "session-manager",
+        createdAt: 1,
+        updatedAt: 1
+      },
+      messages: [],
+      senderRoles: {},
+      managerView: {
+        directory: "C:/relay-project",
+        workerLinks: [
+          { alias: "reviewer", role: "reviewer", sessionID: "session-reviewer" }
+        ],
+        teamStatus: createManagerTeamStatus({
+          status: "blocked",
+          workers: [
+            {
+              runId: "run-1",
+              sessionID: "session-reviewer",
+              role: "reviewer",
+              alias: "reviewer",
+              title: "team/reviewer: 测试一下",
+              status: "blocked",
+              lastNote: "Still waiting on live evidence",
+              workflowPhase: "final-acceptance-waiting-on-live-evidence",
+              progress: 85,
+              createdAt: 1,
+              updatedAt: 4,
+              health: "active",
+              stale: false
+            }
+          ],
+          summary: { counts: { blocked: 1 }, healthCounts: { active: 1 } },
+          recommendedActions: [
+            {
+              action: "unblock",
+              targetAlias: "reviewer",
+              reason: "reviewer is blocked"
+            }
+          ]
+        }) as never
+      }
+    });
+
+    expect(prompt).toContain("- reviewer: blocked - waiting on manager-provided live evidence or environment access");
+    expect(prompt).not.toContain("final-acceptance-waiting-on-live-evidence");
   });
 });

@@ -1,6 +1,7 @@
 import type { RelayMessage } from "../internal/store/message-store.js";
 import type { RelayRoomMemberRole } from "../internal/store/room-store.js";
 import type { RelayThread } from "../internal/store/thread-store.js";
+import type { RelayTeamStatusView, RelayTeamWorkerView } from "./team-status-service.js";
 import { classifyRelayWorkflowSignal, relayWorkflowSignalPrefixes } from "./team-workflow.js";
 
 type ManagerRelayWorkerLink = {
@@ -164,6 +165,110 @@ function buildManagerActionLines(summaries: ManagerRelaySummary[]): string[] {
   return ["- open relay_team_status for the aggregate state if you need more context"];
 }
 
+function isStableManagerPhase(phase?: string): boolean {
+  if (!phase) {
+    return false;
+  }
+
+  return /(blocker-stable|no-new-evidence|no-plan-change|waiting-on-live-evidence|awaiting-|final-review-blocked|final-acceptance-waiting)/i.test(phase);
+}
+
+function mapAggregateWorkerStatus(status: RelayTeamWorkerView["status"]): "ready" | "progress" | "blocked" | "done" | "failed" | "other" {
+  switch (status) {
+    case "ready":
+      return "ready";
+    case "in_progress":
+      return "progress";
+    case "blocked":
+      return "blocked";
+    case "completed":
+      return "done";
+    case "failed":
+      return "failed";
+    default:
+      return "other";
+  }
+}
+
+function renderAggregateWorkerLine(worker: RelayTeamWorkerView): string {
+  const stableBlocked = worker.status === "blocked" && isStableManagerPhase(worker.workflowPhase);
+  const details = [
+    !stableBlocked && worker.workflowPhase ? worker.workflowPhase : undefined,
+    !stableBlocked && worker.progress !== undefined ? `${worker.progress}%` : undefined
+  ].filter(Boolean).join(" · ");
+  const mappedStatus = mapAggregateWorkerStatus(worker.status);
+  const prefix = `- ${worker.alias}: ${mappedStatus}${details ? ` [${details}]` : ""}`;
+
+  if (mappedStatus === "blocked" && stableBlocked) {
+    return `${prefix} - waiting on manager-provided live evidence or environment access`;
+  }
+
+  if (mappedStatus === "blocked") {
+    return `${prefix} - ${worker.lastNote ?? "manager input required"}`;
+  }
+
+  if (mappedStatus === "progress") {
+    return `${prefix}`;
+  }
+
+  if (mappedStatus === "ready") {
+    return `${prefix}`;
+  }
+
+  return `${prefix}${worker.lastNote ? ` - ${worker.lastNote}` : ""}`;
+}
+
+function buildAggregateManagerActionLines(teamStatus: RelayTeamStatusView): string[] {
+  if (teamStatus.recommendedActions.length > 0) {
+    return teamStatus.recommendedActions.map((action) => {
+      if (action.action === "unblock") {
+        return `- ${action.targetAlias ?? "worker"}: manager input needed`;
+      }
+      if (action.action === "reassign") {
+        return action.handoffTo
+          ? `- ${action.targetAlias ?? "worker"}: handoff to ${action.handoffTo}`
+          : `- ${action.targetAlias ?? "worker"}: reassign the next step`;
+      }
+      if (action.action === "retry") {
+        return `- ${action.targetAlias ?? "worker"}: ask for a corrected signal or retry`;
+      }
+      return `- ${action.targetAlias ?? "worker"}: check stale progress`;
+    });
+  }
+
+  if (teamStatus.status === "completed") {
+    return ["- pass candidate; confirm with relay_team_status, then decide whether to clean up the team"];
+  }
+
+  if (teamStatus.status === "cleaned_up") {
+    return ["- no further action; worker sessions were already cleaned up"];
+  }
+
+  if (teamStatus.status === "in_progress" || teamStatus.status === "ready" || teamStatus.status === "waiting") {
+    return ["- no manager action yet; wait for more worker signals or open relay_team_status"];
+  }
+
+  return ["- open relay_team_status for the aggregate state if you need more context"];
+}
+
+function buildAggregateManagerSections(teamStatus: RelayTeamStatusView): { header: string; lines: string[]; actionLines: string[] } {
+  const blockingWorkers = teamStatus.workers.filter((worker) => !worker.cleanedUpAt && worker.status === "blocked");
+  if (blockingWorkers.length > 0) {
+    return {
+      header: "Blocking:",
+      lines: blockingWorkers.map((worker) => renderAggregateWorkerLine(worker)),
+      actionLines: buildAggregateManagerActionLines(teamStatus)
+    };
+  }
+
+  const statusWorkers = teamStatus.workers.filter((worker) => !worker.cleanedUpAt && ["ready", "in_progress", "completed", "failed"].includes(worker.status));
+  return {
+    header: "Status:",
+    lines: statusWorkers.map((worker) => renderAggregateWorkerLine(worker)),
+    actionLines: buildAggregateManagerActionLines(teamStatus)
+  };
+}
+
 function buildManagerThreadRelayPrompt(input: {
   roomCode: string;
   thread: RelayThread;
@@ -173,6 +278,7 @@ function buildManagerThreadRelayPrompt(input: {
   senderAliases?: Record<string, string | undefined>;
   directory: string;
   workerLinks: ManagerRelayWorkerLink[];
+  teamStatus?: RelayTeamStatusView;
 }): string {
   const workerLinkLine = input.workerLinks.length > 0
     ? input.workerLinks
@@ -180,23 +286,30 @@ function buildManagerThreadRelayPrompt(input: {
       .join(" | ")
     : "none";
 
-  const summaries = buildManagerSummaries({
-    messages: input.messages,
-    senderRoles: input.senderRoles,
-    senderAliases: input.senderAliases,
-    workerLinks: input.workerLinks
-  });
-  const lines = summaries.map((summary) => renderManagerSummaryLine(summary));
-  const actionLines = buildManagerActionLines(summaries);
+  const sections = input.teamStatus
+    ? buildAggregateManagerSections(input.teamStatus)
+    : (() => {
+        const summaries = buildManagerSummaries({
+          messages: input.messages,
+          senderRoles: input.senderRoles,
+          senderAliases: input.senderAliases,
+          workerLinks: input.workerLinks
+        });
+        return {
+          header: "Workers:",
+          lines: summaries.map((summary) => renderManagerSummaryLine(summary)),
+          actionLines: buildManagerActionLines(summaries)
+        };
+      })();
 
   return [
     "[TEAM UPDATE]",
     `Room: ${input.roomCode}`,
     `Worker sessions: ${workerLinkLine}`,
-    "Workers:",
-    ...lines,
+    sections.header,
+    ...sections.lines,
     "Action:",
-    ...actionLines,
+    ...sections.actionLines,
     "Details: use relay_team_status for the aggregate view; use transcripts only for raw thread content."
   ].join("\n\n");
 }
@@ -239,6 +352,7 @@ export function buildThreadRelayPrompt(input: {
   managerView?: {
     directory: string;
     workerLinks: ManagerRelayWorkerLink[];
+    teamStatus?: RelayTeamStatusView;
   };
 }): string {
   if (input.roomKind === "private" && input.thread.kind === "direct") {
@@ -263,7 +377,8 @@ export function buildThreadRelayPrompt(input: {
       senderRoles: input.senderRoles,
       senderAliases: input.senderAliases,
       directory: input.managerView.directory,
-      workerLinks: input.managerView.workerLinks
+      workerLinks: input.managerView.workerLinks,
+      teamStatus: input.managerView.teamStatus
     });
   }
 

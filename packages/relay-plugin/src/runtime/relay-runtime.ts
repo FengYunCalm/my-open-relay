@@ -137,6 +137,7 @@ export class RelayRuntime {
   private readonly inFlightTaskDispatches = new Set<string>();
   private readonly inFlightThreadNotificationKeys = new Set<string>();
   private readonly lastInjectedThreadSeqByRecipient = new Map<string, number>();
+  private readonly lastManagerThreadPromptByRecipient = new Map<string, string>();
 
   private readonly sendMessage;
   private readonly sendMessageStream;
@@ -992,6 +993,7 @@ export class RelayRuntime {
   private async notifyThreadParticipant(thread: RelayThread, sessionID: string, messages: RelayMessage[]): Promise<void> {
     const latestSeq = messages[messages.length - 1]?.seq ?? 0;
     const injectionKey = `${thread.threadId}:${sessionID}`;
+    const managerPromptKey = `room:${thread.roomCode}:${sessionID}`;
     const lastInjectedSeq = this.lastInjectedThreadSeqByRecipient.get(injectionKey) ?? 0;
     if (latestSeq <= lastInjectedSeq) {
       this.recordDiagnostic("relay.send.inject_skipped", {
@@ -1021,7 +1023,8 @@ export class RelayRuntime {
             alias: worker.alias,
             role: worker.role,
             sessionID: worker.sessionID
-          }))
+          })),
+          teamStatus: this.teamStatusService.getTeamStatus(sessionID, teamAccess.run.runId, thread.roomCode)
         }
       : undefined;
 
@@ -1035,8 +1038,28 @@ export class RelayRuntime {
       senderAliases,
       managerView
     });
+
+    if (managerView) {
+      const lastPrompt = this.lastManagerThreadPromptByRecipient.get(managerPromptKey);
+      if (prompt === lastPrompt) {
+        this.recordDiagnostic("relay.send.inject_skipped", {
+          injectorKind: "thread-notify",
+          roomCode: thread.roomCode,
+          threadId: thread.threadId,
+          targetSessionID: sessionID,
+          latestSeq,
+          lastInjectedSeq,
+          reason: "unchanged_summary"
+        });
+        return;
+      }
+    }
+
     await this.injector.submitAsync(sessionID, prompt);
     this.lastInjectedThreadSeqByRecipient.set(injectionKey, latestSeq);
+    if (managerView) {
+      this.lastManagerThreadPromptByRecipient.set(managerPromptKey, prompt);
+    }
     this.recordDiagnostic("relay.send.inject", {
       injectorKind: "thread-notify",
       roomCode: thread.roomCode,

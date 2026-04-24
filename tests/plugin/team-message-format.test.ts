@@ -72,12 +72,22 @@ describe("manager relay message formatting", () => {
       title: "team/implementer: 测试一下"
     });
 
+    state.runtime.teamStore.markWorkerSignal("session-reviewer", room.roomCode, {
+      status: "completed",
+      note: "Verdict pass",
+      ready: true,
+      source: "omo",
+      phase: "signal-review-complete",
+      progress: 100,
+      evidence: ["ok"]
+    });
+
     const thread = state.runtime.createThread({
       roomCode: room.roomCode,
-      kind: "group",
+      kind: "direct",
       createdBySessionID: "session-manager",
       participantSessionIDs: ["session-manager", "session-reviewer"],
-      title: "room-main"
+      title: "review"
     });
 
     await state.runtime.sendThreadMessage({
@@ -93,10 +103,85 @@ describe("manager relay message formatting", () => {
     expect(promptText).toContain("[planner](/QzovcmVsYXktcHJvamVjdA/session/session-planner)");
     expect(promptText).toContain("[implementer](/QzovcmVsYXktcHJvamVjdA/session/session-implementer)");
     expect(promptText).toContain("[reviewer](/QzovcmVsYXktcHJvamVjdA/session/session-reviewer)");
-    expect(promptText).toContain("Workers:");
+    expect(promptText).toContain("Status:");
     expect(promptText).toContain("- reviewer: done [signal-review-complete · 100%] - Verdict pass");
     expect(promptText).toContain("Action:");
-    expect(promptText).toContain("- pass candidate; confirm with relay_team_status, then decide whether to clean up the team");
+    expect(promptText).toContain("- no manager action yet; wait for more worker signals or open relay_team_status");
     expect(promptText).not.toContain("[RELAYED AGENT INPUT]");
+  });
+
+  it("suppresses unchanged manager summaries when a stable non-blocking update arrives", async () => {
+    const databasePath = createTestDatabaseLocation("team-message-format-stable");
+    dbLocations.push(databasePath);
+    const promptAsync = vi.fn().mockResolvedValue({ data: true });
+    await RelayPlugin(createPluginInput("project-team-message-format", promptAsync), {
+      a2a: { port: 0 },
+      routing: { mode: "pair" },
+      runtime: { databasePath }
+    });
+
+    const state = getRelayPluginStateForTest("project-team-message-format")!;
+    const room = state.runtime.createRoom("session-manager", "group");
+    state.runtime.roomStore.joinRoom(room.roomCode, "session-reviewer", "reviewer");
+    state.runtime.roomStore.joinRoom(room.roomCode, "session-planner", "planner");
+    const run = state.runtime.teamStore.createRun({
+      managerSessionID: "session-manager",
+      roomCode: room.roomCode,
+      task: "测试一下"
+    });
+    state.runtime.teamStore.addWorker({ runId: run.runId, sessionID: "session-reviewer", role: "reviewer", alias: "reviewer", title: "team/reviewer: 测试一下" });
+    state.runtime.teamStore.addWorker({ runId: run.runId, sessionID: "session-planner", role: "planner", alias: "planner", title: "team/planner: 测试一下" });
+    state.runtime.teamStore.markWorkerSignal("session-reviewer", room.roomCode, {
+      status: "blocked",
+      note: "Need live evidence",
+      ready: true,
+      source: "omo",
+      phase: "final-acceptance-waiting-on-live-evidence",
+      progress: 85
+    });
+    const reviewerThread = state.runtime.createThread({
+      roomCode: room.roomCode,
+      kind: "direct",
+      createdBySessionID: "session-manager",
+      participantSessionIDs: ["session-manager", "session-reviewer"],
+      title: "review"
+    });
+
+    await state.runtime.sendThreadMessage({
+      threadId: reviewerThread.threadId,
+      senderSessionID: "session-reviewer",
+      message: '[TEAM_BLOCKER] {"source":"omo","phase":"final-acceptance-waiting-on-live-evidence","note":"Need live evidence","progress":85}',
+      messageType: "relay"
+    });
+
+    expect(promptAsync).toHaveBeenCalledTimes(1);
+    const firstPrompt = promptAsync.mock.calls[0]?.[0]?.body?.parts?.[0]?.text as string;
+    expect(firstPrompt).toContain("Blocking:");
+    expect(firstPrompt).toContain("- reviewer: blocked - waiting on manager-provided live evidence or environment access");
+
+    state.runtime.teamStore.markWorkerSignal("session-planner", room.roomCode, {
+      status: "in_progress",
+      note: "No plan change",
+      ready: true,
+      source: "superpowers",
+      phase: "blocker-stable-no-new-evidence",
+      progress: 85
+    });
+    const plannerThread = state.runtime.createThread({
+      roomCode: room.roomCode,
+      kind: "direct",
+      createdBySessionID: "session-manager",
+      participantSessionIDs: ["session-manager", "session-planner"],
+      title: "planning"
+    });
+
+    await state.runtime.sendThreadMessage({
+      threadId: plannerThread.threadId,
+      senderSessionID: "session-planner",
+      message: '[TEAM_PROGRESS] {"source":"superpowers","phase":"blocker-stable-no-new-evidence","note":"No plan change","progress":85}',
+      messageType: "relay"
+    });
+
+    expect(promptAsync).toHaveBeenCalledTimes(1);
   });
 });
