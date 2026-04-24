@@ -315,7 +315,7 @@ describe("relay prompt preamble", () => {
             {
               action: "unblock",
               targetAlias: "reviewer",
-              reason: "reviewer is blocked"
+              reason: "reviewer is blocked: Need a concrete target"
             }
           ]
         }) as never
@@ -325,7 +325,7 @@ describe("relay prompt preamble", () => {
     expect(prompt).not.toContain("planner ready for work");
     expect(prompt).toContain("Blocking:");
     expect(prompt).toContain("- reviewer: blocked [review-intake · 20%] - Need a concrete target");
-    expect(prompt).toContain("- reviewer: manager input needed");
+    expect(prompt).toContain("- reviewer: Need a concrete target");
   });
 
   it("normalizes stable blocked phases so repeated blocker updates can be suppressed", () => {
@@ -372,14 +372,15 @@ describe("relay prompt preamble", () => {
             {
               action: "unblock",
               targetAlias: "reviewer",
-              reason: "reviewer is blocked"
+              reason: "reviewer is blocked: Still waiting on live evidence"
             }
           ]
         }) as never
       }
     });
 
-    expect(prompt).toContain("- reviewer: blocked - waiting on manager-provided live evidence or environment access");
+    expect(prompt).toContain("- reviewer: blocked - Still waiting on live evidence");
+    expect(prompt).toContain("- reviewer: Still waiting on live evidence");
     expect(prompt).not.toContain("final-acceptance-waiting-on-live-evidence");
   });
 });

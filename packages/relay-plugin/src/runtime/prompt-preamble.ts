@@ -199,12 +199,11 @@ function renderAggregateWorkerLine(worker: RelayTeamWorkerView): string {
   const mappedStatus = mapAggregateWorkerStatus(worker.status);
   const prefix = `- ${worker.alias}: ${mappedStatus}${details ? ` [${details}]` : ""}`;
 
-  if (mappedStatus === "blocked" && stableBlocked) {
-    return `${prefix} - waiting on manager-provided live evidence or environment access`;
-  }
-
   if (mappedStatus === "blocked") {
-    return `${prefix} - ${worker.lastNote ?? "manager input required"}`;
+    const fallbackNote = stableBlocked
+      ? "waiting on manager-provided live evidence or environment access"
+      : "manager input required";
+    return `${prefix} - ${worker.lastNote ?? fallbackNote}`;
   }
 
   if (mappedStatus === "progress") {
@@ -218,11 +217,32 @@ function renderAggregateWorkerLine(worker: RelayTeamWorkerView): string {
   return `${prefix}${worker.lastNote ? ` - ${worker.lastNote}` : ""}`;
 }
 
+function renderAggregateUnblockActionLine(action: {
+  targetAlias?: string;
+  reason: string;
+}): string {
+  if (!action.targetAlias) {
+    return `- ${action.reason}`;
+  }
+
+  const blockedPrefix = `${action.targetAlias} is blocked: `;
+  if (action.reason.startsWith(blockedPrefix)) {
+    return `- ${action.targetAlias}: ${action.reason.slice(blockedPrefix.length)}`;
+  }
+
+  const needsManagerPrefix = `${action.targetAlias} is blocked and `;
+  if (action.reason.startsWith(needsManagerPrefix)) {
+    return `- ${action.targetAlias}: ${action.reason.slice(needsManagerPrefix.length)}`;
+  }
+
+  return `- ${action.targetAlias}: ${action.reason}`;
+}
+
 function buildAggregateManagerActionLines(teamStatus: RelayTeamStatusView): string[] {
   if (teamStatus.recommendedActions.length > 0) {
     return teamStatus.recommendedActions.map((action) => {
       if (action.action === "unblock") {
-        return `- ${action.targetAlias ?? "worker"}: manager input needed`;
+        return renderAggregateUnblockActionLine(action);
       }
       if (action.action === "reassign") {
         return action.handoffTo

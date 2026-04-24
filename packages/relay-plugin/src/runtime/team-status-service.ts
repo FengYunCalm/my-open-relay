@@ -265,15 +265,13 @@ export class TeamStatusService {
       }
     }
 
-    for (const event of recentEvents) {
-      if (event.eventType === "team.worker.signal_rejected") {
-        const alias = typeof event.payload.alias === "string" ? event.payload.alias : undefined;
-        const reason = typeof event.payload.rejectionReason === "string"
-          ? event.payload.rejectionReason
-          : "worker sent an invalid workflow signal";
-        pushAction("retry", alias, undefined, `${alias ?? "worker"} should resend a valid TEAM signal: ${reason}`);
-      }
+    const unresolvedRejectedSignals = this.resolveUnresolvedRejectedSignals(recentEvents);
 
+    for (const [alias, rejected] of unresolvedRejectedSignals.entries()) {
+      pushAction("retry", alias, undefined, `${alias} should resend a valid TEAM signal: ${rejected.latestReason}`);
+    }
+
+    for (const event of recentEvents) {
       if (event.eventType === "team.worker.completed") {
         const alias = typeof event.payload.alias === "string" ? event.payload.alias : undefined;
         const metadata = (event.payload.metadata ?? {}) as Record<string, unknown>;
@@ -289,6 +287,34 @@ export class TeamStatusService {
     }
 
     return actions;
+  }
+
+  private resolveUnresolvedRejectedSignals(events: AuditEventRecord[]): Map<string, { count: number; latestReason: string }> {
+    const unresolved = new Map<string, { count: number; latestReason: string }>();
+
+    for (const event of events) {
+      const alias = typeof event.payload.alias === "string" ? event.payload.alias : undefined;
+      if (!alias) {
+        continue;
+      }
+
+      if (["team.worker.ready", "team.worker.in_progress", "team.worker.completed", "team.worker.blocked"].includes(event.eventType)) {
+        unresolved.delete(alias);
+        continue;
+      }
+
+      if (event.eventType === "team.worker.signal_rejected") {
+        const existing = unresolved.get(alias);
+        unresolved.set(alias, {
+          count: (existing?.count ?? 0) + 1,
+          latestReason: typeof event.payload.rejectionReason === "string"
+            ? event.payload.rejectionReason
+            : existing?.latestReason ?? "invalid workflow signal"
+        });
+      }
+    }
+
+    return unresolved;
   }
 
   private buildAttentionItems(
@@ -353,37 +379,12 @@ export class TeamStatusService {
       }
     }
 
-    const latestAcceptedByAlias = new Map<string, number>();
-    const rejectedCounts = new Map<string, number>();
-    const latestRejectedReason = new Map<string, string>();
+    const unresolvedRejectedSignals = this.resolveUnresolvedRejectedSignals(allEvents);
     const interventionCounts = new Map<string, number>();
     const latestInterventionAction = new Map<string, RelayTeamInterventionAction>();
 
     for (const event of allEvents) {
       const workerAlias = typeof event.payload.alias === "string" ? event.payload.alias : undefined;
-
-      if (workerAlias && ["team.worker.ready", "team.worker.in_progress", "team.worker.completed", "team.worker.blocked"].includes(event.eventType)) {
-        latestAcceptedByAlias.set(workerAlias, event.id);
-      }
-
-      if (workerAlias && event.eventType === "team.worker.signal_rejected") {
-        rejectedCounts.set(workerAlias, (rejectedCounts.get(workerAlias) ?? 0) + 1);
-        if (typeof event.payload.rejectionReason === "string") {
-          latestRejectedReason.set(workerAlias, event.payload.rejectionReason);
-        }
-
-        const lastAcceptedId = latestAcceptedByAlias.get(workerAlias) ?? 0;
-        if (event.id > lastAcceptedId) {
-          pushItem({
-            kind: "rejected_signal",
-            severity: (rejectedCounts.get(workerAlias) ?? 0) >= 2 ? "high" : "medium",
-            targetAlias: workerAlias,
-            count: rejectedCounts.get(workerAlias),
-            reason: `${workerAlias} still has unresolved rejected TEAM signals: ${latestRejectedReason.get(workerAlias) ?? "invalid workflow signal"}`,
-            suggestedAction: "retry"
-          });
-        }
-      }
 
       if (event.eventType === "team.manager.intervention") {
         const targetAlias = typeof event.payload.targetAlias === "string" ? event.payload.targetAlias : undefined;
@@ -393,6 +394,17 @@ export class TeamStatusService {
           latestInterventionAction.set(targetAlias, action);
         }
       }
+    }
+
+    for (const [workerAlias, rejected] of unresolvedRejectedSignals.entries()) {
+      pushItem({
+        kind: "rejected_signal",
+        severity: rejected.count >= 2 ? "high" : "medium",
+        targetAlias: workerAlias,
+        count: rejected.count,
+        reason: `${workerAlias} still has unresolved rejected TEAM signals: ${rejected.latestReason}`,
+        suggestedAction: "retry"
+      });
     }
 
     for (const worker of workers) {
@@ -424,7 +436,7 @@ export class TeamStatusService {
         });
       }
 
-      const rejectedCount = rejectedCounts.get(worker.alias) ?? 0;
+      const rejectedCount = unresolvedRejectedSignals.get(worker.alias)?.count ?? 0;
       if (rejectedCount >= 2) {
         pushItem({
           kind: "escalated_issue",

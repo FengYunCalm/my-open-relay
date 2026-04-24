@@ -157,7 +157,8 @@ describe("manager relay message formatting", () => {
     expect(promptAsync).toHaveBeenCalledTimes(1);
     const firstPrompt = promptAsync.mock.calls[0]?.[0]?.body?.parts?.[0]?.text as string;
     expect(firstPrompt).toContain("Blocking:");
-    expect(firstPrompt).toContain("- reviewer: blocked - waiting on manager-provided live evidence or environment access");
+    expect(firstPrompt).toContain("- reviewer: blocked - Need live evidence");
+    expect(firstPrompt).toContain("- reviewer: Need live evidence");
 
     state.runtime.teamStore.markWorkerSignal("session-planner", room.roomCode, {
       status: "in_progress",

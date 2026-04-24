@@ -1,11 +1,11 @@
 # Graph Report - .  (2026-04-24)
 
 ## Corpus Check
-- 117 files · ~55,846 words
+- 117 files · ~56,248 words
 - Verdict: corpus is large enough that graph structure adds value.
 
 ## Summary
-- 508 nodes · 569 edges · 117 communities detected
+- 510 nodes · 573 edges · 117 communities detected
 - Extraction: 100% EXTRACTED · 0% INFERRED · 0% AMBIGUOUS
 - Token cost: 0 input · 0 output
 
@@ -136,8 +136,8 @@
 5. `RelayRoomOrchestrator` - 19 edges
 6. `RelayMcpService` - 15 edges
 7. `TaskStore` - 14 edges
-8. `A2ARelayHost` - 11 edges
-9. `TeamStatusService` - 11 edges
+8. `TeamStatusService` - 12 edges
+9. `A2ARelayHost` - 11 edges
 10. `MessageStore` - 10 edges
 
 ## Surprising Connections (you probably didn't know these)
@@ -166,7 +166,7 @@ Cohesion: 0.18
 Nodes (1): RelayRoomOrchestrator
 
 ### Community 5 - "Community 5"
-Cohesion: 0.16
+Cohesion: 0.15
 Nodes (12): buildAggregateManagerActionLines(), buildAggregateManagerSections(), buildManagerSummaries(), buildManagerThreadRelayPrompt(), buildThreadRelayPrompt(), createSessionHref(), encodeDirectorySlug(), isStableManagerPhase() (+4 more)
 
 ### Community 6 - "Community 6"
@@ -186,7 +186,7 @@ Cohesion: 0.22
 Nodes (3): createMessageId(), MessageStore, shouldRetryMessageInsert()
 
 ### Community 10 - "Community 10"
-Cohesion: 0.29
+Cohesion: 0.28
 Nodes (1): TeamStatusService
 
 ### Community 11 - "Community 11"
